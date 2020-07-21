@@ -1,0 +1,28 @@
+
+ <button class="btn btn-secondary" (click)="goBack()">Go back</button>
+<router-outlet></router-outlet>
+ <div class="col">
+
+ <div class="media border  ">
+    <img src="./../assets/images/icons/avatar.jpg" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+         <div class="media-body" *ngFor="let story of stories"> 
+            <h4>{{story.userName}} <small><i>{{story.date}}</i></small></h4>
+            <h5>{{story.summary}}</h5>
+            <p>{{story.content}}</p>
+                 <a href="#" class="btn btn-info btn-lg">
+                  <span class="glyphicon glyphicon-thumbs-up"></span> Like
+                </a>
+                <a href="#" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-comment"></span> Comment
+                  </a>
+                      <div class="media ">
+
+        <img src="img_avatar2.png" alt="Jane Doe" class="mr-3 mt-3 rounded-circle" style="width:45px;">
+        <div class="media-body">
+          <h4>Jane Doe <small><i>Posted on February 20 2016</i></small></h4>
+          <p>Lorem ipsum...</p>
+        </div>
+      </div> 
+    </div>
+  </div>
+  
