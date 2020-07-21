@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { TopNavBarComponent } from './core/components/top-nav-bar/top-nav-bar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { ChartsModule } from 'ng2-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ChartsModule } from 'ng2-charts';
     VeloEventsModule,
     MarketplaceModule,
     InfoFlowModule,
-    RideRescueModule
+    RideRescueModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
