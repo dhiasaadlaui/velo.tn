@@ -1,0 +1,88 @@
+
+      <button class="btn btn-secondary" (click)="goBack()">Go back</button>
+      <router-outlet></router-outlet>
+
+
+<div>
+    <h2 class="text-muted">              Your conduct summary:        </h2>
+
+    <div>
+      <div style="display: block">
+        <canvas baseChart
+          [datasets]="radarChartData"
+          [options]="radarChartOptions"
+          [labels]="radarChartLabels"
+          [chartType]="radarChartType">
+        </canvas>
+      </div>
+      <button class="btn btn-secondary" (click)="getConductSummary()">Calculate</button>
+
+    </div>
+
+  </div>
+
+  <div>
+    <div>
+      <h2 class="text-muted">              Your personal riding history (in KM):        </h2>
+
+      <div style="display: block">
+        <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType">
+        </canvas>
+      </div>
+      <button class="btn btn-secondary" (click)="getRidingHistory()">Calculate</button>
+    </div>
+  </div>
+
+
+  <div>
+    <div>
+      <h2 class="text-muted">              Your average using of our services:        </h2>
+
+      <div class="chart">
+        <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [colors]="pieChartColors"
+          [legend]="pieChartLegend">
+        </canvas>
+      </div>
+      <button class="btn btn-secondary" (click)="getAverageUsing()">Calculate</button>
+    </div>    
+
+    </div>
+
+  <div>
+  </div>
+  
+  <div>
+
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Service name</th>
+        <th scope="col">time & date</th>
+       </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of logs">
+        <th scope="row">{{log.id}}</th>
+        <td>{{log.serviceName}}</td>
+        <td>{{log.date}}</td>
+       </tr>
+ 
+    </tbody>
+  </table>
+  
+ 
+</div>

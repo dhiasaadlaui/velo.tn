@@ -1,0 +1,42 @@
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+.cont1 {
+    height: 100%;
+    width: 100%;
+ 
+      flex-direction: column;
+        justify-content:space-between; 
+
+         }
+         .container{
+            background-color: rgb(204, 241, 250);
+
+         }
+ .chart2{
+    height: 100%;
+    width: 100%;
+
+ }
+  h2,h5 {
+    text-align: center;
+   
+  }
+  .center {
+    justify-content:space-between; 
+
+    margin: auto;
+     align-items:center;  
+ 
+   }
+  img{
+    height: 70%;
+    width: 90%;
+
+  }
+  .Center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+    
+  
+  
