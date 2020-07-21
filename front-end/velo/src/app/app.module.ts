@@ -1,3 +1,9 @@
+import { RideRescueModule } from './ride-rescue/ride-rescue.module';
+import { InfoFlowModule } from './info-flow/info-flow.module';
+import { MarketplaceModule } from './marketplace/marketplace.module';
+import { VeloEventsModule } from './velo-events/velo-events.module';
+import { ParkiteerModule } from './parkiteer/parkiteer.module';
+import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -16,7 +22,12 @@ import { ChartsModule } from 'ng2-charts';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ChartsModule
+    HomeModule,
+    ParkiteerModule,
+    VeloEventsModule,
+    MarketplaceModule,
+    InfoFlowModule,
+    RideRescueModule
   ],
   providers: [],
   bootstrap: [AppComponent]

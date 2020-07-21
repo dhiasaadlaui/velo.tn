@@ -13,6 +13,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
   imports: [
     CommonModule,
     HomeRoutingModule
+  ],
+  exports: [
+    HomeComponent
   ]
 })
 export class HomeModule { }
