@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     TopNavBarComponent,
     FooterComponent
-    ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,6 +29,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MarketplaceModule,
     InfoFlowModule,
     RideRescueModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     BrowserAnimationsModule
   ],
   providers: [],

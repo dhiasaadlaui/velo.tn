@@ -14,6 +14,10 @@ import { DataFlowComponent } from './components/data-flow/data-flow.component';
     CommonModule,
     InfoFlowRoutingModule,
     ChartsModule
+  ],
+  exports:[
+    InfoFlowComponent,
+    DataFlowComponent
   ]
 })
 export class InfoFlowModule { }
