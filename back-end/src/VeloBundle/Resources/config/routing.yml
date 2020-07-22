@@ -1,0 +1,31 @@
+velo_homepage:
+    path:     /
+    defaults: { _controller: VeloBundle:Default:index }
+
+velo_useradd: ##Add USER
+    path:     /adduser
+    defaults: { _controller: VeloBundle:UserController:add }
+
+velo_userget: ##GET ALL USERS
+    path:     /getusers
+    defaults: { _controller: VeloBundle:UserController:getusers }
+
+velo_finduser: ##FIND USER BY ID
+    path:     /finduser/{id}
+    defaults: { _controller: VeloBundle:UserController:finduser }
+
+velo_updateuser: ##UPDATE USER
+    path:     /updateuser/{id}
+    defaults: { _controller: VeloBundle:UserController:updateUser }
+
+velo_deleteuser: ##DELETE USER
+    path:     /deleteuser/{id}
+    defaults: { _controller: VeloBundle:UserController:deleteUser }
+####CLAIM SECTION
+velo_claims: ##GET ALL CLAIMS
+    path:     /getclaims
+    defaults: { _controller: VeloBundle:ClaimController:getclaims }
+velo_Addclaims: ##ADD CLAIMS
+    path:     /addclaim
+    defaults: { _controller: VeloBundle:ClaimController:add }
+
