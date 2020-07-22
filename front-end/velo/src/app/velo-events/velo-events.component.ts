@@ -7,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VeloEventsComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    $(document).ready(function () {
+      $(document).on("click", ".inactive-form", function () {
+        $(".inactive-form,.active-form").toggleClass("inactive-form active-form");
+      });
+    });
+    
+  }
 
   ngOnInit() {
   }

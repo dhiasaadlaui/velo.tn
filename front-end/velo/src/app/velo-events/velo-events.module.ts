@@ -9,7 +9,7 @@ import { VeloEventsComponent } from './velo-events.component';
   declarations: [VeloEventsComponent],
   imports: [
     CommonModule,
-    VeloEventsRoutingModule
+    VeloEventsRoutingModule,
   ]
 })
 export class VeloEventsModule { }

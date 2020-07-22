@@ -3,6 +3,7 @@ import { InfoFlowModule } from './info-flow/info-flow.module';
 import { MarketplaceModule } from './marketplace/marketplace.module';
 import { VeloEventsModule } from './velo-events/velo-events.module';
 import { ParkiteerModule } from './parkiteer/parkiteer.module';
+import { LandingPageModule } from './landing-page/landing-page.module';
 import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -18,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     TopNavBarComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RideRescueModule,
     BrowserAnimationsModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    LandingPageModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
