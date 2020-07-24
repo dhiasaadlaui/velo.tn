@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group" *ngIf="step.input_code == '123'">
+            <h4>Title</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="First Name" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="step.input_code == '123'">
+            <h4>Location Start</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Location Start" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group" *ngIf="step.input_code == '123'">
+            <h4>Location End</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Location End" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="step.input_code == '123'">
+            <h4>Start Day</h4>
+            <div class='textboxes'>
+                <ejs-datepicker [value]='dateValue' placeholder='Enter date'></ejs-datepicker>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group" *ngIf="step.input_code == '123'">
+            <h4>End Day</h4>
+            <div class='textboxes'>
+                <ejs-datepicker [value]='dateValue' placeholder='Enter date'></ejs-datepicker>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="step.input_code == '123'">
+            <h4>Repeat drop down day week mounth year</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Repeat" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group" *ngIf="step.input_code == '544'">
+            <h4>End Repeat DatePicker</h4>
+            <div class='textboxes'>
+                <ejs-datepicker placeholder='Enter date'></ejs-datepicker>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="step.input_code == '454'">
+            <h4>Rule</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Rule" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group" *ngIf="step.input_code == '454'">
+            <h4>Gender</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Gender" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="step.input_code == '454'">
+            <h4>Age</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Age" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group" *ngIf="step.input_code == '454'">
+            <h4>Difficulty</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Difficulty" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="step.input_code == '45'">
+            <h4>Diagram checkbox</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Diagram checkbox" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group" *ngIf="step.input_code == '45'">
+            <h4>Theme</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Theme" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="step.input_code == '45'">
+            <h4>Association Name</h4>
+            <div class='textboxes'>
+                <ejs-textbox placeholder="Association Name" floatLabelType="Auto"></ejs-textbox>
+            </div>
+        </div>
+        <ejs-diagram *ngIf="step.input_code == '445'" #diagram id="diagram" width="100%" height="580px"
+            [getNodeDefaults]='getNodeDefaults' [getConnectorDefaults]="getConnectorDefaults"
+            (created)='created($event)'>
+            <e-nodes>
+                <e-node id='node1' [offsetX]=100 [offsetY]=100>
+                </e-node>
+                <e-node id='node2' [offsetX]=240 [offsetY]=100>
+                </e-node>
+            </e-nodes>
+            <e-connectors>
+                <e-connector id='connector' type='Orthogonal' [sourcePoint]='sourcePoint1' [targetPoint]='targetPoint1'>
+                </e-connector>
+            </e-connectors>
+        </ejs-diagram>
+    </div>
+</div>

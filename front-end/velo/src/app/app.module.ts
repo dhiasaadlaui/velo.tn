@@ -12,8 +12,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopNavBarComponent } from './core/components/top-nav-bar/top-nav-bar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
-import { ChartsModule } from 'ng2-charts';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
+import { HttpClientModule } from '@angular/common/http';
+import { AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';
+import { CategoryService } from './core/services/CategoryService';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,12 +35,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InfoFlowModule,
     RideRescueModule,
     BrowserAnimationsModule,
-    BrowserModule,
     BrowserAnimationsModule,
-    LandingPageModule
+    LandingPageModule,
+    ScheduleModule, 
+    RecurrenceEditorModule,
+    HttpClientModule,
+    AutoCompleteModule,
+    FormsModule,
+    ReactiveFormsModule
+
 
   ],
-  providers: [],
+  providers: [CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
