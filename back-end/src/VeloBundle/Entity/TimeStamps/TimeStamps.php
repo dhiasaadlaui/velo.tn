@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity\TimeStamps;
+namespace VeloBundle\Entity\TimeStamps;
 
 trait  TimeStamps
 {

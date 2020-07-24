@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace VeloBundle\Entity;
 
-use App\Repository\CategoryRepository;
+use VeloBundle\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,30 +24,25 @@ class Category
      */
     private $categoryName;
 
-    public function getId(): ?int
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $categoryImg;
+
+
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|Step[]
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Step", inversedBy="categories", fetch="LAZY")
-     * @ORM\JoinTable(
-     *  name="category_step_catalogue",
-     *  joinColumns={
-     *      @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
-     *  },
-     *  inverseJoinColumns={
-     *      @ORM\JoinColumn(name="step_id", referencedColumnName="id")
-     *  }
-     * )
+     * @ORM\OneToOne(targetEntity="VeloBundle\Entity\Step", mappedBy="category",  cascade={"persist", "remove"})
      */
-    protected $stepsCatalogue;
+    private $step;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="category" )
+     * @ORM\OneToMany(targetEntity="VeloBundle\Entity\Event", mappedBy="category",  fetch="EXTRA_LAZY")
      */
     protected $events;
 
@@ -58,14 +53,26 @@ class Category
         $this->events = new ArrayCollection();
     }
 
-    public function getCategoryName(): ?string
+    public function getCategoryName()
     {
         return $this->categoryName;
     }
 
-    public function setCategoryName(string $categoryName): self
+    public function setCategoryName(string $categoryImg)
     {
-        $this->categoryName = $categoryName;
+        $this->categoryName = $categoryImg;
+
+        return $this;
+    }
+
+    public function getCategoryImg()
+    {
+        return $this->categoryImg;
+    }
+
+    public function setCategoryImg(string $categoryImg)
+    {
+        $this->categoryImg = $categoryImg;
 
         return $this;
     }
@@ -73,12 +80,12 @@ class Category
     /**
      * @return Collection|Step[]
      */
-    public function getStepsCatalogue(): Collection
+    public function getStepsCatalogue()
     {
         return $this->stepsCatalogue;
     }
 
-    public function addStepsCatalogue(Step $stepsCatalogue): self
+    public function addStepsCatalogue(Step $stepsCatalogue)
     {
         if (!$this->stepsCatalogue->contains($stepsCatalogue)) {
             $this->stepsCatalogue[] = $stepsCatalogue;
@@ -87,7 +94,7 @@ class Category
         return $this;
     }
 
-    public function removeStepsCatalogue(Step $stepsCatalogue): self
+    public function removeStepsCatalogue(Step $stepsCatalogue)
     {
         if ($this->stepsCatalogue->contains($stepsCatalogue)) {
             $this->stepsCatalogue->removeElement($stepsCatalogue);
@@ -99,12 +106,12 @@ class Category
     /**
      * @return Collection|Event[]
      */
-    public function getEvents(): Collection
+    public function getEvents()
     {
         return $this->events;
     }
 
-    public function addEvent(Event $event): self
+    public function addEvent(Event $event)
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
@@ -114,7 +121,7 @@ class Category
         return $this;
     }
 
-    public function removeEvent(Event $event): self
+    public function removeEvent(Event $event)
     {
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);

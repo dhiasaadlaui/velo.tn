@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace VeloBundle\Entity;
 
-use App\Repository\EventRepository;
+use VeloBundle\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\TimeStamps\TimeStamps;
+use VeloBundle\Entity\TimeStamps\TimeStamps;
 use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -52,107 +53,107 @@ class Event
     private $isTheme;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\EventConfig", mappedBy="event",  cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="VeloBundle\Entity\EventConfig", mappedBy="event",  cascade={"persist", "remove"})
      */
     private $eventConfig;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category",inversedBy="events")
+     * @ORM\ManyToOne(targetEntity="VeloBundle\Entity\Category",inversedBy="events")
       */
     protected $category;
 
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(int $id)
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getDistance(): ?float
+    public function getDistance()
     {
         return $this->distance;
     }
 
-    public function setDistance(float $distance): self
+    public function setDistance(float $distance)
     {
         $this->distance = $distance;
 
         return $this;
     }
 
-    public function getLocation(): ?string
+    public function getLocation()
     {
         return $this->location;
     }
 
-    public function setLocation(string $location): self
+    public function setLocation(string $location)
     {
         $this->location = $location;
 
         return $this;
     }
 
-    public function getStartDate(): ?int
+    public function getStartDate()
     {
         return $this->startDate;
     }
 
-    public function setStartDate(int $startDate): self
+    public function setStartDate(int $startDate)
     {
         $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getEndDate(): ?int
+    public function getEndDate()
     {
         return $this->endDate;
     }
 
-    public function setEndDate(int $endDate): self
+    public function setEndDate(int $endDate)
     {
         $this->endDate = $endDate;
 
         return $this;
     }
 
-    public function getEventName(): ?string
+    public function getEventName()
     {
         return $this->eventName;
     }
 
-    public function setEventName(string $eventName): self
+    public function setEventName(string $eventName)
     {
         $this->eventName = $eventName;
 
         return $this;
     }
 
-    public function getIsTheme(): ?bool
+    public function getIsTheme()
     {
         return $this->isTheme;
     }
 
-    public function setIsTheme(bool $isTheme): self
+    public function setIsTheme(bool $isTheme)
     {
         $this->isTheme = $isTheme;
 
         return $this;
     }
 
-    public function getEventConfig(): ?EventConfig
+    public function getEventConfig()
     {
         return $this->eventConfig;
     }
 
-    public function setEventConfig(?EventConfig $eventConfig): self
+    public function setEventConfig(EventConfig $eventConfig)
     {
         $this->eventConfig = $eventConfig;
 
@@ -166,7 +167,7 @@ class Event
     }
 
 
-    public function setCategory(?Category $category): self
+    public function setCategory(Category $category)
     {
         $this->category = $category;
 

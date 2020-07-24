@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Controller\Event;
+namespace VeloBundle\Controller;
 
-use App\Entity\Category;
-use App\Repository\CategoryRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use VeloBundle\Entity\Category;
+use VeloBundle\Entity\Event;
+use VeloBundle\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -17,7 +19,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
-class CategoryController extends ApiController
+class CategoryController extends Controller
 {
     /**
      * @var EntityManager
@@ -44,29 +46,19 @@ class CategoryController extends ApiController
      **/
     private $serializer;
 
-    public function __construct(CategoryRepository $categoryRepository, EntityManagerInterface $entityManager)
-    {
-        $this->categoryRepository = $categoryRepository;
-        $this->entityManager = $entityManager;
-        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
-        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
-        $this->serializer = new Serializer($this->normalizers, $this->encoders);
-    }
 
     /**
      * @Rest\Get("/getCategories")
      */
     public function getCategories()
     {
-        $objectToSerialize = $this->categoryRepository->findAll();
-        // Serialize your object in Json
-        $jsonObject = $this->serializer->serialize($objectToSerialize, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        // For instance, return a Response with encoded Json
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);    }
+        $em=$this->getDoctrine()->getManager();
+        $claims=$em->getRepository(Category::class)->findAll();
+        $data=$this->get('jms_serializer')->serialize($claims,'json');
+        $response=new Response($data);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
 
     /**
      * @Rest\Get("/getCategorieEvents/{id}")

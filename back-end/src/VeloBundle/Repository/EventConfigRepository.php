@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace VeloBundle\Repository;
 
 use App\Entity\EventConfig;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

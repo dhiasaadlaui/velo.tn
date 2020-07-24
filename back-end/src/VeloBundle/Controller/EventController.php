@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Controller\Event;
+namespace VeloBundle\Controller;
 
-use App\Entity\Event;
-use App\Entity\EventConfig;
-use App\Repository\CategoryRepository;
-use App\Repository\EventConfigRepository;
-use App\Repository\EventRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use VeloBundle\Entity\Claim;
+use VeloBundle\Entity\Event;
+use VeloBundle\Entity\EventConfig;
+use VeloBundle\Repository\CategoryRepository;
+use VeloBundle\Repository\EventConfigRepository;
+use VeloBundle\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -19,6 +22,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use VeloBundle\Controller\ApiController;
 
 class EventController extends ApiController
 {
@@ -57,38 +61,24 @@ class EventController extends ApiController
      **/
     private $serializer;
 
-    public function __construct(EventRepository $eventRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager)
+    public function getEventsAction()
     {
-        $this->eventRepository = $eventRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->entityManager = $entityManager;
-        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
-        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
-        $this->serializer = new Serializer($this->normalizers, $this->encoders);
+        $em=$this->getDoctrine()->getManager();
+        $claims=$em->getRepository(Event::class)->findAll();
+        $data=$this->get('jms_serializer')->serialize($claims,'json');
+        $response=new Response($data);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
-    /**
-     * @Rest\Get("/getEvents")
-     */
-    public function getEvents()
-    {
-        $objectToSerialize = $this->eventRepository->findAll();
-        // Serialize your object in Json
-        $jsonObject = $this->serializer->serialize($objectToSerialize, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        // For instance, return a Response with encoded Json
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
-    }
+
 
     /**
      * @Rest\Get("/getEvent/{id}")
      */
     public function getEventAction($id)
     {
-        $event = $this->eventRepository->findOneBy(['id' => $id]);
+        $event = $this->getDoctrine()->getManager()->findOneBy(['id' => $id]);
         // $jsonObject = $this->serializer($event,$this->serializer);
         //return $this->respond($jsonObject);
         $jsonObject = $this->serializer->serialize($event, 'json', [
@@ -101,29 +91,23 @@ class EventController extends ApiController
     }
 
     /**
-     * @Rest\Post("/createEvent")
+     * @Rest\Post("/addEvent")
      */
-    public function postEventAction(Request $request)
+    public function addEventAction(Request $request)
     {
-        $request = $this->transformJsonBody($request);
+        //récupérer le contenu de la requête envoyé par l'outil postman
+        $data = $request->getContent();
+        //deserialize data: création d'un objet à partir des données json envoyées
+        $event = $this->get('jms_serializer')->deserialize($data, 'VeloBundle\Entity\Event', 'json');
         if (!$request) {
             return $this->respondValidationError('Please provide a valid request!');
         }
 
-        // validate Variables Needed !!!!!
-        if (!$request->get('eventName')) {
-            return $this->respondValidationError('Please provide a event!');
-        }
         // Create and persist the new event Config using cascade since that the relation is composition oneToOne
-        $event = $this->createEvent($request);
-        $this->entityManager->persist($event);
-        $this->entityManager->flush();
-        $jsonObject = $this->serializer->serialize($event, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+        $em = $this->getDoctrine()->getManager();
+        $em->merge($event);
+        $em->flush();
+        return new JsonResponse(["msg"=>"Added with success"],200);;
     }
 
     /**
@@ -135,7 +119,7 @@ class EventController extends ApiController
         if (!$event) {
             return $this->respondValidationError('No EventConfig entity with this (id = ' . $id .") ". 'exist');
         }
-        $this->entityManager->remove($eventConfig);
+        $this->entityManager->remove($event);
         $this->entityManager->flush();
 
     }

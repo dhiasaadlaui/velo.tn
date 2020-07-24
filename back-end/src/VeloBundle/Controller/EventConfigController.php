@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Event;
+namespace VeloBundle\Controller;
 
-use App\Entity\Event;
-use App\Entity\EventConfig;
-use App\Repository\EventConfigRepository;
-use App\Repository\EventRepository;
+use VeloBundle\Entity\Event;
+use VeloBundle\Entity\EventConfig;
+use VeloBundle\Repository\EventConfigRepository;
+use VeloBundle\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-use  App\Controller\Event\ApiController;
+use VeloBundle\Controller\ApiController;
 
 class EventConfigController extends ApiController
 {

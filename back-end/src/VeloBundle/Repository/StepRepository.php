@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace VeloBundle\Repository;
 
-use App\Entity\Step;
+use VeloBundle\Entity\Step;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
