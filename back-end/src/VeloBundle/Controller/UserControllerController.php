@@ -49,11 +49,12 @@ class UserControllerController extends Controller
         $user=$em->getRepository(Volonteer::class)->find($id);
         $data=$request->getContent();
         $yummy = json_decode($data);
-        foreach ($yummy->disponibility->v_date as $value){
+        foreach ($yummy->disponibility->start as $value){
             $dis = new Disponibility();
             $dateObj = DateTime::createFromFormat('Y-m-d', $value);
             $dis->setDate($dateObj);
             $dis->setVolunteer($user);
+            $dis->setTitle("Volunteer");
             $em->persist($dis);
 
         }
@@ -72,6 +73,56 @@ class UserControllerController extends Controller
         $em->remove($user);
         $em->flush();
         return new JsonResponse(["msg"=>"deleted with success"],200);
+    }
+
+    public function getDisponibilityAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("SELECT * from disponibility WHERE dispo_id = :id");
+        $statement->bindValue('id', $id);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        $data=$this->get('jms_serializer')->serialize($results,'json');
+        $response=new Response($data);
+        return $response;
+    }
+
+    public function updateDispAction(Request $request, $id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $user=$em->getRepository(Volonteer::class)->find($id);
+        $data=$request->getContent();
+        $yummy = json_decode($data);
+        foreach ($yummy->disponibility->start as $value){
+            $dis = new Disponibility();
+            $dateObj = DateTime::createFromFormat('Y-m-d', $value);
+            $dis->setDate($dateObj);
+            $dis->setVolunteer($user);
+            $dis->setTitle("Volunteer");
+            $dis->setId($yummy->disponibility->id);
+            $em->merge($dis);
+
+        }
+        $em->merge($user);
+        $em->flush();
+        return new JsonResponse(["msg"=>"success"],200);
+
+    }
+
+    public function getAssignedAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("SELECT C.id,title,subject,status,level,marker_id,claim_id,phone 
+                                            FROM claim C , assignation A 
+                                            WHERE C.id = A.claimid AND A.userid = :id");
+        $statement->bindValue('id', $id);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        $data=$this->get('jms_serializer')->serialize($results,'json');
+        $response=new Response($data);
+        return $response;
     }
 
 }
