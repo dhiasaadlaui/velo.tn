@@ -6,12 +6,12 @@ import { Observable } from 'rxjs';
 import { EventEntity } from '../core/models/Event';
 import { EventConfig } from '../core/models/EventConfig';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
+import { EditSettingsModel, ToolbarItems, GridComponent, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
 import { Dialog } from '@syncfusion/ej2-angular-popups';
 import { FormGroup, AbstractControl, FormControl, Validators } from '@angular/forms';
-import { DataUtil } from '@syncfusion/ej2-data';
-import {  DialogEditEventArgs, SaveEventArgs } from '@syncfusion/ej2-angular-grids';
+import { DialogEditEventArgs, SaveEventArgs } from '@syncfusion/ej2-angular-grids';
 import { Browser } from '@syncfusion/ej2-base';
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 @Component({
   selector: 'app-velo-events',
@@ -22,12 +22,18 @@ import { Browser } from '@syncfusion/ej2-base';
 })
 export class VeloEventsComponent implements OnInit {
   @ViewChild('scheduleObj', { static: false }) scheduleObj: ScheduleComponent;
+  // DONT TOUCH !!
+  @ViewChild('grid', { static: false })
+  public grid: GridComponent;
+
+  selectedrecords: object[]
   /**
   * DATA.
   */
   events$: Observable<EventEntity[]>;
   events: EventEntity[];
   event: EventEntity;
+  eventToBeDeleted: EventEntity;
 
   eventConfigs$: Observable<any[]>;
   eventConfigs: EventConfig[];
@@ -36,7 +42,7 @@ export class VeloEventsComponent implements OnInit {
   // ******
   public newData: Object[];
   public editSettings: Object;
-  public toolbar: string[];
+  public toolbar: ToolbarItems[] | object;
   public orderForm: FormGroup;
   public pageSettings: Object;
   public shipCityDistinctData: Object[];
@@ -104,7 +110,7 @@ export class VeloEventsComponent implements OnInit {
         endTime: { name: 'EndTime' },
       }
     };
-
+    this.getSubscribersCount();
   }
 
   /**
@@ -130,7 +136,7 @@ export class VeloEventsComponent implements OnInit {
 
 
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
-    this.toolbar = ['Add', 'Edit', 'Delete'];
+    this.toolbar = ['Add', 'Edit', 'Delete', { text: 'Click', tooltipText: 'Click', prefixIcon: 'e-expand', id: 'Click' }];
     this.pageSettings = { pageCount: 5 };
     let i = 0;
 
@@ -194,7 +200,6 @@ export class VeloEventsComponent implements OnInit {
     console.log(<any>selectedEvent.Id)
     console.log(<any>selectedEvent.fddf)
     console.log(this.scheduleObj.getEventDetails(args.element))
-    this.go();
   }
 
   public onEventCheck(args: any): boolean {
@@ -225,13 +230,14 @@ export class VeloEventsComponent implements OnInit {
 
   createFormGroup(data: IOrderModel): FormGroup {
     return new FormGroup({
+      id: new FormControl(data.id),
       event_name: new FormControl(data.event_name, Validators.required),
       distance: new FormControl(data.distance, Validators.required),
       location: new FormControl(data.location, Validators.required),
-      start_date: new FormControl(data.start_date),
-      end_date: new FormControl(data.end_date),
+      start_date: new FormControl(data.start_date, Validators.required),
+      end_date: new FormControl(data.end_date, Validators.required),
       is_theme: new FormControl(data.is_theme),
-     });
+    });
   }
 
   dateValidator() {
@@ -249,10 +255,18 @@ export class VeloEventsComponent implements OnInit {
     if (args.requestType === 'save') {
       this.submitClicked = true;
       if (this.orderForm.valid) {
-        args.data = this.orderForm.value;
-        console.log(args.data)
+        let data: any;
+        data = this.orderForm.value;
+        console.log('updating')
+        this.eventServ.update(this.eventServ.buildEvent(data))
+        console.log(data.event_name)
       } else {
         args.cancel = true;
+      }
+    } else if (args.requestType === 'delete') {
+      if (this.selectedrecords.length != 0) {
+        alert('delete')
+        //this.eventServ.remove(data.id)
       }
     }
   }
@@ -272,6 +286,31 @@ export class VeloEventsComponent implements OnInit {
     }
   }
 
+  getSubscribersCount() {
+    this.events$.subscribe((element: EventEntity[]) => {
+      element.forEach(el => {
+        el.subscribersCount = el.subscribers.length;
+      });
+    });
+  }
+
+  rowSelected(args: RowSelectEventArgs) {
+    const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
+    alert(selectedrowindex); // To alert the selected row indexes.
+    console.log(this.grid.getRowInfo(args.target).rowData);
+    this.eventToBeDeleted = this.eventServ.buildEvent(this.grid.getRowInfo(args.target).rowData);
+  }
+
+  clickHandler(args: ClickEventArgs): void {
+    if (args.item.id === 'Click') {
+      if(this.eventToBeDeleted != null){
+        this.eventServ.remove(this.eventToBeDeleted.id)
+      }else {
+        alert('Somthing went wrong' + this.eventToBeDeleted.id)
+      }
+    }
+  }
+
   get event_name(): AbstractControl { return this.orderForm.get('event_name'); }
 
   get distance(): AbstractControl { return this.orderForm.get('distance'); }
@@ -284,16 +323,21 @@ export class VeloEventsComponent implements OnInit {
 
   get is_theme(): AbstractControl { return this.orderForm.get('is_theme'); }
 
+  get subscribersCount(): AbstractControl { return this.orderForm.get('subscribersCount'); }
+
 }
 
 
 
 
 export interface IOrderModel {
+  id?: number;
   event_name?: string;
   distance?: number;
   location?: string;
   start_date?: number;
   end_date?: number;
   is_theme?: boolean;
+  subscribers?: any[];
+  subscribersCount?: number;
 }

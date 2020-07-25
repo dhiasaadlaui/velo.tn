@@ -75,8 +75,14 @@ export class EventService {
 
 
   create(todo: EventEntity) {
+  
+  }
+
+
+  update(todo: EventEntity) {
+    console.log(todo)
     this.http
-      .post<EventEntity>(`${this.baseUrl}/addEvent`, JSON.stringify(todo)).subscribe(
+      .put<EventEntity>(`${this.baseUrl}/update/${todo.id}`, JSON.stringify(todo)).subscribe(
         data => {
           this.dataStore.todos.push(data);
           this._todos.next(Object.assign({}, this.dataStore).todos);
@@ -99,7 +105,18 @@ export class EventService {
       error => console.log('Could not delete todo.')
     );
   }
-
+  buildEvent(data) : EventEntity{
+    let event:EventEntity = new EventEntity();
+     console.log(data.locationSart)
+     event.id = data.id;
+     event.location = data.location;
+     event.start_date = data.start_date;
+     event.end_date = data.end_date;
+     event.event_name = data.event_name;
+     event.distance = data.distance;
+     event.is_theme = false;
+     return event;
+    }
 }
 
   

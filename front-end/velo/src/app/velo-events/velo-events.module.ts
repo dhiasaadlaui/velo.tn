@@ -36,7 +36,7 @@ import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
     CommonModule,
     GridModule,
     NumericTextBoxAllModule,
-    DropDownListAllModule
+    DropDownListAllModule,
   ],
   providers: [WeekService,DayService,MonthService,AgendaService,ResizeService, DragAndDropService,
     EventConfigService,EventService,FilterService,PageService,EditService, ToolbarService, PageService,

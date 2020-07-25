@@ -6,6 +6,8 @@ interface EventEntityArgs {
     start_date?: number;
     end_date?: number;
     is_theme?: boolean;
+    subscribers?: any[];
+    subscribersCount?:number;
 }
 export class EventEntity {
     id:number;
@@ -15,6 +17,8 @@ export class EventEntity {
     start_date:number
     end_date:number
     is_theme:boolean
+    subscribers:any[];
+    subscribersCount?:number;
 
     constructor(args: EventEntityArgs = {}) {
         this.id = args.id;
@@ -24,6 +28,7 @@ export class EventEntity {
         this.start_date = args.start_date;
         this.end_date = args.end_date;
         this.is_theme = args.is_theme;
-    }
+        this.subscribers = args.subscribers;
+     }
   }
 
