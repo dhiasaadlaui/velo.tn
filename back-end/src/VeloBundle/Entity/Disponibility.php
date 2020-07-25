@@ -31,9 +31,16 @@ class Disponibility
     /**
      * @var date
      *
-     * @ORM\Column(name="v_date", type="date")
+     * @ORM\Column(name="start", type="date")
      */
     private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
 
     /**
      * @return mixed
@@ -81,6 +88,22 @@ class Disponibility
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
 
