@@ -1,0 +1,117 @@
+<div class="form-group">
+<h3 class="first">Make Claim</h3>
+
+<form [formGroup]="claimForm" (ngSubmit)="Onsub()">
+
+<div class="p-field p-grid">
+    <label for="title1" class="p-col-fixed" style="width:100px">Title</label>
+    <div class="p-col">
+        <input id="title" type="text" size="30" formControlName="title"> 
+    </div>
+</div>
+<div class="p-field p-grid">
+    <label for="subject1" class="p-col-fixed" style="width:100px">Subject</label>
+    <div class="p-col">
+        <input id="subject" type="text" size="30" formControlName="subject"> 
+    </div>
+</div>
+<div class="p-field p-grid">
+    <label for="phone1" class="p-col-fixed" style="width:100px">Phone</label>
+    <div class="p-col">
+        <input id="phone" type="number" size="10" formControlName="phone"> 
+    </div>
+</div>
+<h3>Emergency State</h3>
+<div class="p-field-radiobutton">
+    <input type="radio" value="High" formControlName="level">
+    <label for="city5">High</label>
+</div>
+<div class="p-field-radiobutton">
+    <input type="radio" value="Low" formControlName="level">
+    <label for="city6">Low</label>
+</div>
+
+<h3>Place :</h3>
+<p-gmap [options]="options" [style]="{'width':'50%','height':'320px'}" (onMapClick)="handleMapClick($event)" [overlays]="overlays"></p-gmap>
+<br/>
+<p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location" [style]="{width: '300px'}">>
+    <div class="p-grid ui-fluid" *ngIf="selectedPosition">
+        <div class="p-col-2"><label for="title">title</label></div>
+        <div class="p-col-10"><input type="text" pInputText id="title" formControlName="markertitle" [(ngModel)]="markerTitle"></div>
+
+        <div class="p-col-2"><label for="lat">Lat</label></div>
+        <div class="p-col-10"><input id="lat" type="text" formControlName="lat" readonly pInputText [ngModel]="selectedPosition.lat()"></div>
+
+        <div class="p-col-2"><label for="lng">Lng</label></div>
+        <div class="p-col-10"><input id="lng" type="text" formControlName="lng" readonly pInputText [ngModel]="selectedPosition.lng()"></div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton label="Add Marker" (click)="addMarker()"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<button pButton type="submit" label="Submit" class="ui-button-raised"></button>
+<br/>
+
+</form>
+</div>
+<footer class="site-footer bg-dark" style="margin-bottom: 0px;" >
+    <div class="container">
+      <div class="row" >
+        <div class="col-sm-12 col-md-6">
+          <h6>About</h6>
+          <p class="text-justify">velo.tn <i>CODE WANTS TO BE SIMPLE </i>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione at repellendus vel iure quibusdam, provident rem numquam odio unde expedita architecto nesciunt tempora dolorum ex ducimus obcaecati debitis, laboriosam nemo.</p>
+        </div>
+        
+        <div class="col-xs-6 col-md-3">
+          <h6>Categories</h6>
+          <ul class="footer-links">
+            <li><a href="http://velo.tn/category/c-language/">Ahearne </a></li>
+            <li><a href="http://velo.tn/category/front-end-development/">Aarios </a></li>
+            <li><a href="http://velo.tn/category/back-end-development/">Adeline</a></li>
+            <li><a href="http://velo.tn/category/java-programming-language/">Ankerrad </a></li>
+            <li><a href="http://velo.tn/category/android/">BMX</a></li>
+            <li><a href="http://velo.tn/category/templates/">Atena</a></li>
+          </ul>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+          <h6>Quick Links</h6>
+          <ul class="footer-links">
+            <li><a href="http://velo.tn/about/">About Us</a></li>
+            <li><a href="http://velo.tn/contact/">Contact Us</a></li>
+            <li><a href="http://velo.tn/contribute-at-scanfcode/">Contribute</a></li>
+            <li><a href="http://velo.tn/privacy-policy/">Privacy Policy</a></li>
+            <li><a href="http://velo.tn/sitemap/">Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by 
+       <a href="#">JavaForTheWin</a>.
+          </p>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="social-icons">
+            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+          </ul>
+        </div>
+      </div>
+    </div>
+</footer>
+
+
+
+
+
+
