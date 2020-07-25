@@ -22,12 +22,8 @@
     <list default="true" id="6ca17e72-fb98-4e33-9709-119603fe332a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/EventController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/UserControllerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/UserControllerController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/Event.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Resources/config/routing.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Resources/config/routing.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/models/Event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/models/Event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventConfigService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventConfigService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.ts" afterDir="false" />
@@ -114,7 +110,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/VeloBundle/Controller" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -143,6 +139,7 @@
       <workItem from="1595426564735" duration="1058000" />
       <workItem from="1595466721312" duration="1988000" />
       <workItem from="1595499878553" duration="30509000" />
+      <workItem from="1595677142670" duration="9957000" />
     </task>
     <servers />
   </component>
@@ -162,10 +159,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595627160922">
+    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595679162819">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
-    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595627160922" />
+    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595679162819" />
     <state x="456" y="220" key="run.anything.popup" timestamp="1595628400942">
       <screen x="0" y="0" width="1600" height="960" />
     </state>

@@ -64,8 +64,8 @@ class EventController extends ApiController
     public function getEventsAction()
     {
         $em=$this->getDoctrine()->getManager();
-        $claims=$em->getRepository(Event::class)->findAll();
-        $data=$this->get('jms_serializer')->serialize($claims,'json');
+        $events=$em->getRepository(Event::class)->findAll();
+        $data=$this->get('jms_serializer')->serialize($events,'json');
         $response=new Response($data);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
@@ -93,6 +93,9 @@ class EventController extends ApiController
 
     public function createAction(Request $request)
     {
+        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
+        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $this->serializer = new Serializer($this->normalizers, $this->encoders);
         //récupérer le contenu de la requête envoyé par l'outil postman
         $data = $request->getContent();
         //deserialize data: création d'un objet à partir des données json envoyées
@@ -103,9 +106,14 @@ class EventController extends ApiController
 
         // Create and persist the new event Config using cascade since that the relation is composition oneToOne
         $em = $this->getDoctrine()->getManager();
-        $em->merge($event);
+        $em->persist($event);
         $em->flush();
-        return new JsonResponse(["msg"=>"Added with success"],200);;
+        $jsonObject = $this->serializer->serialize($event, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
     }
 
     /**
@@ -138,6 +146,9 @@ class EventController extends ApiController
         $data->setStartDate($event->getStartDate('start_date'));
         $data->setEndDate($event->getEndDate('end_date'));
         $data->setIsTheme($event->getIsTheme('is_theme'));
+        $data->setIsArchived($event->getIsArchived('is_archived'));
+        $data->setRate($event->getRate('rate'));
+        $data->setCreatorUserId($event->getCreatorUserId('creator_user_id'));
         // Create and persist the new event Config using cascade since that the relation is composition oneToOne
         $em = $this->getDoctrine()->getManager();
         $em->persist($data);

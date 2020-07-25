@@ -2,7 +2,7 @@
 
 namespace VeloBundle\Entity;
 
- use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Collection;
 use VeloBundle\Entity\User;
 use VeloBundle\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 class Event
 {
     use TimeStamps;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -35,12 +36,12 @@ class Event
     private $location;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $startDate;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $endDate;
 
@@ -55,6 +56,21 @@ class Event
     private $isTheme;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isArchived;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $rate;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $creatorUserId;
+
+    /**
      * @ORM\OneToOne(targetEntity="VeloBundle\Entity\EventConfig", mappedBy="event",  cascade={"persist", "remove"})
      */
     private $eventConfig;
@@ -62,7 +78,7 @@ class Event
     /**
      *
      * @ORM\ManyToOne(targetEntity="VeloBundle\Entity\Category",inversedBy="events")
-      */
+     */
     protected $category;
 
     /**
@@ -71,6 +87,12 @@ class Event
      * @ORM\ManyToMany(targetEntity="VeloBundle\Entity\User", mappedBy="subscribedEvents")
      */
     protected $subscribers;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="VeloBundle\Entity\CommentEvent", mappedBy="event" )
+     */
+    protected $comments;
 
 
     public function getId()
@@ -107,7 +129,7 @@ class Event
         return $this->startDate;
     }
 
-    public function setStartDate(int $startDate)
+    public function setStartDate(string $startDate)
     {
         $this->startDate = $startDate;
 
@@ -119,7 +141,7 @@ class Event
         return $this->endDate;
     }
 
-    public function setEndDate(int $endDate)
+    public function setEndDate(string $endDate)
     {
         $this->endDate = $endDate;
 
@@ -138,6 +160,19 @@ class Event
         return $this;
     }
 
+
+    public function getCreatorUserId()
+    {
+        return $this->creatorUserId;
+    }
+
+    public function setCreatorUserId(string $creatorUserId)
+    {
+        $this->creatorUserId = $creatorUserId;
+
+        return $this;
+    }
+
     public function getIsTheme()
     {
         return $this->isTheme;
@@ -146,6 +181,31 @@ class Event
     public function setIsTheme(bool $isTheme)
     {
         $this->isTheme = $isTheme;
+
+        return $this;
+    }
+
+
+    public function getIsArchived()
+    {
+        return $this->isArchived;
+    }
+
+    public function setIsArchived(bool $isArchived)
+    {
+        $this->isArchived = $isArchived;
+
+        return $this;
+    }
+
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+    public function setRate(int $rate)
+    {
+        $this->rate = $rate;
 
         return $this;
     }
@@ -199,6 +259,24 @@ class Event
         if ($this->subscribers->contains($subscriber)) {
             $this->subscribers->removeElement($subscriber);
             $subscriber->removeSubscribedEvent($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CommentEvent[]
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function addComment(CommentEvent $comment)
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setEvent($this);
         }
 
         return $this;
