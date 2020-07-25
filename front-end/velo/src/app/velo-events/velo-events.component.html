@@ -189,10 +189,10 @@
     </div>
 
     <div class="control-section">
-        <ejs-grid #grid [dataSource]='events$ | async' allowPaging='true' [pageSettings]='pageSettings'
+        <ejs-grid #grid [dataSource]='myEvents' allowPaging='true' [pageSettings]='pageSettings'
             [editSettings]='editSettings' [toolbar]='toolbar' (rowSelected)='rowSelected($event)' allowFiltering='true'
             (actionBegin)='actionBegin($event)' (actionComplete)='actionComplete($event)'
-            (toolbarClick)='clickHandler($event)'>
+            (toolbarClick)='archiveHandler($event)'>
             <e-columns>
                 <e-column field='event_name' headerText='Event Name' width='120' textAlign='Right'
                     [isPrimaryKey]='true'></e-column>
@@ -201,7 +201,9 @@
                 <e-column field='start_date' headerText='Start Date' width='150'></e-column>
                 <e-column field='end_date' headerText='End Date' width='150'></e-column>
                 <e-column field='is_theme' headerText='Theme' width='150'></e-column>
+                <e-column field='is_archived' headerText='Archived' head width='150'></e-column>
                 <e-column field='subscribersCount' headerText='subscribersCount' width='150'></e-column>
+                <e-column field='category.category_name' headerText='Category Name' width='150'></e-column>
             </e-columns>
             <ng-template #editSettingsTemplate let-data>
                 <div [formGroup]="orderForm">
@@ -291,7 +293,13 @@
                                     style="display: block;">*end_date is required</label>
                             </div>
                         </div>
-
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper"                                >
+                                <ejs-checkbox  formControlName="is_archived" data-msg-containerid='is_archivedError' id="is_archived"
+                                   [checked]="selectedEvent?.is_archived" label="Archived" name="is_archived" type="text"></ejs-checkbox>
+                                <span class="e-float-line"></span>
+                             </div>
+                        </div>
                     </div>
                 </div>
             </ng-template>

@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { EventEntity } from '../models/Event';
- 
+import { UserService } from './user.service';
+
 export interface Todo {
   id?: any;
   createdAt?: number;
@@ -16,13 +17,13 @@ export class EventService {
   private dataStore: { todos: EventEntity[] } = { todos: [] };
   readonly todos = this._todos.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
     this.getJSON().subscribe(data => {
-        console.log(data);
-       });
+      console.log(data);
+    });
   }
 
-  get todoso() : Observable<any>{
+  get todoso(): Observable<any> {
     return this._todos.asObservable();
   }
 
@@ -75,7 +76,17 @@ export class EventService {
 
 
   create(todo: EventEntity) {
-  
+    console.log(todo);
+    
+     this.http
+      .post<EventEntity>(`${this.baseUrl}/create`, JSON.stringify(todo)).subscribe(
+        data => {
+          console.log(data)
+          this.dataStore.todos.push(data);
+          this._todos.next(Object.assign({}, this.dataStore).todos);
+        },
+        error => console.log('Could not create todo.')
+      );
   }
 
 
@@ -105,18 +116,28 @@ export class EventService {
       error => console.log('Could not delete todo.')
     );
   }
-  buildEvent(data) : EventEntity{
-    let event:EventEntity = new EventEntity();
-     console.log(data.locationSart)
-     event.id = data.id;
-     event.location = data.location;
-     event.start_date = data.start_date;
-     event.end_date = data.end_date;
-     event.event_name = data.event_name;
-     event.distance = data.distance;
-     event.is_theme = false;
+
+  archiver(event: EventEntity) {
+    event.is_archived = !event.is_archived;
+    console.log(event.is_archived)
+    this.update(event);
+  }
+
+
+  buildEvent(data): EventEntity {
+    let event: EventEntity = new EventEntity();
+    event.id = data.id;
+    event.location = data.location;
+    event.start_date = data.start_date;
+    event.end_date = data.end_date;
+    event.event_name = data.event_name;
+    event.distance = data.distance;
+    event.is_theme = false;
+    event.is_archived = data.is_archived;
+    event.rate = 1000;
+    event.creator_user_id = this.userService.getCurrentUser().username;
      return event;
-    }
+  }
 }
 
-  
+

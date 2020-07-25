@@ -19,6 +19,7 @@ import { ProgressButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
 import { GridModule, FilterService, PageService, EditService, ToolbarService} from '@syncfusion/ej2-angular-grids';
 import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
+import { CheckBoxModule, ButtonModule } from '@syncfusion/ej2-angular-buttons';
 
 @NgModule({
   declarations: [VeloEventsComponent, AddEventComponent, EventDetailsComponent, EventFormComponent],
@@ -37,6 +38,8 @@ import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
     GridModule,
     NumericTextBoxAllModule,
     DropDownListAllModule,
+    CheckBoxModule,
+    ButtonModule
   ],
   providers: [WeekService,DayService,MonthService,AgendaService,ResizeService, DragAndDropService,
     EventConfigService,EventService,FilterService,PageService,EditService, ToolbarService, PageService,

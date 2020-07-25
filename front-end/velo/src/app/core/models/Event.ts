@@ -6,6 +6,9 @@ interface EventEntityArgs {
     start_date?: number;
     end_date?: number;
     is_theme?: boolean;
+    is_archived?: boolean;
+    rate?: number;
+    creator_user_id?: string;
     subscribers?: any[];
     subscribersCount?:number;
 }
@@ -17,6 +20,9 @@ export class EventEntity {
     start_date:number
     end_date:number
     is_theme:boolean
+    is_archived:boolean
+    rate:number
+    creator_user_id:string
     subscribers:any[];
     subscribersCount?:number;
 
@@ -28,6 +34,9 @@ export class EventEntity {
         this.start_date = args.start_date;
         this.end_date = args.end_date;
         this.is_theme = args.is_theme;
+        this.is_archived = args.is_archived;
+        this.rate = args.rate;
+        this.creator_user_id = args.creator_user_id;
         this.subscribers = args.subscribers;
      }
   }
