@@ -49,16 +49,16 @@ class UserControllerController extends Controller
         $user=$em->getRepository(Volonteer::class)->find($id);
         $data=$request->getContent();
         $yummy = json_decode($data);
-        foreach ($yummy->disponibility->v_date as $value){
+       /* foreach ($yummy->disponibility->v_date as $value){
             $dis = new Disponibility();
             $dateObj = DateTime::createFromFormat('Y-m-d', $value);
             $dis->setDate($dateObj);
             $dis->setVolunteer($user);
             $em->persist($dis);
 
-        }
+        }*/
         $user->setIsVolunteer(true);
-        $em->merge($user);
+        $em->persist($user);
         $em->flush();
         return new JsonResponse(["msg"=>"success"],200);
 

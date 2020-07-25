@@ -90,10 +90,8 @@ class EventController extends ApiController
 
     }
 
-    /**
-     * @Rest\Post("/addEvent")
-     */
-    public function addEventAction(Request $request)
+
+    public function createAction(Request $request)
     {
         //récupérer le contenu de la requête envoyé par l'outil postman
         $data = $request->getContent();
@@ -115,50 +113,38 @@ class EventController extends ApiController
      */
     public function deleteEventAction($id)
     {
-        $event = $this->eventRepository->findOneBy(['id' => $id]);
+        $event = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(['id' => $id]);
         if (!$event) {
             return $this->respondValidationError('No EventConfig entity with this (id = ' . $id .") ". 'exist');
         }
-        $this->entityManager->remove($event);
-        $this->entityManager->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($event);
+        $em->flush();
 
     }
 
-    /**
-     * @Rest\Patch("/updateEvent/{id}")
-     */
-    public function patchEventAction(Request $request)
+
+    public function updateAction(Request $request, $id)
     {
-        if (!$request) {
-            return $this->respondValidationError('Please provide a valid request!');
-        }
-        // validate Variables Needed !!!!!
-        if (!$request->getContent()) {
-            return $this->respondValidationError('Please provide an Event!');
-        }
+        $data = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(['id' => $id]);
+        //récupérer le contenu de la requête envoyé par l'outil postman
+        $dataReq = $request->getContent();
+        //deserialize data: création d'un objet à partir des données json envoyées
+        $event = $this->get('jms_serializer')->deserialize($dataReq, 'VeloBundle\Entity\Event', 'json');
 
-        if (!$request->get('eventName')) {
-            return $this->respondValidationError('Please provide an event!');
-        }
+        $data->setEventName($event->getEventName('event_name'));
+        $data->setDistance($event->getDistance('distance'));
+        $data->setLocation($event->getLocation('location'));
+        $data->setStartDate($event->getStartDate('start_date'));
+        $data->setEndDate($event->getEndDate('end_date'));
+        $data->setIsTheme($event->getIsTheme('is_theme'));
+        // Create and persist the new event Config using cascade since that the relation is composition oneToOne
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($data);
+        $em->flush();
+        return new JsonResponse(["msg"=>"Added with success"],200);;
 
-        $event = $this->eventRepository->findOneBy([
-            'id' => $request->get('id')]);
 
-        if (!$event) {
-            return $this->respondValidationError('No Event entity with this (id = ' . $request->get('id') . ") " . 'exist');
-        }
-        $event = $this->createEvent($request);
-        $this->entityManager->persist($event);
-        $this->entityManager->flush();
-
-        /** ONLY FOR TEST */
-        //return $this->json([
-        //     'response' => 'Updated Successfully'
-        // ]);
-        /**              **/
-
-        $jsonObject = $this->serializer($event, $this->serializer);
-        return $this->respond($jsonObject);
     }
 
     /**
@@ -175,12 +161,12 @@ class EventController extends ApiController
     private function createEvent(Request $req)
     {
         $event = new Event();
-        $event->setEventName($req->get('eventName'));
+        $event->setEventName($req->get('event_name'));
         $event->setDistance($req->get('distance'));
         $event->setLocation($req->get('location'));
-        $event->setStartDate($req->get('startDate'));
-        $event->setEndDate($req->get('startDate'));
-        $event->setIsTheme($req->get('isTheme'));
+        $event->setStartDate($req->get('start_date'));
+        $event->setEndDate($req->get('end_date'));
+        $event->setIsTheme($req->get('is_theme'));
 
         if ($req->get('category')) {
             $category = $this->categoryRepository->find([
@@ -192,6 +178,19 @@ class EventController extends ApiController
             }
         }
         return $event;
+    }
+
+    public function subscribeToEventAction(Request $request)
+    {
+        //récupérer le contenu de la requête envoyé par l'outil postman
+        $data = $request->getContent();
+        //deserialize data: création d'un objet à partir des données json envoyées
+        $user = $this->get('jms_serializer')->deserialize($data, 'VeloBundle\Entity\User', 'json');
+        //ajout dans la base
+        $em = $this->getDoctrine()->getManager();
+        $em->merge($user);
+        $em->flush();
+        return new Response('User added succesfully');
     }
 
 

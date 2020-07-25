@@ -20,64 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ca17e72-fb98-4e33-9709-119603fe332a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bin/composer/ClassLoader.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/autoload_classmap.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/autoload_files.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/autoload_namespaces.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/autoload_psr4.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/autoload_real.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/autoload_static.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/installed.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/CHANGELOG.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/CONTRIBUTING.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/SECURITY.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/composer.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/composer.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/phpcs.xml.dist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/src/PackageVersions/FallbackVersions.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/src/PackageVersions/Installer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/composer/package-versions-deprecated/src/PackageVersions/Versions.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/ApiController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/CategoryController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/EventConfigController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/EventController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/Category.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/Event.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/EventConfig.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/Step.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/TimeStamps/DateTimeToDateTransformer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/TimeStamps/TimeStamps.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Repository/CategoryRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Repository/EventConfigRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Repository/EventRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VeloBundle/Repository/StepRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/back-end.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/back-end.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AppKernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AppKernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/routing.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/routing.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/services.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/services.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/symfony_requirements" beforeDir="false" afterPath="$PROJECT_DIR$/bin/symfony_requirements" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/EventController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/UserControllerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/UserControllerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/Event.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VeloBundle/Resources/config/routing.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Resources/config/routing.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/SymfonyRequirements.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/SymfonyRequirements.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/components/top-nav-bar/top-nav-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/components/top-nav-bar/top-nav-bar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/models/Event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/models/Event.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventConfigService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventConfigService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +142,7 @@
       <workItem from="1595350294588" duration="9000" />
       <workItem from="1595426564735" duration="1058000" />
       <workItem from="1595466721312" duration="1988000" />
-      <workItem from="1595499878553" duration="16771000" />
+      <workItem from="1595499878553" duration="30509000" />
     </task>
     <servers />
   </component>
@@ -209,14 +162,14 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595611151737">
+    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595627160922">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
-    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595611151737" />
-    <state x="456" y="220" key="run.anything.popup" timestamp="1595603315176">
+    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595627160922" />
+    <state x="456" y="220" key="run.anything.popup" timestamp="1595628400942">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
-    <state x="456" y="220" key="run.anything.popup/0.0.1600.960@0.0.1600.960" timestamp="1595603315176" />
+    <state x="456" y="220" key="run.anything.popup/0.0.1600.960@0.0.1600.960" timestamp="1595628400942" />
     <state x="463" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1595508642948">
       <screen x="0" y="0" width="1600" height="960" />
     </state>

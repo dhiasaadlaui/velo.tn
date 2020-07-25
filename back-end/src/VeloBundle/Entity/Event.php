@@ -2,6 +2,8 @@
 
 namespace VeloBundle\Entity;
 
+ use Doctrine\Common\Collections\Collection;
+use VeloBundle\Entity\User;
 use VeloBundle\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
 use VeloBundle\Entity\TimeStamps\TimeStamps;
@@ -63,17 +65,17 @@ class Event
       */
     protected $category;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection|\VeloBundle\Entity\User[]
+     *
+     * @ORM\ManyToMany(targetEntity="VeloBundle\Entity\User", mappedBy="subscribedEvents")
+     */
+    protected $subscribers;
+
 
     public function getId()
     {
         return $this->id;
-    }
-
-    public function setId(int $id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getDistance()
@@ -170,6 +172,34 @@ class Event
     public function setCategory(Category $category)
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|\VeloBundle\Entity\User[]
+     */
+    public function getSubscribers()
+    {
+        return $this->subscribers;
+    }
+
+    public function addSubscriber(\VeloBundle\Entity\User $subscriber)
+    {
+        if (!$this->subscribers->contains($subscriber)) {
+            $this->subscribers[] = $subscriber;
+            $subscriber->addSubscribedEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscriber(\VeloBundle\Entity\User $subscriber)
+    {
+        if ($this->subscribers->contains($subscriber)) {
+            $this->subscribers->removeElement($subscriber);
+            $subscriber->removeSubscribedEvent($this);
+        }
 
         return $this;
     }
