@@ -3,8 +3,8 @@ interface EventEntityArgs {
     event_name?: string;
     distance?: number;
     location?: string;
-    start_date?: number;
-    end_date?: number;
+    start_date?: string;
+    end_date?: string;
     is_theme?: boolean;
     is_archived?: boolean;
     rate?: number;
@@ -17,8 +17,8 @@ export class EventEntity {
     event_name: string
     distance: number
     location:string
-    start_date:number
-    end_date:number
+    start_date:string
+    end_date:string
     is_theme:boolean
     is_archived:boolean
     rate:number

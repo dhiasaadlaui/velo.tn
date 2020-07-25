@@ -32,9 +32,9 @@ export class VeloEventsComponent implements OnInit {
   /**
   * DATA.
   */
- events$: Observable<EventEntity[]>;
- events: EventEntity[];
- myEvents: EventEntity[] ;
+  events$: Observable<EventEntity[]>;
+  events: EventEntity[];
+  myEvents: EventEntity[];
   event: EventEntity;
   selectedEvent: EventEntity;
 
@@ -59,19 +59,30 @@ export class VeloEventsComponent implements OnInit {
   public eventSettings: EventSettingsModel;
   public data: object[] = [];
   //**** */
-
+  // INIT DATE PICKERS
+  public today: Date = new Date();
+  public currentYear: number = this.today.getFullYear();
+  public currentMonth: number = this.today.getMonth();
+  public currentDay: number = this.today.getDate();
+  public currentHour: number = this.today.getHours();
+  public currentMinute: number = this.today.getMinutes();
+  public currentSecond: number = this.today.getSeconds();
+  public date: Date = new Date(new Date().setDate(14));
+  public minDate: Date = new Date(this.currentYear,this.currentMonth,7,0,0,0);
+  public maxDate: Date = new Date(this.currentYear,this.currentMonth,27,this.currentHour,this.currentMinute,this.currentSecond);
   /**
  * Flags.
  */
   showCalendar: boolean = true;
   showMoreEvents: boolean = false;
+  ShowEventDetails:boolean =false;
 
   /**
  * Creates an instance of VeloEventsComponent.
  */
-  constructor(private eventConfigService: EventConfigService, private eventServ: EventService, 
-            private route: ActivatedRoute,private router: Router,private userService:UserService
-            ) {
+  constructor(private eventConfigService: EventConfigService, private eventServ: EventService,
+    private route: ActivatedRoute, private router: Router, private userService: UserService
+  ) {
     $(document).ready(function () {
       $(document).on("click", ".inactive-form", function () {
         $(".inactive-form,.active-form").toggleClass("inactive-form active-form");
@@ -121,26 +132,44 @@ export class VeloEventsComponent implements OnInit {
    * Search for events that match Criteria and added to the calendar the result .
    */
   find() {
-    this.event = this.events.find(element => element.id == 3);
-    console.log('find' + this.event.event_name)
+    this.events.forEach(element => {
+      this.scheduleObj.addEvent({
+        Id:  element.id,
+        EventName: element.event_name + 'd',
+        StartTime: new Date(element.start_date),
+        EndTime: new Date(element.end_date),
+        IsAllDay: false,
+        IsReadonly: false,
+        fddf: 'df',
+        //RecurrenceRule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1',
+        CategoryColor: '#357cd2'
+      })
+    });
+    /*this.event = this.events.find(element => element.id == 50);
     this.scheduleObj.addEvent({
-      Id: 3,
+      Id: this.event.id,
       EventName: this.event.event_name + 'd',
-      StartTime: new Date(2020, 6, 25, 10, 0),
-      EndTime: new Date(2020, 6, 25, 10, 0),
+      StartTime: new Date(2020, 6, 27, 10, 0),
+      EndTime: new Date(2020, 6, 27, 10, 0),
       IsAllDay: false,
       IsReadonly: false,
       fddf: 'df',
       RecurrenceRule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1',
       CategoryColor: '#357cd2'
-    })
+    })*/
+  }
+
+  testRest(){
+    this.scheduleObj.resetEventTemplates()
   }
 
   ngOnInit() {
 
 
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
-    this.toolbar = ['Add', 'Edit', 'Delete', { text: 'Archive', tooltipText: 'Archive', prefixIcon: 'e-save', id: 'Archive' }];
+    this.toolbar = ['Add', 'Edit', 'Delete',
+      { text: 'Archive', tooltipText: 'Archive', prefixIcon: 'e-save', id: 'Archive' },
+      { text: 'Refresh', tooltipText: 'Refresh', prefixIcon: 'e-reload	', id: 'Refresh' }];
     this.pageSettings = { pageCount: 5 };
     let i = 0;
 
@@ -175,11 +204,13 @@ export class VeloEventsComponent implements OnInit {
       // Handle the code if "cancel" button is clicked.
       this.scheduleObj.getSelectedElements().forEach((element) => {
         console.log(element)
-
       });
       let selectedEvent: any = this.scheduleObj.activeEventData.event;
       this.eventServ.remove(selectedEvent.Id)
     }
+    this.scheduleObj.getSelectedElements().forEach((element) => {      
+      console.log(element)
+    });
   }
 
   oneventRendered(args: EventRenderedArgs): void {
@@ -197,6 +228,8 @@ export class VeloEventsComponent implements OnInit {
   }
 
   public onPopupOpen(args: PopupOpenEventArgs): void {
+    console.log(this.scheduleObj);
+    
     this.scheduleObj.getEvents().forEach((element: any) => console.log(element.Id))
     let selectedEvent: any = this.scheduleObj.activeEventData.event;
     console.log(selectedEvent)
@@ -204,6 +237,8 @@ export class VeloEventsComponent implements OnInit {
     console.log(<any>selectedEvent.Id)
     console.log(<any>selectedEvent.fddf)
     console.log(this.scheduleObj.getEventDetails(args.element))
+    this.ShowEventDetails = true;
+    // this.go()
   }
 
   public onEventCheck(args: any): boolean {
@@ -275,14 +310,23 @@ export class VeloEventsComponent implements OnInit {
         let data: any;
         data = this.orderForm.value;
         let eventLocal: EventEntity = this.eventServ.buildEvent(data);
+        if(new Date(eventLocal.start_date) > new Date(eventLocal.end_date)){
+          alert("End Date Cant be greater then start Date please change inputs")
+          return;
+        }
         if (this.operationTobeExecuted != '') {
           console.log('OPERATION START ......')
           if (this.operationTobeExecuted === 'update') {
-            console.log('UPDATE START ......')
+            console.log('UPDATE START ......')           
             this.eventServ.update(eventLocal);
+            this.initDataTable()
           } else if (this.operationTobeExecuted === 'create') {
+            if(eventLocal.is_archived == null){
+              eventLocal.is_archived = false;
+            }
             console.log('CREATE START ......')
             this.eventServ.create(eventLocal);
+            this.initDataTable()
           }
         }
 
@@ -320,12 +364,12 @@ export class VeloEventsComponent implements OnInit {
     this.events$ = this.eventServ.todos;
     this.events$.subscribe((element: EventEntity[]) => {
       this.myEvents = [];
-      element.forEach((el:EventEntity) => {
-         if(el.creator_user_id === this.userService.getCurrentUser().username){
-            el.subscribersCount = el.subscribers.length;
-          let eventLocal:EventEntity = this.eventServ.buildEvent(el);
+      element.forEach((el: EventEntity) => {
+        if (el.creator_user_id === this.userService.getCurrentUser().username) {
+          el.subscribersCount = el.subscribers.length;
+          let eventLocal: EventEntity = this.eventServ.buildEvent(el);
           this.myEvents.push(eventLocal);
-         }
+        }
       });
     });
   }
@@ -337,16 +381,23 @@ export class VeloEventsComponent implements OnInit {
     console.log(this.selectedEvent.id)
   }
 
-  archiveHandler(args: ClickEventArgs): void {
+  handleToolBarClicks(args: ClickEventArgs): void {
     if (args.item.id === 'Archive') {
-     /* if (this.selectedEvent == null) {
+      if (this.selectedEvent == null) {
         alert("please select Event")
       } else {
-        this.eventServ.archiver(this.selectedEvent);
-        alert('Event archived successfully')
-      }*/
-      this.initDataTable()
+        if(this.selectedEvent.is_archived == true){
+          alert("Event already archived")
+        }else {
+          this.eventServ.archiver(this.selectedEvent);
+          alert('Event archived successfully')
+          this.initDataTable();
+        }
+      }
+    }else if (args.item.id === 'Refresh') {
+      this.initDataTable();
     }
+
   }
 
   get event_name(): AbstractControl { return this.orderForm.get('event_name'); }

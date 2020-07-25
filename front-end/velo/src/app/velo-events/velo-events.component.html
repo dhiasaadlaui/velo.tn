@@ -90,6 +90,7 @@
         <div class="col-md-12 mb-5">
             <button (click)="toggleCalendarView()">Calendar view</button>
             <button *ngIf="!showCalendar" [routerLink]="['/addEvent']">Add Special Event</button>
+            <button *ngIf="ShowEventDetails" [routerLink]="['/eventDetails']">Show Event Details</button>
         </div>
     </div>
     <!-- Content Row -->
@@ -192,7 +193,7 @@
         <ejs-grid #grid [dataSource]='myEvents' allowPaging='true' [pageSettings]='pageSettings'
             [editSettings]='editSettings' [toolbar]='toolbar' (rowSelected)='rowSelected($event)' allowFiltering='true'
             (actionBegin)='actionBegin($event)' (actionComplete)='actionComplete($event)'
-            (toolbarClick)='archiveHandler($event)'>
+            (toolbarClick)='handleToolBarClicks($event)'>
             <e-columns>
                 <e-column field='event_name' headerText='Event Name' width='120' textAlign='Right'
                     [isPrimaryKey]='true'></e-column>
@@ -251,13 +252,12 @@
                                     style="display: block;">*location is required</label>
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
+                            <div class="form-group col-md-6">
                             <div class="e-float-input e-control-wrapper"
                                 [ngClass]="{'e-error': start_date.invalid && (start_date.dirty || start_date.touched)}">
-                                <input formControlName="start_date" data-msg-containerid='start_dateError'
-                                    id="start_date" name="start_date" type="text">
+                                <ejs-datetimepicker placeholder='Start date' formControlName="start_date" id="datepicker"  [min]='minDate'  data-msg-containerid='start_dateError'
+                                    id="start_date" name="start_date" type="Date"></ejs-datetimepicker>
                                 <span class="e-float-line"></span>
-                                <label class="e-float-text e-label-top" for="start_date">start_date</label>
                             </div>
                             <div id="start_dateError"
                                 [style.visibility]='((start_date.invalid && (start_date.dirty || start_date.touched)) || (start_date.invalid && submitClicked))? "visible": "hidden"'>
@@ -268,10 +268,8 @@
                         <div class="form-group col-md-6">
                             <div class="e-float-input e-control-wrapper"
                                 [ngClass]="{'e-error': end_date.invalid && (end_date.dirty || end_date.touched)}">
-                                <input formControlName="end_date" data-msg-containerid='end_dateError' id="end_date"
-                                    name="end_date" type="text">
-                                <span class="e-float-line"></span>
-                                <label class="e-float-text e-label-top" for="end_date">end_date</label>
+                                <ejs-datetimepicker placeholder='Start date' formControlName="end_date" id="datepicker"  [min]='minDate'  data-msg-containerid='end_dateError'
+                                    id="end_date" name="end_date" type="Date"></ejs-datetimepicker>                         
                             </div>
                             <div id="end_dateError"
                                 [style.visibility]='((end_date.invalid && (end_date.dirty || end_date.touched)) || (end_date.invalid && submitClicked))? "visible": "hidden"'>

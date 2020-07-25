@@ -77,7 +77,6 @@ export class EventService {
 
   create(todo: EventEntity) {
     console.log(todo);
-    
      this.http
       .post<EventEntity>(`${this.baseUrl}/create`, JSON.stringify(todo)).subscribe(
         data => {
@@ -91,6 +90,7 @@ export class EventService {
 
 
   update(todo: EventEntity) {
+    console.log(todo)
     console.log(todo)
     this.http
       .put<EventEntity>(`${this.baseUrl}/update/${todo.id}`, JSON.stringify(todo)).subscribe(

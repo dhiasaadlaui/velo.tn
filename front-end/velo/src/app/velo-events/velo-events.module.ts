@@ -20,6 +20,7 @@ import { GridModule, FilterService, PageService, EditService, ToolbarService} fr
 import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 import { CheckBoxModule, ButtonModule } from '@syncfusion/ej2-angular-buttons';
+import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 @NgModule({
   declarations: [VeloEventsComponent, AddEventComponent, EventDetailsComponent, EventFormComponent],
@@ -39,7 +40,7 @@ import { CheckBoxModule, ButtonModule } from '@syncfusion/ej2-angular-buttons';
     NumericTextBoxAllModule,
     DropDownListAllModule,
     CheckBoxModule,
-    ButtonModule
+    ButtonModule,DateTimePickerModule
   ],
   providers: [WeekService,DayService,MonthService,AgendaService,ResizeService, DragAndDropService,
     EventConfigService,EventService,FilterService,PageService,EditService, ToolbarService, PageService,
