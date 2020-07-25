@@ -13,7 +13,3 @@ export class LandingPageComponent implements OnInit {
   }
 
 }
-<<<<<<< HEAD
-=======
-  
->>>>>>> MehdiIntegrationf1

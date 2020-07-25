@@ -12,17 +12,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopNavBarComponent } from './core/components/top-nav-bar/top-nav-bar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
-<<<<<<< HEAD
- import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
 import { HttpClientModule } from '@angular/common/http';
 import { AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';
 import { CategoryService } from './core/services/CategoryService';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-=======
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
->>>>>>> MehdiIntegrationf1
 
 @NgModule({
   declarations: [
@@ -40,7 +35,6 @@ import { HttpClientModule } from '@angular/common/http';
     InfoFlowModule,
     RideRescueModule,
     BrowserAnimationsModule,
-<<<<<<< HEAD
     BrowserAnimationsModule,
     LandingPageModule,
     ScheduleModule, 
@@ -50,12 +44,6 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule
 
-=======
-    BrowserModule,
-    BrowserAnimationsModule,
-    LandingPageModule,
-    HttpClientModule
->>>>>>> MehdiIntegrationf1
 
   ],
   providers: [CategoryService],
