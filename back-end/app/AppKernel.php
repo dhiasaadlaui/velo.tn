@@ -20,7 +20,9 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new VeloBundle\VeloBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
-        ];
+            new FOS\RestBundle\FOSRestBundle()
+
+         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();

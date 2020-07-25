@@ -25,7 +25,15 @@ velo_deleteuser: ##DELETE USER
 velo_claims: ##GET ALL CLAIMS
     path:     /getclaims
     defaults: { _controller: VeloBundle:ClaimController:getclaims }
+
 velo_Addclaims: ##ADD CLAIMS
     path:     /addclaim
     defaults: { _controller: VeloBundle:ClaimController:add }
 
+velo_getEvents: ##ADD CLAIMS
+    path:     /getEvents
+    defaults: { _controller: VeloBundle:Event:getEvents }
+
+velo_addEvents: ##ADD EVENT
+    path:     /addEvent
+    defaults: { _controller: VeloBundle:Event:addEvent }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import 'jquery';
-import 'bootstrap/dist/js/bootstrap/';
-import 'popper.js';
+ import 'popper.js';
 
 @Component({
   selector: 'app-top-nav-bar',

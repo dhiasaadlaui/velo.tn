@@ -5,3 +5,8 @@ velo:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+controllers:
+    resource: '@VeloBundle/Controller'
+    type: annotation
+
