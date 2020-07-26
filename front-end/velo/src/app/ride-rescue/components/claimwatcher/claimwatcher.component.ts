@@ -2,6 +2,7 @@ import { Claim } from './../../model/Claim';
 import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from '../../services/user-service.service';
 import { User } from '../../model/User';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-claimwatcher',
@@ -24,7 +25,7 @@ export class ClaimwatcherComponent implements OnInit {
   
   currentUser: User = new User();
 
-  constructor(private userService: UserServiceService) { }
+  constructor(private userService: UserServiceService,private authserv:AuthenticationService) { }
 
   ngOnInit() {
     this.userService.getClaims().subscribe((data: Claim[]) => this.claimList = data);
@@ -34,7 +35,7 @@ export class ClaimwatcherComponent implements OnInit {
       { field: 'status', header: 'status' },
       { field: 'level', header: 'level' }
   ];
-  this.currentUser.id = 4 ; // hardcoded
+  this.currentUser = this.authserv.getCurrentUser() ;
   }
 /**
    * must be secured the only the claims ower 
@@ -44,11 +45,12 @@ export class ClaimwatcherComponent implements OnInit {
     // control on the current user
   
     let error;
-    let claims = [...this.claimList];
-    claims[this.claimList.indexOf(this.selectedClaim)] = this.claim;
-    console.log(this.selectedClaim);
-    this.claimList = claims;
-    if(this.currentUser.id != this.selectedClaim.user.id) {
+    
+    if(this.currentUser.id == this.selectedClaim.user.id) {
+      let claims = [...this.claimList];
+       claims[this.claimList.indexOf(this.selectedClaim)] = this.claim;
+       console.log(this.selectedClaim);
+      this.claimList = claims;
       this.userService.updateClaim(this.claim).subscribe(resp => error = resp);
       this.claim = null;
       this.displayDialog = false;

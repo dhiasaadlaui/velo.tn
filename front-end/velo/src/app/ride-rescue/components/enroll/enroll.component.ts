@@ -4,6 +4,7 @@ import { UserServiceService } from './../../services/user-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-enroll',
@@ -19,20 +20,19 @@ export class EnrollComponent implements OnInit {
   });
   value: Date;
   dates: String[];
-  constructor(private userService : UserServiceService) { }
+  constructor(private userService : UserServiceService,private authserv:AuthenticationService) { }
 
   ngOnInit() {
     this.isVolunteer = false;
     this.dates = [];
     this.value = new Date();
-    this.currentUser.id = 4;
+    this.currentUser = this.authserv.getCurrentUser();
     this.userService.getAll().subscribe((data: User[])=>this.userList = data);
   }
 
   Onsub()
   {
     let error = "";
-    this.currentUser.name = "Zama9tél" ;
     console.log(this.currentUser);
     this.userService.enroll(this.currentUser).subscribe(resp => error = resp.forname);
   }

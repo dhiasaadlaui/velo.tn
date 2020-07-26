@@ -7,6 +7,7 @@ import { UserServiceService } from '../../services/user-service.service';
 import { User } from '../../model/User';
 import { Disponibility } from '../../model/Disponibility';
 import { formatDate } from '@angular/common';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-disponibility',
@@ -14,8 +15,8 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./disponibility.component.scss']
 })
 export class DisponibilityComponent implements OnInit {
-  value: Date;
-  dates: String[];
+   value: Date;
+   dates: String[];
    userList: User[];
    currentUser = new User();
 
@@ -23,10 +24,10 @@ export class DisponibilityComponent implements OnInit {
 
     options: any;
 
-  constructor(private userService : UserServiceService) { }
+  constructor(private userService : UserServiceService,private authserv:AuthenticationService) { }
 
   ngOnInit() {
-    this.currentUser.id = 4;
+    this.currentUser = this.authserv.getCurrentUser();
     this.userService.getAll().subscribe((data: User[])=>this.userList = data);
     //this.events = getCurrentUser()
     // dirty to be refactored when adding authentification

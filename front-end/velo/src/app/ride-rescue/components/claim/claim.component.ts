@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import "./gmapdefinitions";
 import { UserServiceService } from '../../services/user-service.service';
 import { User } from '../../model/User';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-claim',
@@ -25,7 +26,7 @@ export class ClaimComponent implements OnInit {
    'level': new FormControl(''),'markertitle': new FormControl(''),'lat': new FormControl(''),
    'lng': new FormControl(''),'phone': new FormControl('')
   });
-  constructor(private userService : UserServiceService) {
+  constructor(private userService : UserServiceService,private authserv:AuthenticationService) {
    }
 
    userList: User[];
@@ -39,6 +40,7 @@ export class ClaimComponent implements OnInit {
       center: {lat: 36.816609, lng: 10.173111},
       zoom: 12
         };
+   this.currentUser = this.authserv.getCurrentUser() ;
    this.userService.getAll().subscribe((data: User[])=>this.userList = data);
   }
 
@@ -58,7 +60,7 @@ export class ClaimComponent implements OnInit {
     
     console.log(this.claim);
     let error = "";
-    this.claim.user = this.userList[3] ;
+    this.claim.user = this.currentUser ;
     this.userService.addClaim(this.claim).subscribe(resp => error = resp.status);
     console.log(error);
    

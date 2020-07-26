@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Claim } from '../../model/Claim';
 import { UserServiceService } from '../../services/user-service.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
+import { User } from '../../model/User';
 
 @Component({
   selector: 'app-assginedtome',
@@ -8,6 +10,8 @@ import { UserServiceService } from '../../services/user-service.service';
   styleUrls: ['./assginedtome.component.scss']
 })
 export class AssginedtomeComponent implements OnInit {
+
+  currentUser : User;
 
   states: any[];
 
@@ -26,11 +30,12 @@ export class AssginedtomeComponent implements OnInit {
   newClaim: boolean;
   
 
-  constructor(private userService: UserServiceService) { }
+  constructor(private userService: UserServiceService,private authserv:AuthenticationService) { }
 
   ngOnInit() {
     //current user ------- 
-    this.userService.getAssignedTome(8).subscribe((data: Claim[]) => this.claimList = data);
+    this.currentUser = this.authserv.getCurrentUser();
+    this.userService.getAssignedTome(this.currentUser.id).subscribe((data: Claim[]) => this.claimList = data);
     this.states = [{name: 'TO BE APPROVED'},{name: 'CLOSED'}];
     
     this.cols = [
