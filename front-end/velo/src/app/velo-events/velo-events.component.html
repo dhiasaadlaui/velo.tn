@@ -90,7 +90,7 @@
         <div class="col-md-12 mb-5">
             <button (click)="toggleCalendarView()">Calendar view</button>
             <button *ngIf="!showCalendar" [routerLink]="['/addEvent']">Add Special Event</button>
-            <button *ngIf="ShowEventDetails" [routerLink]="['/eventDetails']">Show Event Details</button>
+            <button *ngIf="ShowEventDetails" [routerLink]="['/eventDetails', eventToShowDetails?.id ]">Show Event Details</button>
         </div>
     </div>
     <!-- Content Row -->

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import 'jquery';
  import 'popper.js';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-top-nav-bar',
@@ -8,10 +9,14 @@ import 'jquery';
   styleUrls: ['./top-nav-bar.component.scss']
 })
 export class TopNavBarComponent implements OnInit {
-
-  constructor() { }
+ showAdminTopNav:boolean =false;
+  constructor(private userService:UserService) { }
 
   ngOnInit() {
+    if(this.userService.getCurrentUser().username === 'admin'){
+      this.showAdminTopNav = true;
+    }
+
   }
 
 }

@@ -45,10 +45,11 @@ export class EventService {
   load(id: number | string) {
     this.http.get<EventEntity>(`${this.baseUrl}/getEvent/${id}`).subscribe(
       data => {
+        console.log(data)
         let notFound = true;
 
         this.dataStore.todos.forEach((item, index) => {
-          if (item.start_date === data.start_date) {
+          if (item.id === data.id) {
             this.dataStore.todos[index] = data;
             notFound = false;
           }
@@ -62,11 +63,10 @@ export class EventService {
       },
       error => console.log('Could not load todo.')
     );
-    return this.dataStore.todos[id];
   }
 
   find(id: number | string) {
-    this.loadAll();
+   this.dataStore.todos.find(el => el.id == id);
     this.load(id);
     console.log("load and find workd" + this.dataStore.todos[id] + id)
     return this.dataStore.todos[id];
@@ -90,7 +90,6 @@ export class EventService {
 
 
   update(todo: EventEntity) {
-    console.log(todo)
     console.log(todo)
     this.http
       .put<EventEntity>(`${this.baseUrl}/update/${todo.id}`, JSON.stringify(todo)).subscribe(

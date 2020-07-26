@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { EventSettingsModel, View, PopupCloseEventArgs, ScheduleComponent, EventRenderedArgs, PopupOpenEventArgs, ActionEventArgs } from '@syncfusion/ej2-angular-schedule';
 import { EventConfigService } from '../core/services/EventConfigService';
 import { EventService } from '../core/services/EventService';
@@ -21,14 +21,21 @@ import { UserService } from '../core/services/user.service';
   encapsulation: ViewEncapsulation.None
 
 })
-export class VeloEventsComponent implements OnInit {
+export class VeloEventsComponent implements OnInit,OnDestroy {
   @ViewChild('scheduleObj', { static: false }) scheduleObj: ScheduleComponent;
   // DONT TOUCH !!
   @ViewChild('grid', { static: false })
   public grid: GridComponent;
 
+  // ** PONTERS ** //
   selectedrecords: object[]
   operationTobeExecuted: string = '';
+  eventToShowDetails:EventEntity;
+  //
+
+  // Subscriptions //
+  eventSubscription$:any;
+
   /**
   * DATA.
   */
@@ -42,7 +49,8 @@ export class VeloEventsComponent implements OnInit {
   eventConfigs: EventConfig[];
   eventConfig: EventConfig;
   bool = 'readOnlyChange';
-  // ******
+
+  // ****** TABLE VARIABLES // *****
   public newData: Object[];
   public editSettings: Object;
   public toolbar: ToolbarItems[] | object;
@@ -58,6 +66,7 @@ export class VeloEventsComponent implements OnInit {
   public setView: View = 'Month';
   public eventSettings: EventSettingsModel;
   public data: object[] = [];
+
   //**** */
   // INIT DATE PICKERS
   public today: Date = new Date();
@@ -88,13 +97,8 @@ export class VeloEventsComponent implements OnInit {
         $(".inactive-form,.active-form").toggleClass("inactive-form active-form");
       });
     });
-    this.eventServ.loadAll();
-    this.events$ = this.eventServ.todos;
-    this.eventServ.todos.subscribe(updatedTodos => {
-      this.events = updatedTodos;
-    });
-    this.initDataTable();
-    this.setView = 'Month';
+
+     this.setView = 'Month';
     this.eventSettings = {
       dataSource: this.data,
       fields: {
@@ -164,8 +168,17 @@ export class VeloEventsComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
+     this.eventSubscription$ = this.eventServ.todos.subscribe(updatedTodos => {
+      this.events = [];
+      this.events = updatedTodos;
+      this.myEvents = [];
+      updatedTodos.forEach(e => {
+        if(e.creator_user_id === this.userService.getCurrentUser().username){
+          this.myEvents.push(e);
+        }
+      })
+    });
+    this.eventServ.loadAll();
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
     this.toolbar = ['Add', 'Edit', 'Delete',
       { text: 'Archive', tooltipText: 'Archive', prefixIcon: 'e-save', id: 'Archive' },
@@ -183,6 +196,9 @@ export class VeloEventsComponent implements OnInit {
     //let localDate = new Date(this.event$.startDate * 1000);
 
   }// -> ** ON INIT END
+  ngOnDestroy(): void {
+    this.eventSubscription$.unsubscribe(); 
+  }
 
 
 
@@ -238,6 +254,8 @@ export class VeloEventsComponent implements OnInit {
     console.log(<any>selectedEvent.fddf)
     console.log(this.scheduleObj.getEventDetails(args.element))
     this.ShowEventDetails = true;
+    this.eventToShowDetails = new EventEntity()
+    this.eventToShowDetails.id = <any>selectedEvent.Id;
     // this.go()
   }
 
@@ -319,14 +337,15 @@ export class VeloEventsComponent implements OnInit {
           if (this.operationTobeExecuted === 'update') {
             console.log('UPDATE START ......')           
             this.eventServ.update(eventLocal);
-            this.initDataTable()
+            this.eventServ.loadAll()
           } else if (this.operationTobeExecuted === 'create') {
             if(eventLocal.is_archived == null){
               eventLocal.is_archived = false;
             }
             console.log('CREATE START ......')
             this.eventServ.create(eventLocal);
-            this.initDataTable()
+            alert('Event Created Successfuly')
+            this.eventServ.loadAll()
           }
         }
 
@@ -359,21 +378,6 @@ export class VeloEventsComponent implements OnInit {
     }
   }
 
-  initDataTable() {
-    this.eventServ.loadAll();
-    this.events$ = this.eventServ.todos;
-    this.events$.subscribe((element: EventEntity[]) => {
-      this.myEvents = [];
-      element.forEach((el: EventEntity) => {
-        if (el.creator_user_id === this.userService.getCurrentUser().username) {
-          el.subscribersCount = el.subscribers.length;
-          let eventLocal: EventEntity = this.eventServ.buildEvent(el);
-          this.myEvents.push(eventLocal);
-        }
-      });
-    });
-  }
-
   rowSelected(args: RowSelectEventArgs) {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
     console.log(this.grid.getRowInfo(args.target).rowData);
@@ -391,11 +395,11 @@ export class VeloEventsComponent implements OnInit {
         }else {
           this.eventServ.archiver(this.selectedEvent);
           alert('Event archived successfully')
-          this.initDataTable();
+          this.eventServ.loadAll()
         }
       }
     }else if (args.item.id === 'Refresh') {
-      this.initDataTable();
+      this.eventServ.loadAll()
     }
 
   }
