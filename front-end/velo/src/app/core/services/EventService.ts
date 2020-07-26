@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { EventEntity } from '../models/Event';
- 
+import { UserService } from './user.service';
+
 export interface Todo {
   id?: any;
   createdAt?: number;
@@ -16,13 +17,13 @@ export class EventService {
   private dataStore: { todos: EventEntity[] } = { todos: [] };
   readonly todos = this._todos.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
     this.getJSON().subscribe(data => {
-        console.log(data);
-       });
+      console.log(data);
+    });
   }
 
-  get todoso() : Observable<any>{
+  get todoso(): Observable<any> {
     return this._todos.asObservable();
   }
 
@@ -44,10 +45,11 @@ export class EventService {
   load(id: number | string) {
     this.http.get<EventEntity>(`${this.baseUrl}/getEvent/${id}`).subscribe(
       data => {
+        console.log(data)
         let notFound = true;
 
         this.dataStore.todos.forEach((item, index) => {
-          if (item.start_date === data.start_date) {
+          if (item.id === data.id) {
             this.dataStore.todos[index] = data;
             notFound = false;
           }
@@ -61,11 +63,10 @@ export class EventService {
       },
       error => console.log('Could not load todo.')
     );
-    return this.dataStore.todos[id];
   }
 
   find(id: number | string) {
-    this.loadAll();
+   this.dataStore.todos.find(el => el.id == id);
     this.load(id);
     console.log("load and find workd" + this.dataStore.todos[id] + id)
     return this.dataStore.todos[id];
@@ -75,8 +76,23 @@ export class EventService {
 
 
   create(todo: EventEntity) {
+    console.log(todo);
+     this.http
+      .post<EventEntity>(`${this.baseUrl}/create`, JSON.stringify(todo)).subscribe(
+        data => {
+          console.log(data)
+          this.dataStore.todos.push(data);
+          this._todos.next(Object.assign({}, this.dataStore).todos);
+        },
+        error => console.log('Could not create todo.')
+      );
+  }
+
+
+  update(todo: EventEntity) {
+    console.log(todo)
     this.http
-      .post<EventEntity>(`${this.baseUrl}/addEvent`, JSON.stringify(todo)).subscribe(
+      .put<EventEntity>(`${this.baseUrl}/update/${todo.id}`, JSON.stringify(todo)).subscribe(
         data => {
           this.dataStore.todos.push(data);
           this._todos.next(Object.assign({}, this.dataStore).todos);
@@ -100,6 +116,27 @@ export class EventService {
     );
   }
 
+  archiver(event: EventEntity) {
+    event.is_archived = !event.is_archived;
+    console.log(event.is_archived)
+    this.update(event);
+  }
+
+
+  buildEvent(data): EventEntity {
+    let event: EventEntity = new EventEntity();
+    event.id = data.id;
+    event.location = data.location;
+    event.start_date = data.start_date;
+    event.end_date = data.end_date;
+    event.event_name = data.event_name;
+    event.distance = data.distance;
+    event.is_theme = false;
+    event.is_archived = data.is_archived;
+    event.rate = 1000;
+    event.creator_user_id = this.userService.getCurrentUser().username;
+     return event;
+  }
 }
 
-  
+

@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-2"><button (click)="find()" type="submit" class="btn btn-danger">Submit
+                    <div class="col-2"><button (click)="showMyEvents()" type="submit" class="btn btn-danger">Submit
                             Now!</button></div>
                 </div>
 
@@ -90,6 +90,7 @@
         <div class="col-md-12 mb-5">
             <button (click)="toggleCalendarView()">Calendar view</button>
             <button *ngIf="!showCalendar" [routerLink]="['/addEvent']">Add Special Event</button>
+            <button *ngIf="ShowEventDetails" [routerLink]="['/eventDetails', eventToShowDetails?.id ]">Show Event Details</button>
         </div>
     </div>
     <!-- Content Row -->
@@ -189,79 +190,116 @@
     </div>
 
     <div class="control-section">
-        <ejs-grid [dataSource]='events' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)='actionBegin($event)' (actionComplete)='actionComplete($event)'>
+        <ejs-grid #grid [dataSource]='myEvents' allowPaging='true' [pageSettings]='pageSettings'
+            [editSettings]='editSettings' [toolbar]='toolbar' (rowSelected)='rowSelected($event)' allowFiltering='true'
+            (actionBegin)='actionBegin($event)' (actionComplete)='actionComplete($event)'
+            (toolbarClick)='handleToolBarClicks($event)'>
             <e-columns>
-                <e-column field='event_name' headerText='Event Name' width='120' textAlign='Right' [isPrimaryKey]='true'></e-column>
+                <e-column field='event_name' headerText='Event Name' width='120' textAlign='Right'
+                   ></e-column>
                 <e-column field='distance' headerText='Distance' width='120'></e-column>
                 <e-column field='location' headerText='Location' width='120' format='C2' textAlign='Right'></e-column>
-                <e-column field='start_date' headerText='End Dat' width='130' format='yMd' textAlign='Right'></e-column>
-                <e-column field='end_date' headerText='Theme' width='150'></e-column>
+                <e-column field='start_date' headerText='Start Date' width='150'></e-column>
+                <e-column field='end_date' headerText='End Date' width='150'></e-column>
+                <e-column field='is_theme' headerText='Theme' width='150'></e-column>
+                <e-column field='is_archived' headerText='Archived' head width='150'></e-column>
+                <e-column field='subscribersCount' headerText='subscribersCount' width='150'></e-column>
+                <e-column field='category.category_name' headerText='Category Name' width='150'></e-column>
             </e-columns>
             <ng-template #editSettingsTemplate let-data>
                 <div [formGroup]="orderForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <div class="e-float-input e-control-wrapper" [ngClass]="{'e-error': event_name.invalid && (event_name.dirty || event_name.touched)}">
-                                <input formControlName="event_name" data-msg-containerid='event_nameError' id="event_name" name="event_name" type="text" [attr.disabled]="!data.isAdd ? '' : null">
+                            <div class="e-float-input e-control-wrapper"
+                                [ngClass]="{'e-error': event_name.invalid && (event_name.dirty || event_name.touched)}">
+                                <input formControlName="event_name" data-msg-containerid='event_nameError'
+                                    id="event_name" name="event_name" type="text"
+                                    [attr.disabled]="!data.isAdd ? '' : null">
                                 <span class="e-float-line"></span>
                                 <label class="e-float-text e-label-top" for="event_name"> event_name</label>
                             </div>
-                            <div id="event_nameError" [style.visibility]='((event_name.invalid && (event_name.dirty || event_name.touched)) || (event_name.invalid && submitClicked))? "visible": "hidden"'>
-                                <label class="e-error" for="event_name" id="event_name-info" style="display: block;">*event_nameis required</label>
+                            <div id="event_nameError"
+                                [style.visibility]='((event_name.invalid && (event_name.dirty || event_name.touched)) || (event_name.invalid && submitClicked))? "visible": "hidden"'>
+                                <label class="e-error" for="event_name" id="event_name-info"
+                                    style="display: block;">*event_nameis required</label>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <div class="e-float-input e-control-wrapper" [ngClass]="{'e-error': distance.invalid && (distance.dirty || distance.touched)}">
-                                <input formControlName="distance" data-msg-containerid='distanceError' id="distance" name="distance" type="text">
+                            <div class="e-float-input e-control-wrapper"
+                                [ngClass]="{'e-error': distance.invalid && (distance.dirty || distance.touched)}">
+                                <input formControlName="distance" data-msg-containerid='distanceError' id="distance"
+                                    name="distance" type="text">
                                 <span class="e-float-line"></span>
                                 <label class="e-float-text e-label-top" for="distance">distance</label>
                             </div>
-                            <div id="distanceError" [style.visibility]='((distance.invalid && (distance.dirty || distance.touched)) || (distance.invalid && submitClicked))? "visible": "hidden"'>
-                                <label class="e-error" for="distance" id="distance-info" style="display: block;">*distance is required</label>
+                            <div id="distanceError"
+                                [style.visibility]='((distance.invalid && (distance.dirty || distance.touched)) || (distance.invalid && submitClicked))? "visible": "hidden"'>
+                                <label class="e-error" for="distance" id="distance-info"
+                                    style="display: block;">*distance is required</label>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <div class="e-float-input e-control-wrapper" [ngClass]="{'e-error': location.invalid && (location.dirty || location.touched)}">
-                                <input formControlName="location" data-msg-containerid='locationError' id="location" name="location" type="text">
+                            <div class="e-float-input e-control-wrapper"
+                                [ngClass]="{'e-error': location.invalid && (location.dirty || location.touched)}">
+                                <input formControlName="location" data-msg-containerid='locationError' id="location"
+                                    name="location" type="text">
                                 <span class="e-float-line"></span>
                                 <label class="e-float-text e-label-top" for="location">location</label>
                             </div>
-                            <div id="locationError" [style.visibility]='((location.invalid && (location.dirty || location.touched)) || (location.invalid && submitClicked))? "visible": "hidden"'>
-                                <label class="e-error" for="location" id="location-info" style="display: block;">*location is required</label>
+                            <div id="locationError"
+                                [style.visibility]='((location.invalid && (location.dirty || location.touched)) || (location.invalid && submitClicked))? "visible": "hidden"'>
+                                <label class="e-error" for="location" id="location-info"
+                                    style="display: block;">*location is required</label>
+                            </div>
+                        </div>
+                            <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper"
+                                [ngClass]="{'e-error': start_date.invalid && (start_date.dirty || start_date.touched)}">
+                                <ejs-datetimepicker placeholder='Start date' formControlName="start_date" id="datepicker"  [min]='minDate'  data-msg-containerid='start_dateError'
+                                    id="start_date" name="start_date" type="Date"></ejs-datetimepicker>
+                                <span class="e-float-line"></span>
+                            </div>
+                            <div id="start_dateError"
+                                [style.visibility]='((start_date.invalid && (start_date.dirty || start_date.touched)) || (start_date.invalid && submitClicked))? "visible": "hidden"'>
+                                <label class="e-error" for="start_date" id="start_date-info"
+                                    style="display: block;">*start_date is required</label>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <div class="e-float-input e-control-wrapper" [ngClass]="{'e-error': start_date.invalid && (start_date.dirty || start_date.touched)}">
-                                <input formControlName="start_date" data-msg-containerid='start_dateError' id="start_date" name="start_date" type="text">
-                                <span class="e-float-line"></span>
-                                <label class="e-float-text e-label-top" for="start_date">start_date</label>
+                            <div class="e-float-input e-control-wrapper"
+                                [ngClass]="{'e-error': end_date.invalid && (end_date.dirty || end_date.touched)}">
+                                <ejs-datetimepicker placeholder='Start date' formControlName="end_date" id="datepicker"  [min]='minDate'  data-msg-containerid='end_dateError'
+                                    id="end_date" name="end_date" type="Date"></ejs-datetimepicker>                         
                             </div>
-                            <div id="start_dateError" [style.visibility]='((start_date.invalid && (start_date.dirty || start_date.touched)) || (start_date.invalid && submitClicked))? "visible": "hidden"'>
-                                <label class="e-error" for="start_date" id="start_date-info" style="display: block;">*start_date is required</label>
+                            <div id="end_dateError"
+                                [style.visibility]='((end_date.invalid && (end_date.dirty || end_date.touched)) || (end_date.invalid && submitClicked))? "visible": "hidden"'>
+                                <label class="e-error" for="end_date" id="end_date-info"
+                                    style="display: block;">*end_date is required</label>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <div class="e-float-input e-control-wrapper" [ngClass]="{'e-error': end_date.invalid && (end_date.dirty || end_date.touched)}">
-                                <input formControlName="end_date" data-msg-containerid='end_dateError' id="end_date" name="end_date" type="text">
+                            <div class="e-float-input e-control-wrapper"
+                                [ngClass]="{'e-error': is_theme.invalid && (is_theme.dirty || is_theme.touched)}">
+                                <input formControlName="is_theme" data-msg-containerid='is_themeError' id="is_theme"
+                                    name="is_theme" type="text">
                                 <span class="e-float-line"></span>
-                                <label class="e-float-text e-label-top" for="end_date">end_date</label>
+                                <label class="e-float-text e-label-top" for="is_theme">is_theme</label>
                             </div>
-                            <div id="end_dateError" [style.visibility]='((end_date.invalid && (end_date.dirty || end_date.touched)) || (end_date.invalid && submitClicked))? "visible": "hidden"'>
-                                <label class="e-error" for="end_date" id="end_date-info" style="display: block;">*end_date is required</label>
+                            <div id="is_themeError"
+                                [style.visibility]='((is_theme.invalid && (is_theme.dirty || is_theme.touched)) || (is_theme.invalid && submitClicked))? "visible": "hidden"'>
+                                <label class="e-error" for="is_theme" id="is_theme-info"
+                                    style="display: block;">*end_date is required</label>
                             </div>
                         </div>
-                        <div class="form-group col-md-6" >
-                            <div class="e-float-input e-control-wrapper" [ngClass]="{'e-error': end_date.invalid && (end_date.dirty || end_date.touched)}">
-                                <input formControlName="end_date" data-msg-containerid='end_dateError' id="end_date" name="end_date" type="text">
+                        <div class="form-group col-md-6">
+                            <div class="e-float-input e-control-wrapper"                                >
+                                <ejs-checkbox  formControlName="is_archived" data-msg-containerid='is_archivedError' id="is_archived"
+                                   [checked]="selectedEvent?.is_archived" label="Archived" name="is_archived" type="text"></ejs-checkbox>
                                 <span class="e-float-line"></span>
-                                <label class="e-float-text e-label-top" for="end_date">end_date</label>
-                            </div>
-                            <div id="end_dateError" [style.visibility]='((end_date.invalid && (end_date.dirty || end_date.touched)) || (end_date.invalid && submitClicked))? "visible": "hidden"'>
-                                <label class="e-error" for="end_date" id="end_date-info" style="display: block;">*end_date is required</label>
-                            </div>
+                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </ng-template>
         </ejs-grid>
     </div>
@@ -392,4 +430,3 @@
         </div>
     </div>
 </div>
-    

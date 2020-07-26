@@ -67,5 +67,13 @@ velo_getEvents: ##ADD CLAIMS
     defaults: { _controller: VeloBundle:Event:getEvents }
 
 velo_addEvents: ##ADD EVENT
-    path:     /addEvent
-    defaults: { _controller: VeloBundle:Event:addEvent }
+    path:     /create
+    defaults: { _controller: VeloBundle:Event:create }
+
+velo_updateEvents: ##UPDATE EVENT
+    path:     /update/{id}
+    defaults: { _controller: VeloBundle:Event:update }
+
+velo_deleteEvent: ##UPDATE EVENT
+    path:     /deleteEvent/{id}
+    defaults: { _controller: VeloBundle:Event:deleteEvent }

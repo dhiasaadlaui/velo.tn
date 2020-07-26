@@ -2,6 +2,7 @@
 
 namespace VeloBundle\Entity;
 
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -74,9 +75,26 @@ class User
      */
     protected $claim;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection|\VeloBundle\Entity\Event[]
+     *
+     * @ORM\ManyToMany(targetEntity="VeloBundle\Entity\Event", inversedBy="subscribers", fetch="LAZY")
+     * @ORM\JoinTable(
+     *  name="user_event",
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     *  }
+     * )
+     */
+    protected $subscribedEvents;
+
 
     public function __construct() {
         $this->claim = new ArrayCollection();
+        $this->subscribedEvents = new ArrayCollection();
     }
 
     /**
@@ -246,6 +264,32 @@ class User
     public function setClaim($claim)
     {
         $this->claim = $claim;
+    }
+    /**
+     * @return Collection|\VeloBundle\Entity\Event[]
+     */
+    public function getSubscribedEvents()
+    {
+        return $this->subscribedEvents;
+    }
+
+    public function addSubscribedEvent(\VeloBundle\Entity\Event $subscribedEvent)
+    {
+        if (!$this->subscribedEvents->contains($subscribedEvent)) {
+            $this->subscribedEvents[] = $subscribedEvent;
+        }
+
+        return $this;
+    }
+
+
+    public function removeSubscribedEvent(\VeloBundle\Entity\Event $subscribedEvent)
+    {
+        if ($this->subscribedEvents->contains($subscribedEvent)) {
+            $this->subscribedEvents->removeElement($subscribedEvent);
+        }
+
+        return $this;
     }
 
 }

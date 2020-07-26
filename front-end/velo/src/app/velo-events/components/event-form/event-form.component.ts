@@ -119,8 +119,8 @@ export class EventFormComponent implements OnInit {
    let event:EventEntity = new EventEntity();
    console.log(data.locationSart)
    event.location = "data.locationSart";
-   event.start_date = 55515158;
-   event.end_date = 454154544;
+   event.start_date = "55515158";
+   event.end_date = "454154544";
    event.event_name = data.title;
    event.distance = 5548485;
    event.is_theme = false;
