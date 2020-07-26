@@ -1,10 +1,14 @@
 <header></header>
 <body>
-<div style="text-align:center;margin-top:20px" *ngIf="isVolunteer">
-    <p class="text-justify">You are already a volunteer, you can update your disponibility</p>
-</div>
-<div >
-    <h3>Become volunteer</h3>
+  <div style="margin-top: 20%;"></div>
+  <section class="home__form">
+    <div class="container">
+        <div class="home__form-container text-center">
+           <h3>Become Volonteer</h3>
+            <div *ngIf="isVolunteer">
+                <p class="text-justify">You are already a volunteer, you can update your disponibility</p>
+            </div>
+            <div>
     <p-calendar [(ngModel)]="value" (ngModelChange)="AddDate()" [showIcon]="true">
 
     </p-calendar>
@@ -22,6 +26,9 @@
 
 </form>
 </div>
+        </div>
+    </div>
+</section>
 
     
 </body>

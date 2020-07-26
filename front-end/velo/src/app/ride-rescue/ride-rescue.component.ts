@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {MenuItem} from 'primeng/api';
-
+import {AuthenticationService} from '../core/services/authentication.service';
+import { User } from './model/User';
 
 @Component({
   selector: 'app-ride-rescue',
@@ -10,9 +11,10 @@ import {MenuItem} from 'primeng/api';
 })
 export class RideRescueComponent implements OnInit {
 
+  currentUser : User;
   items: MenuItem[];
   activeItem: MenuItem;
-  constructor() { }
+  constructor(private authserv:AuthenticationService) { }
 
   ngOnInit() {
     this.items = [
@@ -26,6 +28,13 @@ export class RideRescueComponent implements OnInit {
       {label: 'Stats', icon: 'pi pi-chart-bar' , routerLink: ['stats']}
         ];
     this.activeItem = this.items[0];
+    this.currentUser = this.authserv.getCurrentUser();
+  }
+
+  logout()
+  {
+    this.currentUser = null ; 
+    this.authserv.logout();
   }
   
 

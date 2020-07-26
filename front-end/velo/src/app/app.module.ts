@@ -14,16 +14,20 @@ import { TopNavBarComponent } from './core/components/top-nav-bar/top-nav-bar.co
 import { FooterComponent } from './core/components/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';
 import { CategoryService } from './core/services/CategoryService';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopNavBarComponent,
     FooterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
   ],
-  providers: [CategoryService],
+  providers: [CategoryService,
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

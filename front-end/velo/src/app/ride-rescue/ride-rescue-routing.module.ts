@@ -9,15 +9,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { RideRescueComponent } from './ride-rescue.component';
+import { AuthGuard } from '../_guards/auth.guard';
 
 const routes: Routes = [{ path: '', component: RideRescueComponent },
-                        {path: 'login', component: EnrollComponent},
-                        {path: 'claim', component: ClaimComponent},
-                        {path: 'claims', component: ClaimwatcherComponent},
-                        {path: 'stats', component: StatsComponent},
-                        {path: 'disp', component: DisponibilityComponent},
-                        {path: 'assigned', component: AssginedtomeComponent},
-                        {path: 'assign', component: AssignComponent},
+                        {path: 'login', component: EnrollComponent, canActivate: [AuthGuard]},
+                        {path: 'claim', component: ClaimComponent, canActivate: [AuthGuard]},
+                        {path: 'claims', component: ClaimwatcherComponent, canActivate: [AuthGuard]},
+                        {path: 'stats', component: StatsComponent, canActivate: [AuthGuard]},
+                        {path: 'disp', component: DisponibilityComponent, canActivate: [AuthGuard]},
+                        {path: 'assigned', component: AssginedtomeComponent, canActivate: [AuthGuard]},
+                        {path: 'assign', component: AssignComponent, canActivate: [AuthGuard]},
                         ];
 
 @NgModule({
