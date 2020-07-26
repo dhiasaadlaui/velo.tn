@@ -6,11 +6,12 @@
             <div class="note">
                 <p>Event of type Category Example Form.</p>
             </div>
+            {{step}}
             <div class="form-content">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.title">
-                            <h4>Title</h4>
+                            <h4>Title {{step.title}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox formControlName="title" placeholder="First Name" floatLabelType="Auto"></ejs-textbox>
                                   <div *ngIf="eventForm.controls.title.invalid && (eventForm.controls.title.dirty || eventForm.controls.title.touched)" class="alert alert-danger">
@@ -19,7 +20,7 @@
                             </div>
                         </div>
                         <div class="form-group" *ngIf="step.location_start">
-                            <h4>Location Start</h4>
+                            <h4>Location Start {{step.location_start}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox formControlName="locationSart" placeholder="Location Start" floatLabelType="Auto"></ejs-textbox>
                                 <div *ngIf="eventForm.controls.locationSart.invalid && (eventForm.controls.locationSart.dirty || eventForm.controls.locationSart.touched)" class="alert alert-danger">
@@ -30,7 +31,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.location_end">
-                            <h4>Location End</h4>
+                            <h4>Location End {{step.location_end}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox formControlName="locationEnd" placeholder="Location End" floatLabelType="Auto"></ejs-textbox>
                                 <div *ngIf="eventForm.controls.locationEnd.invalid && (eventForm.controls.locationEnd.dirty || eventForm.controls.locationEnd.touched)" class="alert alert-danger">
@@ -38,8 +39,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" *ngIf="step.start_date">
-                            <h4>Start Day</h4>
+                        <div class="form-group" *ngIf="step.start_day">
+                            <h4>Start Day {{step.start_day}} </h4>
                             <div class='textboxes'>
                                 <ejs-datepicker formControlName="startDay" [value]='dateValue' placeholder='Enter date'></ejs-datepicker>
                                 <div *ngIf="eventForm.controls.startDay.invalid && (eventForm.controls.startDay.dirty || eventForm.controls.startDay.touched)" class="alert alert-danger">
@@ -48,18 +49,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group" *ngIf="step.end_date">
-                            <h4>End Day</h4>
-                            <div class='textboxes'>
-                                <ejs-datepicker formControlName="endDay" [value]='dateValue' placeholder='Enter date'></ejs-datepicker>
-                                <div *ngIf="eventForm.controls.endDay.invalid && (eventForm.controls.endDay.dirty || eventForm.controls.endDay.touched)" class="alert alert-danger">
-                                    End Day is required.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group" *ngIf="step.repeat">
-                            <h4>Repeat drop down day week mounth year</h4>
+                    <div class="col-md-12">                     
+                        <div class="form-group" *ngIf="step.rep">
+                            <h4>Repeat drop down day week mounth year {{step.rep}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox formControlName="repeat"  placeholder="Repeat" floatLabelType="Auto"></ejs-textbox>
                                 <div *ngIf="eventForm.controls.repeat.invalid && (eventForm.controls.repeat.dirty || eventForm.controls.repeat.touched)" class="alert alert-danger">
@@ -69,9 +61,8 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-
-                        <div class="form-group" *ngIf="step.end_repeat">
-                            <h4>repeatDay</h4>
+                        <div class="form-group" *ngIf="step.rep">
+                            <h4>repeatDay {{step.rep}}</h4>
                             <div class='textboxes'>
                                 <ejs-datepicker formControlName="repeatDay"  placeholder='Enter date'></ejs-datepicker>
                                 <div *ngIf="eventForm.controls.repeatDay.invalid && (eventForm.controls.repeatDay.dirty || eventForm.controls.repeatDay.touched)" class="alert alert-danger">
@@ -80,7 +71,7 @@
                             </div>
                         </div>
                         <div class="form-group" *ngIf="step.end_repeat">
-                            <h4>End Repeat DatePicker</h4>
+                            <h4>End Repeat DatePicker end_repeat</h4>
                             <div class='textboxes'>
                                 <ejs-datepicker formControlName="endRepeat"  placeholder='Enter date'></ejs-datepicker>
                                 <div *ngIf="eventForm.controls.endRepeat.invalid && (eventForm.controls.endRepeat.dirty || eventForm.controls.endRepeat.touched)" class="alert alert-danger">
@@ -89,7 +80,7 @@
                             </div>
                         </div>
                         <div class="form-group" *ngIf="step.rule">
-                            <h4>Rule</h4>
+                            <h4>Rule {{step.rule}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox formControlName="rule"  placeholder="Rule" floatLabelType="Auto"></ejs-textbox>
                                 <div *ngIf="eventForm.controls.rule.invalid && (eventForm.controls.rule.dirty || eventForm.controls.rule.touched)" class="alert alert-danger">
@@ -100,7 +91,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.gender">
-                            <h4>Gender</h4>
+                            <h4>Gender {{step.gender}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox formControlName="gender"  placeholder="Gender" floatLabelType="Auto"></ejs-textbox>
                                 <div *ngIf="eventForm.controls.gender.invalid && (eventForm.controls.gender.dirty || eventForm.controls.gender.touched)" class="alert alert-danger">
@@ -109,7 +100,7 @@
                             </div>
                         </div>
                         <div class="form-group" *ngIf="step.age">
-                            <h4>Age</h4>
+                            <h4>Age {{step.age}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox formControlName="age" placeholder="Age" floatLabelType="Auto"></ejs-textbox>
                                 <div *ngIf="eventForm.controls.age.invalid && (eventForm.controls.age.dirty || eventForm.controls.age.touched)" class="alert alert-danger">
@@ -120,7 +111,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.difficulty">
-                            <h4>Difficulty</h4>
+                            <h4>Difficulty {{step.difficulty}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox formControlName="difficulty" placeholder="Difficulty" floatLabelType="Auto"></ejs-textbox>
                                 <div *ngIf="eventForm.controls.difficulty.invalid && (eventForm.controls.difficulty.dirty || eventForm.controls.difficulty.touched)" class="alert alert-danger">
@@ -130,8 +121,19 @@
                         </div>
                     </div>
                     <div class="col-md-12">
+                        <div class="form-group" *ngIf="step.end_day">
+                            <h4>End Day   {{step.end_day}}</h4>
+                            <div class='textboxes'>
+                                <ejs-textbox formControlName="end_day" placeholder="end_day" floatLabelType="Auto"></ejs-textbox>
+                                <div *ngIf="eventForm.controls.end_day.invalid && (eventForm.controls.end_day.dirty || eventForm.controls.end_day.touched)" class="alert alert-danger">
+                                    end_day is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
                         <div class="form-group" *ngIf="step.theme">
-                            <h4>Theme</h4>
+                            <h4>Theme {{step.theme}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox  formControlName="theme" placeholder="Theme" floatLabelType="Auto"></ejs-textbox>
                                 <div *ngIf="eventForm.controls.theme.invalid && (eventForm.controls.theme.dirty || eventForm.controls.theme.touched)" class="alert alert-danger">
@@ -140,7 +142,7 @@
                             </div>
                         </div>
                         <div class="form-group" *ngIf="step.association_name">
-                            <h4>Association Name</h4>
+                            <h4>Association Name {{step.association_name}}</h4>
                             <div class='textboxes'>
                                 <ejs-textbox formControlName="associationName" placeholder="Association Name" floatLabelType="Auto"></ejs-textbox>
                                 <div *ngIf="eventForm.controls.associationName.invalid && (eventForm.controls.associationName.dirty || eventForm.controls.associationName.touched)" class="alert alert-danger">
@@ -148,6 +150,7 @@
                                 </div>
                             </div>
                         </div>
+                        <h1>{{step.diagrame}}</h1>
                         <ejs-diagram   *ngIf="step.diagrame" #diagram id="diagram" width="100%" height="580px"
                             [getNodeDefaults]='getNodeDefaults' [getConnectorDefaults]="getConnectorDefaults"
                             (created)='created($event)'>

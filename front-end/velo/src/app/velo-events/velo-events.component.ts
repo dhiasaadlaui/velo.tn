@@ -90,7 +90,7 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
  * Creates an instance of VeloEventsComponent.
  */
   constructor(private eventConfigService: EventConfigService, private eventServ: EventService,
-    private route: ActivatedRoute, private router: Router, private userService: UserService
+    private route: ActivatedRoute, private router: Router, public userService: UserService
   ) {
     $(document).ready(function () {
       $(document).on("click", ".inactive-form", function () {
@@ -174,7 +174,9 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
             //RecurrenceRule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1',
             CategoryColor: '#357cd2'
           });
-         this.scheduleObj.eventSettings.dataSource = localArrayObject;
+          if(typeof this.scheduleObj!= 'undefined'){
+            this.scheduleObj.eventSettings.dataSource = localArrayObject;
+          }
       });
     });
     this.eventServ.loadAll();

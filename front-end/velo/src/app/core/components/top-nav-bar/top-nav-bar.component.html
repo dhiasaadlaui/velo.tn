@@ -67,7 +67,7 @@
 </nav>
 
 <!-- Navigation -->
-<nav *ngIf="!showAdminTopNav" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav *ngIf="DontshowAdminTopNav" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="#">Start Bootstrap</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -88,7 +88,7 @@
           <a class="nav-link" href="#">Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" [routerLink]="['/home']">Login</a>
         </li>
       </ul>
     </div>

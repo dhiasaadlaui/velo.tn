@@ -78,6 +78,7 @@ export class EventFormComponent implements OnInit {
     let gender = new FormControl();
     let age = new FormControl();
     let difficulty = new FormControl();
+    let end_day = new FormControl();
     let diagrame = new FormControl();
     let theme = new FormControl();
     let associationName = new FormControl();
@@ -96,6 +97,7 @@ export class EventFormComponent implements OnInit {
       difficulty: difficulty,
       diagrame: diagrame,
       theme: theme,
+      end_day:end_day,
       associationName: associationName
     })
     title.setValidators(Validators.required)
