@@ -30,6 +30,10 @@ velo_Addclaims: ##ADD CLAIMS
     path:     /addclaim
     defaults: { _controller: VeloBundle:ClaimController:add }
 
+velo_getEventById: ##ADD CLAIMS
+    path:     /getEvent/{id}
+    defaults: { _controller: VeloBundle:Event:getEvent }
+
 velo_getEvents: ##ADD CLAIMS
     path:     /getEvents
     defaults: { _controller: VeloBundle:Event:getEvents }
@@ -45,3 +49,5 @@ velo_updateEvents: ##UPDATE EVENT
 velo_deleteEvent: ##UPDATE EVENT
     path:     /deleteEvent/{id}
     defaults: { _controller: VeloBundle:Event:deleteEvent }
+
+

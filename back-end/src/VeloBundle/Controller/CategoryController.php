@@ -4,6 +4,7 @@ namespace VeloBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use VeloBundle\Entity\Category;
+use VeloBundle\Entity\Step;
 use VeloBundle\Entity\Event;
 use VeloBundle\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,31 +80,28 @@ class CategoryController extends Controller
 
     }
 
+
     /**
      * @Rest\Post("/createCategory")
      */
     public function createCategory(Request $request)
     {
-        $request = $this->transformJsonBody($request);
-        if (!$request) {
-            return $this->respondValidationError('Please provide a valid request!');
-        }
-
-        // validate Variables Needed !!!!!
-        if (! $request->get('categoryName')) {
-            return $this->respondValidationError('Please provide a categoryName!');
-        }
-        // Create and persist the new event Config using cascade since that the relation is composition oneToOne
-        $category = $this->category($request);
-        $this->entityManager->persist($category);
-        $this->entityManager->flush();
-        $jsonObject = $this->serializer->serialize($category, 'json', [
+        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
+        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $this->serializer = new Serializer($this->normalizers, $this->encoders);
+        //récupérer le contenu de la requête envoyé par l'outil postman
+            $em = $this->getDoctrine()->getManager();
+            $data = $request->getContent();
+            //$step=$em->getRepository(Step::class)->findOneBy(['id' => $id]);
+            $category = $this->get('jms_serializer')->deserialize($data, 'VeloBundle\Entity\Category', 'json');
+            $em ->persist($category);
+            $em->flush();
+           $jsonObject = $this->serializer->serialize($category, 'json', [
             'circular_reference_handler' => function ($object) {
                 return $object->getId();
             }
         ]);
-        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
-    }
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);    }
 
 
 
@@ -148,6 +146,23 @@ class CategoryController extends Controller
 
         $jsonObject = $this->serializer($event, $this->serializer);
         return $this->respond($jsonObject);
+    }
+
+
+
+    /**
+     * @Rest\Delete("/deleteCategory/{id}")
+     */
+    public function deleteEventAction($id)
+    {
+        $data = $this->getDoctrine()->getManager()->getRepository(Category::class)->findOneBy(['id' => $id]);
+        if (!$data) {
+            return $this->respondValidationError('No EventConfig entity with this (id = ' . $id .") ". 'exist');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($data);
+        $em->flush();
+
     }
 
     /**

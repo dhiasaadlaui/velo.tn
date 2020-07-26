@@ -78,9 +78,12 @@ class EventController extends ApiController
      */
     public function getEventAction($id)
     {
-        $event = $this->getDoctrine()->getManager()->findOneBy(['id' => $id]);
-        // $jsonObject = $this->serializer($event,$this->serializer);
-        //return $this->respond($jsonObject);
+        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
+        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $this->serializer = new Serializer($this->normalizers, $this->encoders);
+         // Create and persist the new event Config using cascade since that the relation is composition oneToOne
+        $event = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(['id' => $id]);
+
         $jsonObject = $this->serializer->serialize($event, 'json', [
             'circular_reference_handler' => function ($object) {
                 return $object->getId();
