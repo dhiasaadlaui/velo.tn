@@ -60,7 +60,7 @@ class UserControllerController extends Controller
 
         }
         $user->setIsVolunteer(true);
-        $em->persist($user);
+        $em->merge($user);
         $em->flush();
         return new JsonResponse(["msg"=>"success"],200);
 
