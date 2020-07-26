@@ -126,4 +126,13 @@ class UserControllerController extends Controller
         return $response;
     }
 
+    public function getUserCredAction(Request $req,$login,$password)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $users=$em->getRepository(User::class)->findBy(array("login" => $login,"password" =>$password));
+        $data=$this->get('jms_serializer')->serialize($users,'json');
+        $response=new Response($data);
+        return $response;
+    }
+
 }

@@ -35,6 +35,10 @@ velo_getAssign: ##UPDATE_DISPONIB USER
     path:     /getassigned/{id}
     defaults: { _controller: VeloBundle:UserController:getAssigned }
 
+velo_logme: ##LOGIN USER
+    path:     /getcredential/{login}/{password}
+    defaults: { _controller: VeloBundle:UserController:getUserCred }
+
 ####CLAIM SECTION
 
 velo_claims: ##GET ALL CLAIMS
