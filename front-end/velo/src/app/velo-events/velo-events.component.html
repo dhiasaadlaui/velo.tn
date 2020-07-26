@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-2"><button (click)="find()" type="submit" class="btn btn-danger">Submit
+                    <div class="col-2"><button (click)="showMyEvents()" type="submit" class="btn btn-danger">Submit
                             Now!</button></div>
                 </div>
 
@@ -196,7 +196,7 @@
             (toolbarClick)='handleToolBarClicks($event)'>
             <e-columns>
                 <e-column field='event_name' headerText='Event Name' width='120' textAlign='Right'
-                    [isPrimaryKey]='true'></e-column>
+                   ></e-column>
                 <e-column field='distance' headerText='Distance' width='120'></e-column>
                 <e-column field='location' headerText='Location' width='120' format='C2' textAlign='Right'></e-column>
                 <e-column field='start_date' headerText='Start Date' width='150'></e-column>
