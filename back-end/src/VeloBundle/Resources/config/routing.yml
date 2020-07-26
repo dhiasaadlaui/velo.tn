@@ -21,7 +21,22 @@ velo_updateuser: ##UPDATE USER
 velo_deleteuser: ##DELETE USER
     path:     /deleteuser/{id}
     defaults: { _controller: VeloBundle:UserController:deleteUser }
+
+velo_userdispo: ##DISPONIBILITY USER
+
+    path:     /disponibility/{id}
+    defaults: { _controller: VeloBundle:UserController:getDisponibility }
+velo_PUTdispo: ##UPDATE_DISPONIB USER
+
+    path:     /updatedisp/{id}
+    defaults: { _controller: VeloBundle:UserController:updateDisp }
+
+velo_getAssign: ##UPDATE_DISPONIB USER
+    path:     /getassigned/{id}
+    defaults: { _controller: VeloBundle:UserController:getAssigned }
+
 ####CLAIM SECTION
+
 velo_claims: ##GET ALL CLAIMS
     path:     /getclaims
     defaults: { _controller: VeloBundle:ClaimController:getclaims }
@@ -29,6 +44,23 @@ velo_claims: ##GET ALL CLAIMS
 velo_Addclaims: ##ADD CLAIMS
     path:     /addclaim
     defaults: { _controller: VeloBundle:ClaimController:add }
+velo_Deleteclaims: ##Delete CLAIMS
+    path:     /deleteclaim/{id}
+    defaults: { _controller: VeloBundle:ClaimController:deleteClaim }
+velo_Updateclaims: ##Update CLAIMS
+    path:     /updateclaim/{id}
+    defaults: { _controller: VeloBundle:ClaimController:updateClaim }
+velo_assignclaim: ##assign CLAIMS
+    path:     /assign/{userid}/{claimid}
+    defaults: { _controller: VeloBundle:ClaimController:assign }
+velo_updateAssignedclaim: ##assign CLAIMS
+    path:     /updateassignclaim/{id}
+    defaults: { _controller: VeloBundle:ClaimController:updateAssignedClaim }
+###STAT SECTION
+velo_stat: ##assign CLAIMS
+    path:     /getstats/
+    defaults: { _controller: VeloBundle:ClaimController:getstats }
+
 
 velo_getEvents: ##ADD CLAIMS
     path:     /getEvents

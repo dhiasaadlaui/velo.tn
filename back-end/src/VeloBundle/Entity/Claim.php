@@ -52,7 +52,7 @@ class Claim
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="VeloBundle\Entity\User", inversedBy="claim" , cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="VeloBundle\Entity\User", inversedBy="claim" , cascade={"persist"})
      * @ORM\JoinColumn(name="claim_id", referencedColumnName="id")
      * @Type("VeloBundle\Entity\User")
      */
@@ -65,6 +65,12 @@ class Claim
      */
     private $marker;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="phone", type="integer")
+     */
+    private $phone;
 
     /**
      * Get id
@@ -204,6 +210,20 @@ class Claim
         $this->marker = $marker;
     }
 
+    /**
+     * @return int
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
 
+    /**
+     * @param int $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
 }
 
