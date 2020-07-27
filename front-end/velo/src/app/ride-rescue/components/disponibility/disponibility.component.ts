@@ -27,7 +27,7 @@ export class DisponibilityComponent implements OnInit {
   constructor(private userService : UserServiceService,private authserv:AuthenticationService) { }
 
   ngOnInit() {
-    this.currentUser = this.authserv.getCurrentUser();
+    this.currentUser = this.authserv.getCurrentUser;
     this.userService.getAll().subscribe((data: User[])=>this.userList = data);
     //this.events = getCurrentUser()
     // dirty to be refactored when adding authentification

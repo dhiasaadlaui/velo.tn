@@ -40,7 +40,7 @@ export class ClaimComponent implements OnInit {
       center: {lat: 36.816609, lng: 10.173111},
       zoom: 12
         };
-   this.currentUser = this.authserv.getCurrentUser() ;
+   this.currentUser = this.authserv.getCurrentUser ;
    this.userService.getAll().subscribe((data: User[])=>this.userList = data);
   }
 

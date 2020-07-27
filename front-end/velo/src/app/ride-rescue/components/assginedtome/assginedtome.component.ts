@@ -34,7 +34,7 @@ export class AssginedtomeComponent implements OnInit {
 
   ngOnInit() {
     //current user ------- 
-    this.currentUser = this.authserv.getCurrentUser();
+    this.currentUser = this.authserv.getCurrentUser;
     this.userService.getAssignedTome(this.currentUser.id).subscribe((data: Claim[]) => this.claimList = data);
     this.states = [{name: 'TO BE APPROVED'},{name: 'CLOSED'}];
     

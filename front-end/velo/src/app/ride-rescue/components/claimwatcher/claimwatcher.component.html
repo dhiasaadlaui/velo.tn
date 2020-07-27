@@ -1,5 +1,13 @@
 <header></header>
 <body>
+  <div style="margin-top: 20%">
+    <div class="row h-100 align-items-center justify-content-center text-center" style="margin-top: 9%;">
+    <div class="col-lg-8 align-self-baseline"> 
+      <h1 class="text-uppercase"> List of Claims
+      </h1>
+      <hr class="divider my-4" />
+     </div>
+    </div>
 <p-table [columns]="cols" [value]="claimList" selectionMode="single" [(selection)]="selectedClaim" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
     <ng-template pTemplate="caption">
         List of Claims
@@ -36,16 +44,10 @@
             <input pInputText id="subject" [(ngModel)]="claim.subject" />
         </div>
         <div class="p-col-4">
-            <label for="status">status</label>
-        </div>
+          <label for="status">status</label>
+      </div>
         <div class="p-col-8">
-            <input pInputText id="status" [(ngModel)]="claim.status" />
-        </div>
-        <div class="p-col-4">
-            <label for="color">level</label>
-        </div>
-        <div class="p-col-8">
-            <input pInputText id="level" [(ngModel)]="claim.level" />
+          <p-listbox [options]="states" [(ngModel)]="selectedState" optionLabel="name"></p-listbox>
         </div>
     </div>
    
@@ -58,6 +60,7 @@
         </div>
     </p-footer>
 </p-dialog>
+</div>
 </body>
 <footer class="site-footer bg-dark" style="margin-bottom: 0px;" >
     <div class="container">
