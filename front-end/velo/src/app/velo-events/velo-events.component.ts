@@ -198,12 +198,7 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
     //let localDate = new Date(this.event$.startDate * 1000);
 
   }// -> ** ON INIT END
-  ngOnDestroy(): void {
-    this.eventSubscription$.unsubscribe();
-  }
-
-
-
+  
 
   /**
  * Handle PopUp CloseEvent "Calendar".
@@ -405,6 +400,11 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
       this.eventServ.loadAll()
     }
 
+  }
+
+
+  ngOnDestroy(): void {
+    this.eventSubscription$.unsubscribe();
   }
 
   get event_name(): AbstractControl { return this.orderForm.get('event_name'); }

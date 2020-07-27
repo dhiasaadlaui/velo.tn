@@ -2,6 +2,7 @@
 
 namespace VeloBundle\Entity;
 
+use VeloBundle\Entity\TimeStamps\TimeStamps;
 use VeloBundle\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,9 +12,12 @@ use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {
+    use TimeStamps;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -45,10 +49,7 @@ class Category
     private $step;
 
 
-    /**
-     * @ORM\OneToMany(targetEntity="VeloBundle\Entity\Event", mappedBy="category",  fetch="EXTRA_LAZY")
-     */
-    protected $events;
+
 
 
     public function __construct()
@@ -76,38 +77,6 @@ class Category
     public function setCategoryImg($categoryImg)
     {
         $this->categoryImg = $categoryImg;
-
-        return $this;
-    }
-
-
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvents()
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event)
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event)
-    {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
-            // set the owning side to null (unless already changed)
-            if ($event->getCategory() === $this) {
-                $event->setCategory(null);
-            }
-        }
 
         return $this;
     }

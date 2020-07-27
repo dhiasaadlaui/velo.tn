@@ -3,15 +3,19 @@
 namespace VeloBundle\Entity;
 
 use Twig\Node\Node;
+use VeloBundle\Entity\TimeStamps\TimeStamps;
 use VeloBundle\Repository\EventConfigRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass=EventConfigRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class EventConfig
 {
+    use TimeStamps;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

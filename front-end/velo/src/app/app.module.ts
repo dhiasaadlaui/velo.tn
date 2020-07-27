@@ -16,7 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';
-import { CategoryService } from './core/services/CategoryService';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
@@ -47,8 +46,6 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     AutoCompleteModule,
     FormsModule,
     ReactiveFormsModule
-
-
   ],
   providers: [CategoryService,
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

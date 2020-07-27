@@ -4,15 +4,19 @@ namespace VeloBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use VeloBundle\Entity\TimeStamps\TimeStamps;
 
 /**
  * ConnectorEvent
  *
  * @ORM\Table(name="connector_event")
  * @ORM\Entity(repositoryClass="VeloBundle\Repository\ConnectorEventRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class ConnectorEvent
 {
+    use TimeStamps;
+
     /**
      * @var int
      *
