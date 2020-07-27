@@ -50,13 +50,19 @@
                     <cite title="Source Title">Source Title</cite>
                 </footer>
             </blockquote>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat
-                totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam
-                tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae?
-                Qui, necessitatibus, est!</p>
+            <button (click)="initDiagrame()">diagrame </button>
+            <h5 class="card-header">Side Widget</h5>
+            <ejs-diagram #diagram id="diagram" width="100%" height="580px" [getNodeDefaults]='getNodeDefaults'
+                [getConnectorDefaults]="getConnectorDefaults" (created)='created($event)'>
+                <e-nodes>
+                   
+                </e-nodes>
+                <e-connectors>
+                    <e-connector *ngFor="let connector of obj" id='connector' type='Orthogonal' [sourcePoint]='connector.sourcePoint1'
+                        [targetPoint]='connector.targetPoint1'>
+                    </e-connector>
+                </e-connectors>
+            </ejs-diagram>
 
             <hr>
 
@@ -128,7 +134,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for...">
                         <span class="input-group-append">
-                            <button class="btn btn-secondary" type="button">Go!</button>
+                            <button (click)="asynch()"class="btn btn-secondary" type="button">Go!</button>
                         </span>
                     </div>
                 </div>

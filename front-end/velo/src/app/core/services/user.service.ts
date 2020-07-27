@@ -11,7 +11,7 @@ export class UserService {
 
 
   getCurrentUser(): User {
-    return { username: 'admin' };
+    return { username: 'Dhia' };
   }
 
   getCurrentRoles() {

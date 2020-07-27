@@ -1,3 +1,5 @@
+import { EventConfig } from './EventConfig';
+
 interface EventEntityArgs {
     id?:number;
     event_name?: string;
@@ -25,6 +27,7 @@ export class EventEntity {
     creator_user_id:string
     subscribers:any[];
     subscribersCount?:number;
+    event_config: EventConfig;
 
     constructor(args: EventEntityArgs = {}) {
         this.id = args.id;

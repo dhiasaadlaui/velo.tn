@@ -180,6 +180,7 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
       });
     });
     this.eventServ.loadAll();
+    // INIT TABLE HEADER
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
     this.toolbar = ['Add', 'Edit', 'Delete',
       { text: 'Archive', tooltipText: 'Archive', prefixIcon: 'e-save', id: 'Archive' },
@@ -339,6 +340,7 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
           if (this.operationTobeExecuted === 'update') {
             console.log('UPDATE START ......')
             this.eventServ.update(eventLocal);
+            this.eventServ.loadAll()
           } else if (this.operationTobeExecuted === 'create') {
             if (eventLocal.is_archived == null) {
               eventLocal.is_archived = false;

@@ -1,5 +1,5 @@
 <div class="container register-form">
-    <button type="button" (click)="prop()">Save Button</button>
+    <button type="button" (click)="testDiagrame()">Save Button</button>
 
     <div class="form" >
         <form [formGroup]="eventForm" (ngSubmit)="saveEvent(eventForm.value)">
@@ -156,8 +156,6 @@
                             (created)='created($event)'>
                             <e-nodes>
                                 <e-node id='node1' [offsetX]=100 [offsetY]=100>
-                                </e-node>
-                                <e-node id='node2' [offsetX]=240 [offsetY]=100>
                                 </e-node>
                             </e-nodes>
                             <e-connectors>
