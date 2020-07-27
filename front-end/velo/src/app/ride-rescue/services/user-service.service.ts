@@ -1,8 +1,8 @@
 import { Claim } from './../model/Claim';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../model/User';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Disponibility } from '../model/Disponibility';
 
@@ -10,6 +10,7 @@ import { Disponibility } from '../model/Disponibility';
   providedIn: 'root'
 })
 export class UserServiceService {
+  errorMsg: string;
 
   constructor(private httpcl:HttpClient) { }
 
@@ -127,16 +128,32 @@ updateDisp(user : User): Observable<User>{
    return this.httpcl.post("http://localhost/BackendSF/web/app_dev.php/assign/"+user+"/"+claim,user ,{
   headers: httpHeaders,
   observe: 'response'}
-  
   ).pipe(
-    map(res => res.status),
-    catchError(this.handleError)
+    catchError(error => {
+      if (error.error) {
+          this.errorMsg = this.getServerErrorMessage(error);
+      }
+        console.log("THROWNING ERROR");
+      return throwError(this.errorMsg);
+  })
   );;
   
  }
 
  getAssignedTome(user : number){
-  return this.httpcl.get("http://localhost/BackendSF/web/app_dev.php/getassigned/"+user);
+  return this.httpcl.get("http://localhost/BackendSF/web/app_dev.php/getassigned/"+user)
+  return this.httpcl
+  .get("http://localhost/BackendSF/web/app_dev.php/getassigned/"+user)
+  .pipe(
+      catchError(error => {
+          
+          if (error.error) {
+              this.errorMsg = this.getServerErrorMessage(error);
+          }
+            console.log("THROWNING ERROR");
+          return throwError(this.errorMsg);
+      })
+  );
   
 }
 
@@ -147,6 +164,24 @@ getStats(){
  private handleError(error: any): Promise<any> {
   console.log('An error occurred', error , "+ ");
   return Promise.reject(error.message || error);
+}
+
+private getServerErrorMessage(error: HttpErrorResponse): string {
+  switch (error.status) {
+      case 404: {
+          return `Not Found: ${error.message}`;
+      }
+      case 403: {
+          return `Access Denied: ${error.message}`;
+      }
+      case 500: {
+          return `Internal Server Error: ${error.message}`;
+      }
+      default: {
+          return `Unknown Server Error: ${error.message}`;
+      }
+
+  }
 }
 
 }

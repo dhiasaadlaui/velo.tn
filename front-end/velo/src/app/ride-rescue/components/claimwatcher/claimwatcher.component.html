@@ -49,6 +49,12 @@
         <div class="p-col-8">
           <p-listbox [options]="states" [(ngModel)]="selectedState" optionLabel="name"></p-listbox>
         </div>
+        <div class="p-col-4">
+          <label for="phone">phone</label>
+      </div>
+      <div class="p-col-8">
+          <input pInputText id="phone" [(ngModel)]="claim.phone" />
+      </div>
     </div>
    
         
