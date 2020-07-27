@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  basePath: 'http://localhost:8000'
+   basePath: 'http://localhost:8000'
 
-};
+ };
 
 /*
  * For easier debugging in development mode, you can import the following file

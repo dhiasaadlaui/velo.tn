@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use VeloBundle\Entity\TimeStamps\TimeStamps;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -71,7 +72,9 @@ class Event
     private $creatorUserId;
 
     /**
-     * @ORM\OneToOne(targetEntity="VeloBundle\Entity\EventConfig", mappedBy="event",  cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="VeloBundle\Entity\EventConfig", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="config_id", referencedColumnName="id" , )
+     * @Type("VeloBundle\Entity\EventConfig")
      */
     private $eventConfig;
 
@@ -218,13 +221,6 @@ class Event
     public function setEventConfig(EventConfig $eventConfig)
     {
         $this->eventConfig = $eventConfig;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newEvent = null === $eventConfig ? null : $this;
-        if ($eventConfig->getEvent() !== $newEvent) {
-            $eventConfig->setEvent($newEvent);
-        }
-
         return $this;
     }
 

@@ -13,6 +13,10 @@ export class ClaimwatcherComponent implements OnInit {
 
   claimList: Claim[];
 
+  states: any[];
+
+  selectedState: any;
+  
   selectedClaim: Claim;
 
   displayDialog: boolean;
@@ -33,9 +37,11 @@ export class ClaimwatcherComponent implements OnInit {
       { field: 'title', header: 'title' },
       { field: 'subject', header: 'subject' },
       { field: 'status', header: 'status' },
-      { field: 'level', header: 'level' }
+      { field: 'level', header: 'level' },
+      { field: 'phone', header: 'phone' }
   ];
-  this.currentUser = this.authserv.getCurrentUser() ;
+  this.states = [{name: 'CLOSED'},{name: 'PENDING'}];
+  this.currentUser = this.authserv.getCurrentUser;
   }
 /**
    * must be secured the only the claims ower 
@@ -50,7 +56,9 @@ export class ClaimwatcherComponent implements OnInit {
       let claims = [...this.claimList];
        claims[this.claimList.indexOf(this.selectedClaim)] = this.claim;
        console.log(this.selectedClaim);
-      this.claimList = claims;
+       this.claimList = claims;
+       if(this.selectedState)
+       this.claim.status = this.selectedState.name ;
       this.userService.updateClaim(this.claim).subscribe(resp => error = resp);
       this.claim = null;
       this.displayDialog = false;
@@ -61,12 +69,15 @@ export class ClaimwatcherComponent implements OnInit {
 delete() {
   // control on the current user
   let error;
+
+  if(this.currentUser.id == this.selectedClaim.user.id) {
   let index = this.claimList.indexOf(this.selectedClaim);
   console.log(this.selectedClaim);
   this.claimList = this.claimList.filter((val, i) => i != index);
   this.userService.deleteClaim(this.selectedClaim).subscribe(resp => error = resp);
   this.claim = null;
   this.displayDialog = false;
+  }else this.displayDialog = false;
   
 }
 

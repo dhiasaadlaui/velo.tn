@@ -53,26 +53,22 @@ class EventConfigController extends ApiController
      **/
     private $serializer;
 
-    public function __construct(EntityManagerInterface $entityManager, EventRepository $eventRepository,
-                                EventConfigRepository $eventConfigRepository)
-    {
-        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
-        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
-        $this->serializer = new Serializer($this->normalizers, $this->encoders);
-        $this->entityManager = $entityManager;
-        $this->eventRepository = $eventRepository;
-        $this->eventConfigRepository = $eventConfigRepository;
-    }
-
 
     /**
      * @Rest\Get("/config/getConfigs")
      */
     public function index()
     {
-        $eventConfigs = $this->eventConfigRepository->transformAll();
-        $jsonObject = $this->serializer($eventConfigs,$this->serializer);
-        return $this->respond($jsonObject);
+        $em=$this->getDoctrine()->getManager();
+        $events=$em->getRepository(EventConfig::class)->findAll();
+        $jsonObject = $this->serializer->serialize($events, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+        $response=new Response($jsonObject);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -81,7 +77,10 @@ class EventConfigController extends ApiController
      */
     public function getConfig($id)
     {
-         $eventConfig = $this->eventConfigRepository->findOneBy(['id' => $id]);
+        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
+        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $this->serializer = new Serializer($this->normalizers, $this->encoders);
+        $eventConfig = $this->getDoctrine()->getManager()->getRepository(EventConfig::class)->findOneBy(['id' => $id]);
         $jsonObject = $this->serializer($eventConfig,$this->serializer);
         return $this->respond($jsonObject);
     }
@@ -91,90 +90,59 @@ class EventConfigController extends ApiController
      */
     public function createConf(Request $request)
     {
-        $request = $this->transformJsonBody($request);
+        $this->encoders = [new JsonEncoder()];
+        // If no need for XmlEncoder
+        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $this->serializer = new Serializer($this->normalizers, $this->encoders);
+        //récupérer le contenu de la requête envoyé par l'outil postman
+        $data = $request->getContent();
+        //deserialize data: création d'un objet à partir des données json envoyées
+        $event = $this->get('jms_serializer')->deserialize($data, 'VeloBundle\Entity\EventConfig', 'json');
         if (!$request) {
             return $this->respondValidationError('Please provide a valid request!');
         }
 
-        // validate Variables Needed !!!!!
-        if (! $request->get('event')) {
-            return $this->respondValidationError('Please provide a event!');
-        }
-
         // Create and persist the new event Config using cascade since that the relation is composition oneToOne
-        $eventConfig = new EventConfig();
-        $event = $this->eventRepository->findOneBy([
-            'id' => $request->get('event')]);
-        // validate Variables Needed !!!!!
-        if (! $event) {
-            return $this->respondValidationError('No Event entity with this (id = ' . $request->get('event') .") ". 'exist');
-        }
-        //check not null event is needed
-        $eventConfig->setRep($request->get('rep'));
-        $eventConfig->setStatus($request->get('status'));
-        $eventConfig->setIsArchived($request->get('isArchived'));
-        $eventConfig->setDateRep($request->get('dateRep'));
-        $eventConfig->setShowDate($request->get('dateRep'));
-        $eventConfig->setCommentPermession($request->get('commentPermession'));
-        $eventConfig->setShowInviteList($request->get('showInviteList'));
-        $event->setEventConfig($eventConfig);
-
-        $this->entityManager->persist($event);
-        $this->entityManager->flush();
-
-        $jsonObject = $this->serializer($eventConfig, $this->serializer);
-        return $this->respond($jsonObject);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($event);
+        $em->flush();
+        $jsonObject = $this->serializer->serialize($event, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
     }
 
 
     /**
      * @Rest\Patch("/config/updateConfig/{id}")
      */
-    public function updateConfig(Request $request)
+    public function updateConfig(Request $request, $id)
     {
-        if (!$request) {
-            return $this->respondValidationError('Please provide a valid request!');
-        }
+        $data = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(['id' => $id]);
+        //récupérer le contenu de la requête envoyé par l'outil postman
+        $dataReq = $request->getContent();
+        //deserialize data: création d'un objet à partir des données json envoyées
+        $step = $this->get('jms_serializer')->deserialize($dataReq, 'VeloBundle\Entity\EventConfig', 'json');
 
-        if (! $request->get('id')) {
-            return $this->respondValidationError('Please provide an id!');
-        }
-        $eventConfig = $this->eventConfigRepository->findOneBy([
-            'id' => $request->get('id')
-        ]);
-
-        $event = $this->eventRepository->findOneBy([
-            'id' => $request->get('event')
-        ]);
-        // validate Variables Needed !!!!!
-        if (!$eventConfig) {
-            return $this->respondValidationError('No EventConfig entity with this (id = ' . $request->get('id') .") ". 'exist');
-        }
-
-        // validate Variables Needed !!!!!
-        if (! $request->get('event')) {
-            return $this->respondValidationError('Please provide an event!');
-        }
-
-        // validate Variables Needed !!!!!
-        if (!$event) {
-            return $this->respondValidationError('No EventConfig entity with this (id = ' . $request->get('id') .") ". 'exist');
-        }
-
-        $eventConfig->setRep($request->get('rep'));
-        $eventConfig->setStatus($request->get('status'));
-        $eventConfig->setIsArchived($request->get('isArchived'));
-        $eventConfig->setDateRep($request->get('dateRep'));
-        $eventConfig->setShowDate($request->get('dateRep'));
-        $eventConfig->setCommentPermession($request->get('commentPermession'));
-        $eventConfig->setShowInviteList($request->get('showInviteList'));
-        $event->setEventConfig($eventConfig);
-
-        $this->entityManager->persist($event);
-        $this->entityManager->flush();
-
-        $jsonObject = $this->serializer($eventConfig, $this->serializer);
-        return $this->respond($jsonObject);
+        $data->setLocationSart($step->getLocationSart());
+        $data->setLocationEnd($step->getLocationEnd());
+        $data->setStartDay($step->getStartDay());
+        $data->setEndDay($step->getEndDay());
+        $data->setRepeat($step->getRepeat());
+        $data->setEndRepeat($step->getEndRepeat());
+        $data->setRule($step->getRule());
+        $data->setGender($step->getGender());
+        $data->setAge($step->getAge());
+        $data->setDifficulty($step->getDifficulty());
+        $data->setTheme($step->getTheme());
+        $data->setAssociationName($step->getAssociationName());
+        // Create and persist the new event Config using cascade since that the relation is composition oneToOne
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($data);
+        $em->flush();
+        return new JsonResponse(["msg"=>"Added with success"],200);;
     }
 
 

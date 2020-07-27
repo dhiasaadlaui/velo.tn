@@ -6,6 +6,8 @@ use VeloBundle\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use VeloBundle\Entity\Step;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -36,7 +38,9 @@ class Category
     }
 
     /**
-     * @ORM\OneToOne(targetEntity="VeloBundle\Entity\Step", mappedBy="category",  cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="VeloBundle\Entity\Step", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="step_id", referencedColumnName="id")
+     * @Type("VeloBundle\Entity\Step")
      */
     private $step;
 
@@ -49,8 +53,7 @@ class Category
 
     public function __construct()
     {
-        $this->stepsCatalogue = new ArrayCollection();
-        $this->events = new ArrayCollection();
+         $this->events = new ArrayCollection();
     }
 
     public function getCategoryName()
@@ -58,7 +61,7 @@ class Category
         return $this->categoryName;
     }
 
-    public function setCategoryName(string $categoryImg)
+    public function setCategoryName($categoryImg)
     {
         $this->categoryName = $categoryImg;
 
@@ -70,38 +73,13 @@ class Category
         return $this->categoryImg;
     }
 
-    public function setCategoryImg(string $categoryImg)
+    public function setCategoryImg($categoryImg)
     {
         $this->categoryImg = $categoryImg;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Step[]
-     */
-    public function getStepsCatalogue()
-    {
-        return $this->stepsCatalogue;
-    }
-
-    public function addStepsCatalogue(Step $stepsCatalogue)
-    {
-        if (!$this->stepsCatalogue->contains($stepsCatalogue)) {
-            $this->stepsCatalogue[] = $stepsCatalogue;
-        }
-
-        return $this;
-    }
-
-    public function removeStepsCatalogue(Step $stepsCatalogue)
-    {
-        if ($this->stepsCatalogue->contains($stepsCatalogue)) {
-            $this->stepsCatalogue->removeElement($stepsCatalogue);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Event[]
@@ -133,4 +111,20 @@ class Category
 
         return $this;
     }
+
+
+
+    public function getStep()
+    {
+        return $this->step;
+    }
+
+    public function setStep($step)
+    {
+
+        $this->step = $step;
+
+        return $this;
+    }
+
 }

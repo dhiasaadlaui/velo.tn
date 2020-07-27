@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
  import { CategoryEntity } from '../models/Category';
+import { StepEntity } from '../models/Step';
+import { StepService } from './StepService';
 
 
 @Injectable()
@@ -11,7 +13,7 @@ export class CategoryService {
     private dataStore: { todos: CategoryEntity[] } = { todos: [] };
     readonly todos = this._todos.asObservable();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private stepSerivce:StepService) {
         this.getJSON().subscribe(data => {
             console.log(data);
            });
@@ -35,6 +37,66 @@ export class CategoryService {
     public getJSON(): Observable<any> {
         return this.http.get(`${this.baseUrl}/getCategories`);
       }
+
+      
+
+
+  create(todo: any) {
+      console.log(todo);
+      
+    console.log(todo);
+     this.http
+      .post<any>(`${this.baseUrl}/createCategory`, JSON.stringify(todo)).subscribe(
+        data => {
+          console.log(data)
+          this.dataStore.todos.push(data);
+          this._todos.next(Object.assign({}, this.dataStore).todos);
+          console.log(data)
+        },
+        error => console.log('Could not create todo.')
+      );
+  }
+
+
+  update(todo: CategoryEntity) {
+    console.log(todo)
+    this.http
+      .put<CategoryEntity>(`${this.baseUrl}/updateCategory/${todo.id}`, JSON.stringify(todo)).subscribe(
+        data => {
+          this.dataStore.todos.push(data);
+          this._todos.next(Object.assign({}, this.dataStore).todos);
+        },
+        error => console.log('Could not create todo.')
+      );
+  }
+
+  remove(todoId: number) {
+    this.http.delete(`${this.baseUrl}/deleteCategory/${todoId}`).subscribe(
+      response => {
+        this.dataStore.todos.forEach((t, i) => {
+          if (t.id === todoId) {
+            this.dataStore.todos.splice(i, 1);
+          }
+        });
+
+        this._todos.next(Object.assign({}, this.dataStore).todos);
+      },
+      error => console.log('Could not delete todo.')
+    );
+  }
+
+
+
+      buildCategory(data): CategoryEntity {
+        let category: CategoryEntity = new CategoryEntity();
+
+        category.id = data.id != null ? data.id : null;
+        category.category_name = data.category_name;
+        category.category_img = data.category_img;
+        category.step = this.stepSerivce.buildStep(data);
+         return category;
+      }
+      
 }
 
 

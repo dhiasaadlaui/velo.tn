@@ -26,7 +26,7 @@ export class EnrollComponent implements OnInit {
     this.isVolunteer = false;
     this.dates = [];
     this.value = new Date();
-    this.currentUser = this.authserv.getCurrentUser();
+    this.currentUser = this.authserv.getCurrentUser;
     this.userService.getAll().subscribe((data: User[])=>this.userList = data);
   }
 

@@ -34,8 +34,10 @@ export class AssginedtomeComponent implements OnInit {
 
   ngOnInit() {
     //current user ------- 
-    this.currentUser = this.authserv.getCurrentUser();
-    this.userService.getAssignedTome(this.currentUser.id).subscribe((data: Claim[]) => this.claimList = data);
+    this.currentUser = this.authserv.getCurrentUser;
+    console.log(this.currentUser);
+    this.userService.getAssignedTome(this.currentUser.id).subscribe((data: Claim[]) => {this.claimList = data;});
+                                                          ;
     this.states = [{name: 'TO BE APPROVED'},{name: 'CLOSED'}];
     
     this.cols = [
@@ -53,6 +55,7 @@ export class AssginedtomeComponent implements OnInit {
     claims[this.claimList.indexOf(this.selectedClaim)] = this.claim;
     console.log(this.selectedClaim);
     this.claimList = claims;
+    if(this.selectedState)
     this.selectedClaim.status = this.selectedState.name ;
     this.userService.updateAssignClaim(this.selectedClaim).subscribe(resp => error = resp);
     this.claim = null;

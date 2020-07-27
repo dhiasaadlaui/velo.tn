@@ -28,6 +28,8 @@ export class AssignComponent implements OnInit {
  
   newClaim: boolean;
 
+  showError: boolean;
+
   constructor(private userService: UserServiceService) { }
 
   ngOnInit() {
@@ -54,12 +56,20 @@ export class AssignComponent implements OnInit {
     claims[this.claimList.indexOf(this.selectedClaim)] = this.claim;
     console.log(this.selectedClaim);
     this.claimList = claims;
-    this.userService.asign(this.selectedUser.id,this.selectedClaim.id).subscribe(resp => error = resp);
+    this.userService.asign(this.selectedUser.id,this.selectedClaim.id).subscribe(resp => { error = resp }
+      ,err => {
+        console.log("GOTCHA BRO!");
+        this.showError = true;
+      });
     this.claim = null;
     this.displayDialog = false;
     
 }
-
+closeErr()
+{
+  this.showError = false;
+}
+/*
 delete() {
   // control on the current user
   let error;
@@ -70,7 +80,7 @@ delete() {
   this.claim = null;
   this.displayDialog = false;
   
-}
+}*/
 
 onRowSelect(event) {
   this.newClaim = false;

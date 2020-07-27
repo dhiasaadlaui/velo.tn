@@ -1,5 +1,5 @@
+<div *ngIf="userService.getCurrentUser().username != 'admin'">
 <div id="main-carousel" class="carousel slide" data-ride="carousel">
-
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="https://picsum.photos/1600/501" class="d-block w-100" alt="...">
@@ -430,3 +430,5 @@
         </div>
     </div>
 </div>
+</div>
+<app-velo-event-admin *ngIf="userService.getCurrentUser().username == 'admin'"></app-velo-event-admin>

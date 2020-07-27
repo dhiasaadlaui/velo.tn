@@ -22,7 +22,7 @@
 <p-dialog header="assignation" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
     <div class="p-grid ui-fluid" *ngIf="claim">
         <div class="p-col-4">
-            <label for="title">Add user Id </label>
+            <label for="title">Choose a user :</label>
         </div>
         <div class="p-col-8">
             <p-listbox [options]="users" [(ngModel)]="selectedUser" optionLabel="name"></p-listbox>
@@ -30,10 +30,21 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
             <button type="button" pButton icon="pi pi-check" (click)="save()" label="Assign"></button>
         </div>
     </p-footer>
+</p-dialog>
+
+<p-dialog header="Error" [(visible)]="showError" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+  <div class="p-col-10">
+    <label for="title">This Claim is already assigned :( </label>
+    <label for="title">Choose another one </label>
+</div>
+  <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton icon="pi pi-check" (click)="closeErr()" label="OK"></button>
+      </div>
+  </p-footer>
 </p-dialog>
 
 <footer class="site-footer bg-dark" style="margin-bottom: 0px;" >
