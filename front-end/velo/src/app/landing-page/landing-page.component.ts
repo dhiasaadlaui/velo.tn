@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../core/models/User';
 
 @Component({
   selector: 'app-landing-page',

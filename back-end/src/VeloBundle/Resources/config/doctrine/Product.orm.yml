@@ -1,0 +1,33 @@
+VeloBundle\Entity\Product:
+    type: entity
+    table: null
+    repositoryClass: VeloBundle\Repository\ProductRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        owner:
+            type: integer
+        creationDate:
+            type: date
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        images:
+            type: string
+            length: 255
+        price:
+            type: integer
+        startingBid:
+            type: integer
+        available:
+            type: boolean
+        category:
+            type: integer
+    lifecycleCallbacks: {  }

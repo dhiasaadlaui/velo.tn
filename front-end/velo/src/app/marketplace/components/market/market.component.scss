@@ -1,0 +1,391 @@
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+ 
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #e35438 !important;
+  }
+  
+  //    ::ng-deep.mat-form-field-underline {
+  //     /*change color of underline*/
+  //     background-color:#e35438 !important;
+  //   }
+  
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #e35438 !important;
+  }
+  
+  .example-card {
+    margin-top: 10px;
+  }
+  
+  .left-nav {
+    max-width: 100%;
+  }
+  .example-header-image {
+    background-image: url("https://randomuser.me/api/portraits/women/49.jpg");
+    background-size: cover;
+  }
+  
+  .avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-top: 0px;
+  }
+  .searchInput {
+    margin-top: 10px !important;
+  }
+  .search-panel {
+    ::ng-deep .mat-focused .mat-form-field-label {
+      /*change color of label*/
+      color: white !important;
+    }
+    ::ng-deep .mat-form-field-label {
+      /*change color of label*/
+      color: white !important;
+    }
+  
+    ::ng-deep.mat-form-field-underline {
+      /*change color of underline*/
+      background-color: white !important;
+    }
+  
+    ::ng-deep.mat-form-field-ripple {
+      /*change color of underline when focused*/
+      background-color: white !important;
+    }
+    ::ng-deep.mat-form-field-empty.mat-form-field-label {
+      color: white;
+    }
+    ::ng-deep.mat-form-field {
+      color: white;
+    }
+    ::ng-deep.mat-label {
+      color: white;
+      /* add label text color here */
+    }
+    ::ng-deep.not-empty-select.mat-selected {
+      color: white !important;
+    }
+    
+    ::ng-deep.mat-select-value-text {
+      color: white !important;
+    }
+    
+    background: #333d56;
+    border-radius: 4px;
+  }
+  .filter {
+    ::ng-deep .mat-focused .mat-form-field-label {
+      /*change color of label*/
+      color: grey !important;
+    }
+    ::ng-deep .mat-form-field-label {
+      /*change color of label*/
+      color: grey !important;
+    }
+  
+    ::ng-deep.mat-form-field-underline {
+      /*change color of underline*/
+      background-color: grey !important;
+    }
+  
+    ::ng-deep.mat-form-field-ripple {
+      /*change color of underline when focused*/
+      background-color: grey !important;
+    }
+    ::ng-deep.mat-form-field-empty.mat-form-field-label {
+      color: grey;
+    }
+    ::ng-deep.mat-form-field {
+      color: grey;
+    }
+    ::ng-deep.mat-label {
+      color: grey;
+      /* add label text color here */
+    }
+    ::ng-deep.not-empty-select.mat-selected {
+      color: grey !important;
+    }
+    
+    ::ng-deep.mat-select-value-text {
+      color: grey !important;
+    }
+    
+  }
+  
+  
+  mat-paginator.mat-paginator.paginator--centered {
+    display: flex;
+    justify-content: center;
+  } 
+  
+  .clickable-card {
+    cursor: pointer;
+  }
+  
+  .clickable-card:hover {
+    background-color: #e4e6eb;
+  }
+  
+  .custom-label {
+    color: grey;
+    font-weight: normal;
+  }
+  
+  .custom-text {
+    color: #445292;
+    font-weight: 550;
+  }
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.view-title{
+    font-weight: bold;
+}
+.adressCard{
+    height: 710px;
+    overflow:scroll; overflow-x: hidden; 
+}
+div.container-tp{
+    width: 348px;
+    height: 600px;
+    box-shadow: 5px 20px 20px 0 rgba(0, 0, 0, 0.2);
+    background-color: #333d56;
+}
+/*
+div.adressForm{
+    width: 850px;
+  height: 350px;
+    border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(51, 51, 51, 0.3);
+  background-color: var(--white);
+}*/
+div.container-droite{
+    width: 1012px;
+    height: 798px;
+    box-shadow: 5px 20px 20px 0 rgba(0, 0, 0, 0.2);
+}
+div.info{
+    width: 1012px;
+    height: 510px;
+    box-shadow: inset 0 0 4px white;
+}
+div.titre{
+    color: #fff;
+}
+div.h{
+    width: 481px;
+  height: 40px;
+  font-family: Lato;
+  font-size: 32px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: 0.2px;
+  color: var(--neutral-g-01);
+}
+div.genInfo{
+    width: 199.663px;
+    height: 300.660px;
+}
+div.adressForm{
+    height: 485px;
+    overflow:scroll; overflow-x: hidden; 
+}
+div.contMAilPhone{
+    height: 510px;
+    overflow:scroll; overflow-x: hidden; 
+}
+div.accountFormStyle{
+    height: 485px;
+    overflow:scroll; overflow-x: hidden; 
+}
+div.remove{
+    float: right;
+}
+div.Bkg{
+    width: 936px;
+    height: 704px;
+    border-radius: 8px;
+    background-color: var(--white);
+  }
+  plm-button{
+      height: 50;
+  }
+
+  //togle button
+  
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 15px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color:rgb(243, 78, 18);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px rgb(243, 78, 18);
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  //image ronde
+  .img-style{
+    overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:110px;
+    height:110px;
+    margin-left: 50px;
+    margin-right: 50px
+  }
+  div.adressArrayForm{
+    height: 450px;
+    overflow:scroll; overflow-x: hidden; 
+  }
+  div.emailArrayFormSyle{
+    height: 475px;
+    overflow:scroll; overflow-x: hidden; 
+  }
+  div.accountArrayStyle{
+    height: 450px;
+    overflow:scroll; overflow-x: hidden; 
+  }
+  .img1-style{
+    overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:110px;
+    height:110px;
+    margin-left: 90px;
+    margin-right: 10px
+  }
+
+//custom stepper header style
+.custom-stepper {
+  border-radius: 5px;
+}
+.custom-stepper .mat-step-header {
+  //border-bottom: 1px solid #e35438;
+}
+
+.custom-stepper .mat-step-label {
+  width: 100%;
+}
+
+.custom-stepper .step-title {
+  font-size: 1.6em;
+  font-weight: 200;
+}
+
+.custom-stepper .label-container {
+  border-bottom: 1px solid #e35438;
+}
+
+.custom-stepper .label-container .col {
+  margin: 0 !important;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+// custom style for input fields
+.custom-input-field, .custom-input-field .ui-inputtext, .custom-input-field .mat-select-value-text{
+  color: #445292 !important;
+}
+
+.custom-label-black {
+  color: black !important;
+}
+.custom-label-grey {
+  color: grey !important;
+}
+
+.custom-input-field:focus + .custom-label {
+  color: grey !important;
+}
+
+// mat-accordion mat-expansion-panel style
+.custom-mat-accordion .mat-expansion-panel-header {
+  border-bottom: 1px solid #e35438;
+  font-size: 1.2em;
+  font-weight: 200;
+}
+
+.custom-mat-accordion .mat-expansion-panel {
+  margin: 10px;
+  margin-top: 0;
+  box-shadow: 0 0 0 0 rgba(51, 51, 51, 0.3);
+}
+
+// mat-tab-group style
+.mat-tab-label {
+  font-size: 1.2em !important;
+  font-weight: 400 !important;
+}
+
+.mat-tab-label.mat-tab-label-active {
+  color: rgb(243, 78, 18);
+}
+
+* {
+  //font: 13px Lato, "Helvetica Neue", sans-serif;
+  font: Lato, "Helvetica Neue", sans-serif;
+  font-size: 1em;
+}

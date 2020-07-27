@@ -2,8 +2,8 @@
 
 namespace VeloBundle\Entity;
 
-use Doctrine\Common\Collections\Collection;
-use VeloBundle\Entity\Event;
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,14 +50,14 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="login", type="string", length=255)
+     * @ORM\Column(name="login", type="string", length=255,unique=true , nullable=false)
      */
     protected $login;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     protected $password;
 
