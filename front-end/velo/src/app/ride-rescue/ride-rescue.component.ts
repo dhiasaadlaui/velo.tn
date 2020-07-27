@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {MenuItem} from 'primeng/api';
+import {AuthenticationService} from '../core/services/authentication.service';
+import { User } from '../core/models/User';
+
 
 @Component({
   selector: 'app-ride-rescue',
@@ -7,9 +12,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RideRescueComponent implements OnInit {
 
-  constructor() { }
+  currentUser : User;
+  items: MenuItem[];
+  activeItem: MenuItem;
+  constructor(private authserv:AuthenticationService) { }
 
   ngOnInit() {
+    console.log(this.authserv.getCurrentUser);
+    this.items = [
+      {label: 'Home', icon: 'pi pi-fw pi-home'},
+      {label: 'Volonteer', icon: 'pi pi-fw pi-calendar', routerLink: ['login'] },
+      {label: 'Make Claim', icon: 'pi pi-fw pi-pencil', routerLink: ['claim'] },
+      {label: 'Claims', icon: 'pi pi-fw pi-file' , routerLink: ['claims']},
+      {label: 'Disponibility', icon: 'pi pi-user-edit' , routerLink: ['disp']},
+      {label: 'Claims for me', icon: 'pi pi-inbox' , routerLink: ['assigned']},
+      {label: 'Assign claims', icon: 'pi pi-sitemap' , routerLink: ['assign']},
+      {label: 'Stats', icon: 'pi pi-chart-bar' , routerLink: ['stats']}
+        ];
+    this.activeItem = this.items[0];
+    this.currentUser = this.authserv.getCurrentUser;
   }
+
+  logout()
+  {
+    this.currentUser = null ; 
+    this.authserv.logout();
+  }
+  
 
 }

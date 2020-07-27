@@ -20,6 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ca17e72-fb98-4e33-9709-119603fe332a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/back-end.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/back-end.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/CategoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/EventController.php" afterDir="false" />
@@ -48,6 +49,7 @@
       <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.module.ts" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,7 +57,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -132,6 +136,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../New folder (5)/velo.tn/back-end" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -144,6 +149,18 @@
       <recent name="C:\Users\jsaoudi\Desktop\ESPRIT-JAVAFORTHEWIN\velo-front\velo.tn\back-end\src\VeloBundle\Entity\TimeStamps" />
       <recent name="C:\Users\jsaoudi\Desktop\ESPRIT-JAVAFORTHEWIN\velo-front\velo.tn\back-end\bin" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -159,29 +176,26 @@
       <workItem from="1595426564735" duration="1058000" />
       <workItem from="1595466721312" duration="1988000" />
       <workItem from="1595499878553" duration="30509000" />
-      <workItem from="1595677142670" duration="11351000" />
-      <workItem from="1595776025299" duration="25594000" />
-      <workItem from="1595846223346" duration="3000" />
-      <workItem from="1595846267486" duration="3000" />
-      <workItem from="1595846373026" duration="3000" />
-      <workItem from="1595846695962" duration="12422000" />
+      <workItem from="1595677142670" duration="9957000" />
+      <workItem from="1595812357585" duration="5356000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595852385902">
