@@ -29,8 +29,7 @@ export class DataFlowComponent implements OnInit {
   public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
-    { data: [20, 20, 20, 20, 20, 20, 20], label: 'Average' },
-    { data: [20, 20, 20, 20, 20, 20, 20], label: 'Latest results' }
+    { data: [20, 20, 20, 20, 20, 20, 20], label: 'Result' } 
   ];
  
 
@@ -42,8 +41,7 @@ export class DataFlowComponent implements OnInit {
   public radarChartLabels: Label[] = ['Personal Behaviour', 'Recieved Points', 'Recieved Commends', 'Recieved Reports', 'Recieved StoryLikes'];
 
   public radarChartData: ChartDataSets[] = [
-    { data: [70, 59, 42, 32, 56], label: 'Average' },
-    { data: [66, 65, 50, 39, 66], label: 'Latest results' }
+    { data: [70, 59, 42, 32, 56], label: 'Result' } 
   ];
   public radarChartType: ChartType = 'radar';
 
@@ -137,8 +135,7 @@ public logs: log[] = [new log (1,"parkiteer" ,"lyoum"), new log (2,"ride rescue"
       (Math.random() * 20),
       (Math.random() * 20)
     ];
-    this.radarChartData[1].data = data1;
-    
+     
   }
   public getAverageUsing(): void {
     const data: number[] = [(Math.random() * 20),(Math.random() * 20),(Math.random() * 20),(Math.random() * 20)];
