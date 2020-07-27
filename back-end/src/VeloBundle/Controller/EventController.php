@@ -61,7 +61,11 @@ class EventController extends ApiController
      **/
     private $serializer;
 
-    public function getEventsAction()
+    /**
+     * @Rest\Get("/getEvents")
+     */
+
+    public function getEvents()
     {
         $em=$this->getDoctrine()->getManager();
         $events=$em->getRepository(Event::class)->findAll();
@@ -76,7 +80,7 @@ class EventController extends ApiController
     /**
      * @Rest\Get("/getEvent/{id}")
      */
-    public function getEventAction($id)
+    public function getEvent($id)
     {
         $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
         $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
@@ -94,7 +98,10 @@ class EventController extends ApiController
     }
 
 
-    public function createAction(Request $request)
+    /**
+     * @Rest\Post("/createEvent")
+     */
+    public function createEvent(Request $request)
     {
         $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
         $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
@@ -134,8 +141,10 @@ class EventController extends ApiController
 
     }
 
-
-    public function updateAction(Request $request, $id)
+    /**
+     * @Rest\Put("/updateEvent/{id}")
+     */
+    public function updateEvent(Request $request, $id)
     {
         $data = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(['id' => $id]);
         //récupérer le contenu de la requête envoyé par l'outil postman
@@ -172,7 +181,7 @@ class EventController extends ApiController
     }
 
 
-    private function createEvent(Request $req)
+    private function createEventd(Request $req)
     {
         $event = new Event();
         $event->setEventName($req->get('event_name'));
@@ -196,6 +205,7 @@ class EventController extends ApiController
 
     public function subscribeToEventAction(Request $request)
     {
+        // called and invoke update with just the champs subscribe ++
         //récupérer le contenu de la requête envoyé par l'outil postman
         $data = $request->getContent();
         //deserialize data: création d'un objet à partir des données json envoyées
