@@ -6,6 +6,7 @@ use VeloBundle\Repository\StepRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass=StepRepository::class)
@@ -21,99 +22,109 @@ class Step
 
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="title", type="boolean")
      */
+
 
     private $title;
 
-    /**
-     * @ORM\Column(type="boolean", length=255)
-     */
-
-    private $locationSart;
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="locationstart", type="boolean")
      */
+
+
+    private $locationStart;
+
+
+    /**
+     * @ORM\Column(name="locationend", type="boolean")
+     */
+
 
     private $locationEnd;
 
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="startday", type="boolean")
      */
+
 
     private $startDay;
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="endday", type="boolean")
      */
+
 
     private $endDay;
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="rep", type="boolean")
      */
 
-    private $repeat;
+
+    private $rep;
+
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="endrepeat", type="boolean")
      */
+
 
     private $endRepeat;
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="rule", type="boolean")
      */
+
 
     private $rule;
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="gender", type="boolean")
      */
+
 
     private $gender;
 
+
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="age", type="boolean")
      */
+
 
     private $age;
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="difficulty", type="boolean")
      */
+
 
     private $difficulty;
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="diagrame", type="boolean")
      */
+
 
     private $diagrame;
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="theme", type="boolean")
      */
+
 
     private $theme;
 
     /**
-     * @ORM\Column(type="boolean", length=255)
+     * @ORM\Column(name="associationname", type="boolean")
      */
+
 
     private $associationName;
 
-    /**
-     * @ORM\OneToOne(targetEntity="VeloBundle\Entity\Category", inversedBy="step")
-     */
-    private $category;
 
-    public function __construct()
-    {
-        $this->categories = new ArrayCollection();
-    }
 
     public function getId()
     {
@@ -125,32 +136,31 @@ class Step
         return $this->title;
     }
 
-    public function setTitle(boolean $title)
+    public function setTitle($title)
     {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getLocationSart()
+    public function getLocationStart()
     {
-        return $this->locationSart;
+        return $this->locationStart;
     }
 
-    public function setLocationSart(boolean $locationSart)
+    public function setLocationStart($locationStart)
     {
-        $this->locationSart = $locationSart;
+        $this->locationStart = $locationStart;
 
         return $this;
     }
-
 
     public function getLocationEnd()
     {
         return $this->locationEnd;
     }
 
-    public function setLocationEnd(boolean $locationEnd)
+    public function setLocationEnd($locationEnd)
     {
         $this->locationEnd = $locationEnd;
 
@@ -162,19 +172,20 @@ class Step
         return $this->startDay;
     }
 
-    public function setStartDay(boolean $startDay)
+    public function setStartDay($startDay)
     {
         $this->startDay = $startDay;
 
         return $this;
     }
 
+
     public function getEndDay()
     {
         return $this->endDay;
     }
 
-    public function setEndDay(boolean $endDay)
+    public function setEndDay($endDay)
     {
         $this->endDay = $endDay;
 
@@ -183,12 +194,12 @@ class Step
 
     public function getRepeat()
     {
-        return $this->repeat;
+        return $this->rep;
     }
 
-    public function setRepeat(boolean $repeat)
+    public function setRepeat($repeat)
     {
-        $this->repeat = $repeat;
+        $this->rep = $repeat;
 
         return $this;
     }
@@ -198,7 +209,7 @@ class Step
         return $this->endRepeat;
     }
 
-    public function setEndRepeat(boolean $endRepeat)
+    public function setEndRepeat($endRepeat)
     {
         $this->endRepeat = $endRepeat;
 
@@ -210,7 +221,7 @@ class Step
         return $this->rule;
     }
 
-    public function setRule(boolean $rule)
+    public function setRule($rule)
     {
         $this->rule = $rule;
 
@@ -222,31 +233,33 @@ class Step
         return $this->gender;
     }
 
-    public function setGender(boolean $gender)
+    public function setGender($gender)
     {
         $this->gender = $gender;
 
         return $this;
     }
 
+
     public function getAge()
     {
         return $this->age;
     }
 
-    public function setAge(boolean $age)
+    public function setAge($age)
     {
         $this->age = $age;
 
         return $this;
     }
 
+
     public function getDifficulty()
     {
         return $this->difficulty;
     }
 
-    public function setDifficulty(boolean $difficulty)
+    public function setDifficulty($difficulty)
     {
         $this->difficulty = $difficulty;
 
@@ -258,7 +271,7 @@ class Step
         return $this->diagrame;
     }
 
-    public function setDiagrame(boolean $diagrame)
+    public function setDiagrame($diagrame)
     {
         $this->diagrame = $diagrame;
 
@@ -270,7 +283,7 @@ class Step
         return $this->theme;
     }
 
-    public function setTheme(boolean $theme)
+    public function setTheme($theme)
     {
         $this->theme = $theme;
 
@@ -282,12 +295,15 @@ class Step
         return $this->associationName;
     }
 
-    public function setAssociationName(boolean $associationName)
+    public function setAssociationName($associationName)
     {
         $this->associationName = $associationName;
 
         return $this;
     }
+
+
+
 
 
 }

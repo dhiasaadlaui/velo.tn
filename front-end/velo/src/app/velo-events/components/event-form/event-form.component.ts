@@ -36,11 +36,11 @@ export class EventFormComponent implements OnInit {
 
 
   public created(args: Object): void {
-    this.diagram.select([this.diagram.nodes[0], this.diagram.nodes[1], this.diagram.connectors[0]]);
+    /*this.diagram.select([this.diagram.nodes[0], this.diagram.nodes[1], this.diagram.connectors[0]]);
     //copies the selected nodes
     this.diagram.copy();
     //pastes the copied objects
-    this.diagram.paste(this.diagram.copy() as (NodeModel | ConnectorModel)[]);
+    this.diagram.paste(this.diagram.copy() as (NodeModel | ConnectorModel)[]);*/
   }
 
   public getNodeDefaults(node: NodeModel): NodeModel {
@@ -50,6 +50,18 @@ export class EventFormComponent implements OnInit {
     node.style.strokeColor = "White";
     return node;
   }
+  public node: NodeModel = {
+    // Position of the node
+    offsetX: 250,
+    offsetY: 250,
+    // Size of the node
+    width: 100,
+    height: 100,
+    style: {
+        fill: '#6BA5D7',
+        strokeColor: 'white'
+    },
+};
   public getConnectorDefaults(obj: ConnectorModel) {
     obj.style = {
       strokeColor: '#6BA5D7',
@@ -62,6 +74,24 @@ export class EventFormComponent implements OnInit {
         strokeColor: '#6BA5D7'
       }
     }
+  }
+
+  testDiagrame(){
+     this.diagram.nodes[0].offsetX =  56;
+     this.diagram.nodes[0].offsetY =  48;
+
+    this.diagram.add(this.node)
+
+    this.diagram.nodes[1].offsetX =  749;
+    this.diagram.nodes[1].offsetY =  247;
+    
+    this.diagram.connectors[0].sourcePoint.x = 60
+    this.diagram.connectors[0].sourcePoint.y = 96
+
+        
+    this.diagram.connectors[0].targetPoint.x = 696
+    this.diagram.connectors[0].targetPoint.y = 272
+    
   }
 
 
@@ -78,6 +108,7 @@ export class EventFormComponent implements OnInit {
     let gender = new FormControl();
     let age = new FormControl();
     let difficulty = new FormControl();
+    let end_day = new FormControl();
     let diagrame = new FormControl();
     let theme = new FormControl();
     let associationName = new FormControl();
@@ -96,6 +127,7 @@ export class EventFormComponent implements OnInit {
       difficulty: difficulty,
       diagrame: diagrame,
       theme: theme,
+      end_day:end_day,
       associationName: associationName
     })
     title.setValidators(Validators.required)

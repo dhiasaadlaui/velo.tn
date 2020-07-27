@@ -21,9 +21,11 @@ import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
 import { CheckBoxModule, ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { VeloEventAdminComponent } from './components/velo-event-admin/velo-event-admin.component';
+import { StepService } from '../core/services/StepService';
 
 @NgModule({
-  declarations: [VeloEventsComponent, AddEventComponent, EventDetailsComponent, EventFormComponent],
+  declarations: [VeloEventsComponent, AddEventComponent, EventDetailsComponent, EventFormComponent, VeloEventAdminComponent],
   imports: [
     CommonModule,
     VeloEventsRoutingModule, 
@@ -43,7 +45,7 @@ import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
     ButtonModule,DateTimePickerModule
   ],
   providers: [WeekService,DayService,MonthService,AgendaService,ResizeService, DragAndDropService,
-    EventConfigService,EventService,FilterService,PageService,EditService, ToolbarService, PageService,
+    EventConfigService,EventService,FilterService,PageService,EditService, ToolbarService, PageService,CategoryService,StepService
   ],
   
 })

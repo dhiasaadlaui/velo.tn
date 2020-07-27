@@ -2,8 +2,10 @@
 
 namespace VeloBundle\Entity;
 
+use Twig\Node\Node;
 use VeloBundle\Repository\EventConfigRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass=EventConfigRepository::class)
@@ -17,45 +19,103 @@ class EventConfig
      */
     private $id;
 
+
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(name="locationstart", type="string", nullable=true)
      */
+
+
+    private $locationStart;
+
+
+    /**
+     * @ORM\Column(name="locationend", type="string", nullable=true)
+     */
+
+
+    private $locationEnd;
+
+
+    /**
+     * @ORM\Column(name="startday", type="string", nullable=true)
+     */
+
+
+    private $startDay;
+
+    /**
+     * @ORM\Column(name="endday", type="string", nullable=true)
+     */
+
+
+    private $endDay;
+
+    /**
+     * @ORM\Column(name="rep", type="string", nullable=true)
+     */
+
+
     private $rep;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $dateRep;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="endrepeat", type="string", nullable=true)
      */
-    private $status;
+
+
+    private $endRepeat;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(name="rule", type="string", nullable=true)
      */
-    private $commentPermession;
+
+
+    private $rule;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(name="gender", type="string", nullable=true)
      */
-    private $showInviteList;
+
+
+    private $gender;
+
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(name="age", type="string", nullable=true)
      */
-    private $isArchived;
+
+
+    private $age;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(name="difficulty", type="string", nullable=true)
      */
-    private $showDate;
+
+
+    private $difficulty;
+
 
     /**
-     * @ORM\OneToOne(targetEntity="VeloBundle\Entity\Event", inversedBy="eventConfig")
+     * @ORM\Column(name="theme", type="string", nullable=true)
      */
-    private $event;
+
+    private $theme;
+
+    /**
+     * @ORM\Column(name="associationname", type="string", nullable=true)
+     */
+    private $associationName;
+
+    /**
+     * @ORM\OneToMany(targetEntity="VeloBundle\Entity\NodeEvent", mappedBy="eventConfig" ,cascade={"persist", "remove"})
+     */
+    protected $nodes;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="VeloBundle\Entity\ConnectorEvent", mappedBy="eventConfig" , cascade={"persist", "remove"} )
+     */
+    protected $conectors;
 
 
     public function getId()
@@ -63,100 +123,192 @@ class EventConfig
         return $this->id;
     }
 
-    public function getRep()
+
+    public function getLocationStart()
+    {
+        return $this->locationStart;
+    }
+
+    public function setLocationStart($locationStart)
+    {
+        $this->locationStart = $locationStart;
+
+        return $this;
+    }
+
+    public function getLocationEnd()
+    {
+        return $this->locationEnd;
+    }
+
+    public function setLocationEnd($locationEnd)
+    {
+        $this->locationEnd = $locationEnd;
+
+        return $this;
+    }
+
+    public function getStartDay()
+    {
+        return $this->startDay;
+    }
+
+    public function setStartDay($startDay)
+    {
+        $this->startDay = $startDay;
+
+        return $this;
+    }
+
+
+    public function getEndDay()
+    {
+        return $this->endDay;
+    }
+
+    public function setEndDay($endDay)
+    {
+        $this->endDay = $endDay;
+
+        return $this;
+    }
+
+    public function getRepeat()
     {
         return $this->rep;
     }
 
-    public function setRep(int $rep)
+    public function setRepeat($repeat)
     {
-        $this->rep = $rep;
+        $this->rep = $repeat;
 
         return $this;
     }
 
-    public function getDateRep()
+    public function getEndRepeat()
     {
-        return $this->dateRep;
+        return $this->endRepeat;
     }
 
-    public function setDateRep(int $dateRep)
+    public function setEndRepeat($endRepeat)
     {
-        $this->dateRep = $dateRep;
+        $this->endRepeat = $endRepeat;
 
         return $this;
     }
 
-    public function getStatus()
+    public function getRule()
     {
-        return $this->status;
+        return $this->rule;
     }
 
-    public function setStatus(string $status)
+    public function setRule($rule)
     {
-        $this->status = $status;
+        $this->rule = $rule;
 
         return $this;
     }
 
-    public function getCommentPermession()
+    public function getGender()
     {
-        return $this->commentPermession;
+        return $this->gender;
     }
 
-    public function setCommentPermession(bool $commentPermession)
+    public function setGender($gender)
     {
-        $this->commentPermession = $commentPermession;
+        $this->gender = $gender;
 
         return $this;
     }
 
-    public function getShowInviteList()
+
+    public function getAge()
     {
-        return $this->showInviteList;
+        return $this->age;
     }
 
-    public function setShowInviteList(bool $showInviteList)
+    public function setAge($age)
     {
-        $this->showInviteList = $showInviteList;
+        $this->age = $age;
 
         return $this;
     }
 
-    public function getIsArchived()
+
+    public function getDifficulty()
     {
-        return $this->isArchived;
+        return $this->difficulty;
     }
 
-    public function setIsArchived(bool $isArchived)
+    public function setDifficulty($difficulty)
     {
-        $this->isArchived = $isArchived;
+        $this->difficulty = $difficulty;
 
         return $this;
     }
 
-    public function getShowDate()
+
+    public function getTheme()
     {
-        return $this->showDate;
+        return $this->theme;
     }
 
-    public function setShowDate(int $showDate)
+    public function setTheme($theme)
     {
-        $this->showDate = $showDate;
+        $this->theme = $theme;
 
         return $this;
     }
 
-    public function getEvent()
+    public function getAssociationName()
     {
-        return $this->event;
+        return $this->associationName;
     }
 
-    public function setEvent(Event $event)
+    public function setAssociationName($associationName)
     {
-        $this->event = $event;
+        $this->associationName = $associationName;
 
         return $this;
     }
+
+    /**
+     * @return Collection|NodeEvent[]
+     */
+    public function getNodeEvents()
+    {
+        return $this->nodes;
+    }
+
+    public function addNodeEvent(NodeEvent $nodeEvent)
+    {
+        if (!$this->nodes->contains($nodeEvent)) {
+            $this->nodes[] = $nodeEvent;
+            $nodeEvent->setEventConfig($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|ConnectorEvent[]
+     */
+    public function getConnectorEvents()
+    {
+        return $this->conectors;
+    }
+
+    public function addConnectorEvent(ConnectorEvent $conectors)
+    {
+        if (!$this->conectors->contains($conectors)) {
+            $this->conectors[] = $conectors;
+            $conectors->setEventConfig($this);
+        }
+
+        return $this;
+    }
+
+
 
 }

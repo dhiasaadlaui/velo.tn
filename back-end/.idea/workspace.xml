@@ -113,7 +113,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../New folder (5)/velo.tn/back-end" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
@@ -177,17 +177,25 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595679162819">
+    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595820950276">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
-    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595679162819" />
+    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595820950276" />
+    <state x="580" y="234" key="FileChooserDialogImpl" timestamp="1595809585139">
+      <screen x="0" y="0" width="1600" height="960" />
+    </state>
+    <state x="580" y="234" key="FileChooserDialogImpl/0.0.1600.960@0.0.1600.960" timestamp="1595809585139" />
+    <state x="527" y="182" key="RollbackChangesDialog" timestamp="1595816255778">
+      <screen x="0" y="0" width="1600" height="960" />
+    </state>
+    <state x="527" y="182" key="RollbackChangesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595816255778" />
     <state x="456" y="220" key="run.anything.popup" timestamp="1595628400942">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
     <state x="456" y="220" key="run.anything.popup/0.0.1600.960@0.0.1600.960" timestamp="1595628400942" />
-    <state x="463" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1595508642948">
+    <state x="463" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1595777552951">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
-    <state x="463" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1600.960@0.0.1600.960" timestamp="1595508642948" />
+    <state x="463" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1600.960@0.0.1600.960" timestamp="1595777552951" />
   </component>
 </project>

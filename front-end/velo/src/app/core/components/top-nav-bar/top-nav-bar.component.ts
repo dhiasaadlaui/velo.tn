@@ -9,12 +9,15 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./top-nav-bar.component.scss']
 })
 export class TopNavBarComponent implements OnInit {
- showAdminTopNav:boolean =false;
+  showAdminTopNav:boolean =false;
+  DontshowAdminTopNav:boolean =false;
   constructor(private userService:UserService) { }
 
   ngOnInit() {
     if(this.userService.getCurrentUser().username === 'admin'){
       this.showAdminTopNav = true;
+    }else {
+      this.DontshowAdminTopNav = true;
     }
 
   }

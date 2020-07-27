@@ -49,7 +49,7 @@ export class EventService {
         let notFound = true;
 
         this.dataStore.todos.forEach((item, index) => {
-          if (item.id === data.id) {
+          if (item.id == data.id) {
             this.dataStore.todos[index] = data;
             notFound = false;
           }
@@ -78,7 +78,7 @@ export class EventService {
   create(todo: EventEntity) {
     console.log(todo);
      this.http
-      .post<EventEntity>(`${this.baseUrl}/create`, JSON.stringify(todo)).subscribe(
+      .post<EventEntity>(`${this.baseUrl}/createEvent`, JSON.stringify(todo)).subscribe(
         data => {
           console.log(data)
           this.dataStore.todos.push(data);
@@ -92,7 +92,7 @@ export class EventService {
   update(todo: EventEntity) {
     console.log(todo)
     this.http
-      .put<EventEntity>(`${this.baseUrl}/update/${todo.id}`, JSON.stringify(todo)).subscribe(
+      .put<EventEntity>(`${this.baseUrl}/updateEvent/${todo.id}`, JSON.stringify(todo)).subscribe(
         data => {
           this.dataStore.todos.push(data);
           this._todos.next(Object.assign({}, this.dataStore).todos);

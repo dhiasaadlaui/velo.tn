@@ -90,7 +90,7 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
  * Creates an instance of VeloEventsComponent.
  */
   constructor(private eventConfigService: EventConfigService, private eventServ: EventService,
-    private route: ActivatedRoute, private router: Router, private userService: UserService
+    private route: ActivatedRoute, private router: Router, public userService: UserService
   ) {
     $(document).ready(function () {
       $(document).on("click", ".inactive-form", function () {
@@ -174,10 +174,13 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
             //RecurrenceRule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1',
             CategoryColor: '#357cd2'
           });
-         this.scheduleObj.eventSettings.dataSource = localArrayObject;
+          if(typeof this.scheduleObj!= 'undefined'){
+            this.scheduleObj.eventSettings.dataSource = localArrayObject;
+          }
       });
     });
     this.eventServ.loadAll();
+    // INIT TABLE HEADER
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
     this.toolbar = ['Add', 'Edit', 'Delete',
       { text: 'Archive', tooltipText: 'Archive', prefixIcon: 'e-save', id: 'Archive' },
@@ -337,6 +340,7 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
           if (this.operationTobeExecuted === 'update') {
             console.log('UPDATE START ......')
             this.eventServ.update(eventLocal);
+            this.eventServ.loadAll()
           } else if (this.operationTobeExecuted === 'create') {
             if (eventLocal.is_archived == null) {
               eventLocal.is_archived = false;
