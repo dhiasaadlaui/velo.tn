@@ -22,32 +22,11 @@
     <list default="true" id="6ca17e72-fb98-4e33-9709-119603fe332a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/back-end.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/back-end.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/EventController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/Category.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/CommentEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/CommentEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/ConnectorEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/ConnectorEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/Event.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/EventConfig.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/EventConfig.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/NodeEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/NodeEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/Step.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Entity/Step.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/components/top-nav-bar/top-nav-bar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/components/top-nav-bar/top-nav-bar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/components/top-nav-bar/top-nav-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/components/top-nav-bar/top-nav-bar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/models/Event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/models/Event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/CategoryService.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/EventService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/StepService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/StepService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/user.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/components/add-event/add-event.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/components/add-event/add-event.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/components/velo-event-admin/velo-event-admin.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/components/velo-event-admin/velo-event-admin.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/components/velo-event-admin/velo-event-admin.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/components/velo-event-admin/velo-event-admin.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/components/velo-event-admin/velo-event-admin.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/components/velo-event-admin/velo-event-admin.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/velo-events/velo-events.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/symfony_requirements" beforeDir="false" afterPath="$PROJECT_DIR$/bin/symfony_requirements" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/Product.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Repository/ProductRepository.php" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/var/SymfonyRequirements.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/SymfonyRequirements.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/config.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -177,8 +156,8 @@
       <workItem from="1595466721312" duration="1988000" />
       <workItem from="1595499878553" duration="30509000" />
       <workItem from="1595677142670" duration="9957000" />
-      <workItem from="1595812357585" duration="5356000" />
-    </task>
+       <workItem from="1595812357585" duration="5356000" />
+     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,8 +188,8 @@
     <state x="527" y="182" key="RollbackChangesDialog" timestamp="1595816255778">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
-    <state x="527" y="182" key="RollbackChangesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595816255778" />
-    <state x="456" y="220" key="run.anything.popup" timestamp="1595628400942">
+     <state x="527" y="182" key="RollbackChangesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595816255778" />
+     <state x="456" y="220" key="run.anything.popup" timestamp="1595628400942">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
     <state x="456" y="220" key="run.anything.popup/0.0.1600.960@0.0.1600.960" timestamp="1595628400942" />
