@@ -2,6 +2,7 @@
 
 namespace VeloBundle\Entity;
 
+use VeloBundle\Entity\TimeStamps\TimeStamps;
 use VeloBundle\Repository\StepRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,9 +11,12 @@ use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass=StepRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Step
 {
+    use TimeStamps;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -79,10 +79,12 @@ class Event
     private $eventConfig;
 
     /**
-     *
-     * @ORM\ManyToOne(targetEntity="VeloBundle\Entity\Category",inversedBy="events")
+     * @ORM\ManyToOne(targetEntity="VeloBundle\Entity\Category", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Type("VeloBundle\Entity\Category")
      */
-    protected $category;
+    private $category;
+
 
     /**
      * @var \Doctrine\Common\Collections\Collection|\VeloBundle\Entity\User[]
@@ -228,8 +230,11 @@ class Event
     public function setCategory(Category $category)
     {
         $this->category = $category;
+    }
 
-        return $this;
+    public function getCategory()
+    {
+        return $this->category;
     }
 
     /**
