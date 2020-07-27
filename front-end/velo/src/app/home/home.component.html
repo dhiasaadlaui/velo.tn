@@ -1,70 +1,57 @@
-<link
-  href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
-  rel="stylesheet"
-/>
-
-<link
-  rel="stylesheet"
-  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-/>
-<link rel="stylesheet" href="assets/sidebar/css/style.css" />
-<div class="wrapper d-flex align-items-stretch">
-  <nav id="sidebar">
-    <div class="custom-menu">
-      <button
-        type="button"
-        id="sidebarCollapse"
-        class="btn btn-primary"
-      ></button>
-    </div>
-    <div
-      class="img bg-wrap text-center py-4"
-      style="background-image: url(assets/images/banners/profile.jpg); "
-    >
-      <div class="user-logo">
-        <div
-          class="img"
-          style="background-image: url(assets/images/profile/75.jpg);"
-        ></div>
-        <h3>Habib Ali</h3>
-      </div>
-    </div>
-    <ul class="list-unstyled components mb-5">
-      <li class="active">
-        <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+<nav  class="col-md-2 d-none d-md-block sidebar">
+  <div class="sidebar-sticky">landing-page
+    <ul class="nav flex-column">					
+                <li class="nav-item">
+        <a class="nav-link active" routerLink="parkiteer">
+              <i class="zmdi zmdi-widgets"></i>
+              Parkiteer <span class="sr-only">(current)</span>
+            </a>
       </li>
-      <li>
-        <a routerLink="marketplace"
-          ><span class="fa fa-download mr-3 notif"
-            ><small class="d-flex align-items-center justify-content-center"
-              >5</small
-            ></span
-          >
-          Marketplace</a
-        >
+      <li class="nav-item">
+        <a class="nav-link" (click)="go()">
+              <i class="zmdi zmdi-file-text"></i>
+             <button>info flow</button>
+            </a>
       </li>
-      <li>
-        <a routerLink="info-flow" ><span class="fa fa-gift mr-3"></span>Info flow</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/ride-rescue">
+              <i class="zmdi zmdi-shopping-cart"></i>
+              Ride Rescue
+            </a>
       </li>
-      <li>
-        <a routerLink="ride-rescue" ><span class="fa fa-trophy mr-3"></span>Ride rescue</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="velo-events">
+              <i class="zmdi zmdi-accounts"></i>
+              Velo Events
+            </a>
       </li>
-      <li>
-        <a routerLink="parkiteer"><span class="fa fa-cog mr-3"></span> Parkiteer</a>
-      </li>
-      <li>
-        <a routerLink="form-inputs"><span class="fa fa-support mr-3"></span> Events</a>
-      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="marketplace">
+              <i class="zmdi zmdi-chart"></i>
+              Market Place
+            </a>
+      </li>					
     </ul>
-  </nav>
 
-  <!-- Page Content  -->
-  <div id="content" class="p-4 p-md-5 pt-5">
-   <router-outlet></router-outlet>
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center pl-3 mt-4 mb-1 text-muted">
+      <span>Options</span>
+      <a class="d-flex align-items-center text-muted" href="#">
+        <i class="zmdi zmdi-plus-circle-o"></i>
+      </a>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+              <i class="zmdi zmdi-file-text"></i>
+             Notifications
+            </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+              <i class="zmdi zmdi-file-text"></i>
+              Logout
+            </a>
+      </li>					
+    </ul>
   </div>
-</div>
-<script>
-
-</script>
-
-<script src="assets/sidebar/js/main.js"></script>
+</nav>

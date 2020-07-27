@@ -3,7 +3,7 @@ import { DiagramComponent, Diagram, NodeModel, ConnectorModel, PointModel } from
 import { CategoryEntity } from 'src/app/core/models/Category';
 import { Observable } from 'rxjs';
 import { EventEntity } from 'src/app/core/models/Event';
-import { CategoryService } from 'src/app/core/services/CategoryService';
+import { CategoryEventService } from 'src/app/core/services/CategoryEventService';
 import { element } from 'protractor';
 import { FormsModule } from '@angular/forms';
 import { StepEntity } from 'src/app/core/models/Step';
@@ -16,6 +16,8 @@ import { StepEntity } from 'src/app/core/models/Step';
 })
 export class AddEventComponent implements OnInit {
 
+ // Subscriptions //
+ categorySubscription$: any;
 
   /**
  * FLAGS.
@@ -90,7 +92,7 @@ export class AddEventComponent implements OnInit {
     });
 
   }
-  constructor(private categoryServ: CategoryService) {
+  constructor(private categoryServ: CategoryEventService) {
     $(document).ready(function () {
 
       var navListItems = $('div.setup-panel div a'),
@@ -134,20 +136,17 @@ export class AddEventComponent implements OnInit {
 
       $('div.setup-panel div a.btn-primary').trigger('click');
     });
-    this.categoryServ.loadAll();
-    this.categories$ = this.categoryServ.todos;
-    this.categoryServ.todos.subscribe((updatedTodos: CategoryEntity[]) => {
-      updatedTodos.forEach(el => this.categories.push(el));
-    });
-    console.log(this.categories)
-    this.categoryServ.getJSON().subscribe(updatedTodos => {
-      updatedTodos.forEach(
-        (element: CategoryEntity) => {
-          this.categories.push(element)
-        });
-    });
-    console.log(this.categories)
 
+    this.categorySubscription$ = this.categoryServ.todos.subscribe(updatedTodos => {
+      this.categories = [];
+      this.categories = updatedTodos;
+      let localArrayObject: Object[] = [];
+    });
+
+    this.categorySubscription$ = this.categoryServ.todos.subscribe((updatedTodos: CategoryEntity[]) => {
+      this.categories$ = this.categoryServ.todos;
+      this.categories = updatedTodos;
+    });
   }
 
 
@@ -171,7 +170,7 @@ export class AddEventComponent implements OnInit {
       this.showEventForm = false;
     } else {
       this.category = localArray.find(category => category.id === id);
-      console.log(this.category)
+      console.log(this.category.step)
       this.categories = [this.category];
       console.log(this.categories)
 

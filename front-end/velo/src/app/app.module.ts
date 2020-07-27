@@ -16,7 +16,6 @@ import { FooterComponent } from './core/components/footer/footer.component';
 import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
 import { HttpClientModule } from '@angular/common/http';
 import { AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';
-import { CategoryService } from './core/services/CategoryService';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -43,10 +42,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AutoCompleteModule,
     FormsModule,
     ReactiveFormsModule
-
-
   ],
-  providers: [CategoryService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
