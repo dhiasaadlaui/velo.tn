@@ -37,7 +37,7 @@ class StoryComment
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="VeloBundle\Entity\InfoFlowEntity\Story", inversedBy="story_comment" , cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="VeloBundle\Entity\InfoFlowEntity\Story"  )
      * @ORM\JoinColumn(name="story_id", referencedColumnName="id")
      * @Type("VeloBundle\Entity\InfoFlowEntity\Story")
      */

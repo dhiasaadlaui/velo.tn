@@ -63,6 +63,12 @@ class Story
      */
     private $likes;
 
+    /**
+     * @var $comments
+     * @ORM\Column(name="$comments", type="integer")
+
+     */
+    private $comments;
 
     public function __construct() {
      }
@@ -198,7 +204,28 @@ class Story
     {
         return $this->likes;
     }
+    /**
+     * Set likes
+     *
+     * @param int $comments
+     *
+     * @return Story
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
 
+        return $this;
+    }
+
+    /**
+     * Get likes
+     *
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
     /**
      * Set content
      *
