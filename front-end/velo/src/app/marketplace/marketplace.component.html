@@ -1,8 +1,23 @@
-<h1>Welcome to marketplace: {{username}}, your total points : {{points}}pts</h1>
+
+
+
+<mat-list>
+  <div class="row">
+    <div class="col">
+      <h1>Welcome to marketplace: {{username}}</h1>
+    </div>
+    <div class="col">
+      <h1>Points : {{points}}pts</h1>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+<br>
+</mat-list>
 <mat-tab-group>
-    <mat-tab label="Market"> <app-market></app-market> </mat-tab>
-    <mat-tab label="New auction"> <app-new-auction></app-new-auction></mat-tab>
-    <mat-tab label="Active auctions"> <app-active-auctions></app-active-auctions></mat-tab>
-    <mat-tab label="Bids"> <app-bids></app-bids></mat-tab>
-    <mat-tab label="Trade"> <app-trade></app-trade></mat-tab>
-  </mat-tab-group>
+  <mat-tab label="Market"> <app-market></app-market> </mat-tab>
+  <mat-tab label="New auction"> <app-new-auction></app-new-auction></mat-tab>
+  <mat-tab label="Active auctions"> <app-active-auctions></app-active-auctions></mat-tab>
+  <mat-tab label="Bids"> <app-bids></app-bids></mat-tab>
+  <mat-tab label="Trade"> <app-trade></app-trade></mat-tab>
+</mat-tab-group>
+

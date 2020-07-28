@@ -11,6 +11,8 @@ import { BidsComponent } from './components/bids/bids.component';
 import { TradeComponent } from './components/trade/trade.component';
 import {ToastModule} from 'primeng/toast';
 import {DialogModule} from 'primeng/dialog';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   declarations: [MarketplaceComponent, MarketComponent, NewAuctionComponent, ActiveAuctionsComponent, BidsComponent, TradeComponent],
   imports: [
@@ -31,7 +33,9 @@ import {DialogModule} from 'primeng/dialog';
     FormsModule,
     ReactiveFormsModule,
     ToastModule,
-    DialogModule
+    DialogModule,
+    MatDividerModule,
+    MatListModule
   ]
 })
 export class MarketplaceModule { }
