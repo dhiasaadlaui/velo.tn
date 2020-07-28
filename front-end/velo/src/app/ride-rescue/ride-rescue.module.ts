@@ -24,10 +24,11 @@ import { AssginedtomeComponent } from './components/assginedtome/assginedtome.co
 import { FullCalendarModule } from 'primeng/fullcalendar';
 import { ListboxModule } from 'primeng/listbox';
 import { ChartModule } from 'primeng/chart';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 @NgModule({
-  declarations: [RideRescueComponent, EnrollComponent, ClaimComponent, ClaimwatcherComponent, StatsComponent, DisponibilityComponent, AssignComponent, AssginedtomeComponent],
+  declarations: [RideRescueComponent, EnrollComponent, ClaimComponent, ClaimwatcherComponent, StatsComponent, DisponibilityComponent, AssignComponent, AssginedtomeComponent, AdminComponent],
   imports: [
     CommonModule,
     RideRescueRoutingModule,

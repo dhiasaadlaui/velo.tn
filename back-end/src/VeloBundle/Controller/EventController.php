@@ -4,6 +4,7 @@ namespace VeloBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use VeloBundle\Entity\Category;
 use VeloBundle\Entity\Claim;
 use VeloBundle\Entity\Event;
 use VeloBundle\Entity\EventConfig;
@@ -114,6 +115,16 @@ class EventController extends ApiController
             return $this->respondValidationError('Please provide a valid request!');
         }
 
+        if ($event->getCategory()) {
+            $category_id = $request->get('category')['id'];
+            $category = $this->getDoctrine()->getManager()->getRepository(Category::class)->findOneBy(['id' => $category_id]);
+            if (!$category) {
+                return $this->respondValidationError('No Category entity with this (id = ' . $event->getCategory()->getId() . ") " . 'exist');
+            } else {
+                $data->setCategory($category);
+            }
+        }
+
         // Create and persist the new event Config using cascade since that the relation is composition oneToOne
         $em = $this->getDoctrine()->getManager();
         $em->persist($event);
@@ -146,6 +157,9 @@ class EventController extends ApiController
      */
     public function updateEvent(Request $request, $id)
     {
+        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
+        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $this->serializer = new Serializer($this->normalizers, $this->encoders);
         $data = $this->getDoctrine()->getManager()->getRepository(Event::class)->findOneBy(['id' => $id]);
         //récupérer le contenu de la requête envoyé par l'outil postman
         $dataReq = $request->getContent();
@@ -161,12 +175,30 @@ class EventController extends ApiController
         $data->setIsArchived($event->getIsArchived('is_archived'));
         $data->setRate($event->getRate('rate'));
         $data->setCreatorUserId($event->getCreatorUserId('creator_user_id'));
+        if ($event->getCategory()) {
+            $category_id = $request->get('category')['id'];
+            $category = $this->getDoctrine()->getManager()->getRepository(Category::class)->findOneBy(['id' => $category_id]);
+            if (!$category) {
+                return $this->respondValidationError('No Category entity with this (id = ' . $event->getCategory()->getId() . ") " . 'exist');
+            } else {
+                $data->setCategory($category);
+            }
+        }
+        if ($event->getEventConfig()) {
+            $config_id = $request->get('event_config')['id'];
+            $config = $this->getDoctrine()->getManager()->getRepository(EventConfig::class)->findOneBy(['id' => $config_id]);
+            if (!$config) {
+                return $this->respondValidationError('No Category entity with this (id = ' . $event->getEventConfig()->getId() . ") " . 'exist');
+            } else {
+                $data->setEventConfig($config);
+            }
+        }
         // Create and persist the new event Config using cascade since that the relation is composition oneToOne
         $em = $this->getDoctrine()->getManager();
         $em->persist($data);
         $em->flush();
-        return new JsonResponse(["msg"=>"Added with success"],200);;
 
+        return new Response("ok",200, ['Content-Type' => 'application/json']);
 
     }
 

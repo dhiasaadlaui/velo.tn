@@ -5,12 +5,12 @@ namespace VeloBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProductCategory
+ * MarketService
  *
- * @ORM\Table(name="product_category")
- * @ORM\Entity(repositoryClass="VeloBundle\Repository\ProductCategoryRepository")
+ * @ORM\Table(name="market_service")
+ * @ORM\Entity(repositoryClass="VeloBundle\Repository\MarketServiceRepository")
  */
-class ProductCategory
+class MarketService
 {
     /**
      * @var int
@@ -20,6 +20,13 @@ class ProductCategory
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type;
 
     /**
      * @var string
@@ -36,11 +43,11 @@ class ProductCategory
     private $description;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\Column(name="price", type="integer")
      */
-    private $image;
+    private $price;
 
 
     /**
@@ -54,11 +61,35 @@ class ProductCategory
     }
 
     /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return MarketService
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
      *
-     * @return ProductCategory
+     * @return MarketService
      */
     public function setName($name)
     {
@@ -82,7 +113,7 @@ class ProductCategory
      *
      * @param string $description
      *
-     * @return ProductCategory
+     * @return MarketService
      */
     public function setDescription($description)
     {
@@ -102,27 +133,27 @@ class ProductCategory
     }
 
     /**
-     * Set image
+     * Set price
      *
-     * @param string $image
+     * @param integer $price
      *
-     * @return ProductCategory
+     * @return MarketService
      */
-    public function setImage($image)
+    public function setPrice($price)
     {
-        $this->image = $image;
+        $this->price = $price;
 
         return $this;
     }
 
     /**
-     * Get image
+     * Get price
      *
-     * @return string
+     * @return int
      */
-    public function getImage()
+    public function getPrice()
     {
-        return $this->image;
+        return $this->price;
     }
 }
 

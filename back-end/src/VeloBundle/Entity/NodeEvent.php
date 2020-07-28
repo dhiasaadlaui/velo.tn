@@ -4,15 +4,19 @@ namespace VeloBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use VeloBundle\Entity\TimeStamps\TimeStamps;
 
 /**
  * NodeEvent
  *
  * @ORM\Table(name="node_event")
  * @ORM\Entity(repositoryClass="VeloBundle\Repository\NodeEventRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class NodeEvent
 {
+    use TimeStamps;
+
     /**
      * @var int
      *

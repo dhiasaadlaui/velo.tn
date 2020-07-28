@@ -13,9 +13,6 @@ export class StepService {
     readonly todos = this._todos.asObservable();
 
     constructor(private http: HttpClient) {
-        this.getJSON().subscribe(data => {
-            console.log(data);
-           });
     }
 
     get todoso(): Observable<any> {
@@ -95,7 +92,7 @@ export class StepService {
             
         }
         console.log("CREATING STEP .............")
-        categoryStructure.id = localData.id != null ? localData.id : null;
+        categoryStructure.id = data.step_id != null ? data.step_id : null;
         categoryStructure.title = localData.title != null ? localData.title : false;
         categoryStructure.location_start = localData.location_start != null ? localData.location_start : false;
         categoryStructure.location_end = localData.location_end != null ? localData.location_end : false;

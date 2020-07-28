@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
-class CategoryController extends Controller
+class CategoryController extends ApiController
 {
     /**
      * @var EntityManager
@@ -82,6 +82,27 @@ class CategoryController extends Controller
 
 
     /**
+     * @Rest\Get("/getCategory/{id}")
+     */
+    public function getCategory($id)
+    {
+        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
+        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $this->serializer = new Serializer($this->normalizers, $this->encoders);
+        // Create and persist the new event Config using cascade since that the relation is composition oneToOne
+        $category = $this->getDoctrine()->getManager()->getRepository(Category::class)->findOneBy(['id' => $id]);
+
+        $jsonObject = $this->serializer->serialize($category, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+
+    }
+
+
+    /**
      * @Rest\Post("/createCategory")
      */
     public function createCategory(Request $request)
@@ -106,46 +127,56 @@ class CategoryController extends Controller
 
 
     /**
-     * @Rest\Patch("/updateCategory/{id}")
+     * @Rest\Put("/updateCategory/{id}")
      */
-    public function updateCategory(Request $request)
+    public function updateCategory(Request $request, $id)
     {
-        if (!$request) {
-            return $this->respondValidationError('Please provide a valid request!');
+
+        $this->encoders = [new JsonEncoder()]; // If no need for XmlEncoder
+        $this->normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $this->serializer = new Serializer($this->normalizers, $this->encoders);
+        $categoryDB = $this->getDoctrine()->getManager()->getRepository(Category::class)->findOneBy(['id' => $id]);
+        //récupérer le contenu de la requête envoyé par l'outil postman
+        $dataReq = $request->getContent();
+        //deserialize data: création d'un objet à partir des données json envoyées
+        $categoryFromRequest = $this->get('jms_serializer')->deserialize($dataReq, 'VeloBundle\Entity\Category', 'json');
+
+        $categoryDB->setCategoryName($categoryFromRequest->getCategoryName());
+        $categoryDB->setCategoryImg($categoryFromRequest->getCategoryImg());
+        if ($categoryFromRequest->getStep()) {
+            $step_id =$categoryFromRequest->getStep()->getId();
+            $step = $this->getDoctrine()->getManager()->getRepository(Step::class)->findOneBy(['id' => $step_id]);
+            if (!$step) {
+                return $this->respondValidationError('No Step entity with this (id = ' . $step_id . ") " . 'exist');
+            } else {
+                $stepFromRequeest = $categoryFromRequest->getStep();
+                $step->setTitle($stepFromRequeest->getTitle());
+                $step->setLocationStart($stepFromRequeest->getLocationStart());
+                $step->setLocationEnd($stepFromRequeest->getLocationEnd());
+                $step->setStartDay($stepFromRequeest->getStartDay());
+                $step->setEndDay($stepFromRequeest->getEndDay());
+                $step->setRepeat($stepFromRequeest->getRepeat());
+                $step->setEndRepeat($stepFromRequeest->getEndRepeat());
+                $step->setRule($stepFromRequeest->getRule());
+                $step->setGender($stepFromRequeest->getGender());
+                $step->setAge($stepFromRequeest->getAge());
+                $step->setDifficulty($stepFromRequeest->getDifficulty());
+                $step->setDiagrame($stepFromRequeest->getDiagrame());
+                $step->setTheme($stepFromRequeest->getTheme());
+                $step->setAssociationName($stepFromRequeest->getAssociationName());
+                $categoryDB->setStep($step);
+            }
         }
-        // validate Variables Needed !!!!!
-        if (! $request->getContent()) {
-            return $this->respondValidationError('Please provide an Event!');
-        }
-
-        if (! $request->get('eventName')) {
-            return $this->respondValidationError('Please provide an event!');
-        }
-
-        $modifiedEvent = $this->serializer->deserialize($request->getContent(),'App\Entity\Event' ,'json');
-        $event = $this->eventRepository->findOneBy([
-            'id' => $request->get('id')]);
-
-        if (! $modifiedEvent) {
-            return $this->respondValidationError('No Event entity with this (id = ' . $modifiedEvent->get('id') .") ". 'exist');
-        }
-        $event->setEventName($modifiedEvent->getEventName());
-        $event->setDistance($modifiedEvent->getDistance());
-        $event->setLocation($modifiedEvent->getLocation());
-        $event->setStartDate( $modifiedEvent->getStartDate());
-        $event->setEndDate( $modifiedEvent->getStartDate());
-        $event->setIsTheme($modifiedEvent->getIsTheme());
-        $this->entityManager->persist($event);
-        $this->entityManager->flush();
-
-        /** ONLY FOR TEST */
-        //return $this->json([
-        //     'response' => 'Updated Successfully'
-        // ]);
-        /**              **/
-
-        $jsonObject = $this->serializer($event, $this->serializer);
-        return $this->respond($jsonObject);
+        // Create and persist the new event Config using cascade since that the relation is composition oneToOne
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($categoryDB);
+        $em->flush();
+        $jsonObject = $this->serializer->serialize($categoryDB, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
     }
 
 

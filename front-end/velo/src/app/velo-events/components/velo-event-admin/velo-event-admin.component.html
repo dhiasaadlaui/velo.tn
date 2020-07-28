@@ -1,152 +1,299 @@
-<div class="control-section">
-    <ejs-grid #gridCategory [dataSource]='categories' allowPaging='true' [pageSettings]='pageSettings'
-        [editSettings]='editSettings' [toolbar]='toolbar' (rowSelected)='rowSelected($event)' allowFiltering='true'
-        (actionBegin)='actionBegin($event)' (actionComplete)='actionComplete($event)'
-        (toolbarClick)='handleToolBarClicks($event)'>
-        <e-columns>
-            <e-column field='title' headerText='Event Name' width='120' textAlign='Right'
-               ></e-column>
-            <e-column field='category_name' headerText='Input Category Name' width='150'></e-column>
-            <e-column field='step.title' headerText='Input Event Name' width='150' format='C2' textAlign='Right'></e-column>
-            <e-column field='step.location_start' headerText='Input Location Start' head width='150'></e-column>
-            <e-column field='step.location_end' headerText='Input Location End' head width='150'></e-column>
-            <e-column field='step.start_day' headerText='Input Start Day' head width='150'></e-column>
-            <e-column field='step.end_day' headerText='Input End day' head width='150'></e-column>
-            <e-column field='step.rep' headerText='Input Repeat' width='150'></e-column>
-         </e-columns>
-         <ng-template #editSettingsTemplate let-data>
-            <div [formGroup]="orderForm">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"
-                            [ngClass]="{'e-error': category_name.invalid && (category_name.dirty || category_name.touched)}">
-                            <input formControlName="category_name" data-msg-containerid='category_nameError'
-                                id="category_name" name="category_name" type="text"
-                                [attr.disabled]="!data.isAdd ? '' : null">
-                            <span class="e-float-line"></span>
-                            <label class="e-float-text e-label-top" for="category_name"> category_name</label>
+<nav class="navbar navbar-dark sticky-top flex-md-nowrap p-0">
+  <a class="navbar-brand" routerLink="landing-page"><img style="margin-left: 50px; width: 100px; height: 60px;"
+      src='assets/images/icons/nav-logo.png'>VELO.TN</a>
+</nav>
+<div  class="container-fluid">
+	<div class="row">
+		<nav  class="col-md-2 d-none d-md-block sidebar">
+			<div class="sidebar-sticky">landing-page
+				<ul class="nav flex-column">					
+                    <li class="nav-item">
+						<a class="nav-link active" [routerLink]="['parkiteer']">
+                  <i class="zmdi zmdi-widgets"></i>
+                  Parkiteer <span class="sr-only">(current)</span>
+                </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" [routerLink]="['info-flow']">
+                  <i class="zmdi zmdi-file-text"></i>
+                  Info Flow
+                </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" [routerLink]="['ride-rescue']">
+                  <i class="zmdi zmdi-shopping-cart"></i>
+                  Ride Rescue
+                </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" [routerLink]="['velo-events']">
+                  <i class="zmdi zmdi-accounts"></i>
+                  Velo Events
+                </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" [routerLink]="['marketplace']">
+                  <i class="zmdi zmdi-chart"></i>
+                  Market Place
+                </a>
+					</li>					
+				</ul>
+
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center pl-3 mt-4 mb-1 text-muted">
+					<span>Options</span>
+					<a class="d-flex align-items-center text-muted" href="#">
+						<i class="zmdi zmdi-plus-circle-o"></i>
+					</a>
+				</h6>
+				<ul class="nav flex-column mb-2">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+                  <i class="zmdi zmdi-file-text"></i>
+                 Notifications
+                </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+                  <i class="zmdi zmdi-file-text"></i>
+                  Logout
+                </a>
+					</li>					
+				</ul>
+			</div>
+		</nav>
+		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">
+			<div class="card-list">
+				<div class="row">
+					<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+						<div class="card blue">
+							<div class="title">all projects</div>
+							<i class="zmdi zmdi-upload"></i>
+							<div class="value">89</div>
+							<div class="stat"><b>13</b>% increase</div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+						<div class="card green">
+							<div class="title">team members</div>
+							<i class="zmdi zmdi-upload"></i>
+							<div class="value">5,990</div>
+							<div class="stat"><b>4</b>% increase</div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+						<div class="card orange">
+							<div class="title">total budget</div>
+							<i class="zmdi zmdi-download"></i>
+							<div class="value">$80,990</div>
+							<div class="stat"><b>13</b>% decrease</div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+						<div class="card red">
+							<div class="title">new customers</div>
+							<i class="zmdi zmdi-download"></i>
+							<div class="value">3</div>
+							<div class="stat"><b>13</b>% decrease</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="projects mb-4">
+				<ejs-grid #gridCategory [dataSource]='categories' allowPaging='true' [pageSettings]='pageSettings'
+                    [editSettings]='editSettings' [toolbar]='toolbar' (rowSelected)='rowSelected($event)' allowFiltering='true'
+                    (actionBegin)='actionBegin($event)' (actionComplete)='actionComplete($event)'
+                    (toolbarClick)='handleToolBarClicks($event)'>
+                    <e-columns>
+                        <e-column field='category_name' headerText='Category Name' width='150'></e-column>
+                        <e-column field='step.title' headerText='Input Event Name' width='150' format='C2' textAlign='Right'>
+                        </e-column>
+                        <e-column field='step.location_start' headerText='Input Location Start' head width='150'></e-column>
+                        <e-column field='step.location_end' headerText='Input Location End' head width='150'></e-column>
+                        <e-column field='step.start_day' headerText='Input Start Day' head width='150'></e-column>
+                        <e-column field='step.end_day' headerText='Input End day' head width='150'></e-column>
+                        <e-column field='step.rep' headerText='Input Repeat' width='150'></e-column>
+                    </e-columns>
+                    <ng-template #editSettingsTemplate let-data>
+                        <div [formGroup]="orderForm">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper"
+                                        [ngClass]="{'e-error': category_name.invalid && (category_name.dirty || category_name.touched)}">
+                                        <input formControlName="category_name" data-msg-containerid='category_nameError'
+                                            id="category_name" name="category_name" type="text"
+                                            [attr.disabled]="!data.isAdd ? '' : null">
+                                        <span class="e-float-line"></span>
+                                        <label class="e-float-text e-label-top" for="category_name"> category_name</label>
+                                    </div>
+                                    <div id="category_nameError"
+                                        [style.visibility]='((category_name.invalid && (category_name.dirty || category_name.touched)) || (category_name.invalid && submitClicked))? "visible": "hidden"'>
+                                        <label class="e-error" for="category_name" id="category_name-info"
+                                            style="display: block;">*event_nameis required</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper"
+                                        [ngClass]="{'e-error': category_img.invalid && (category_img.dirty || category_img.touched)}">
+                                        <input formControlName="category_img" data-msg-containerid='category_imgError'
+                                            id="category_img" name="category_img" type="text"
+                                            [attr.disabled]="!data.isAdd ? '' : null">
+                                        <span class="e-float-line"></span>
+                                        <label class="e-float-text e-label-top" for="category_img"> category_img</label>
+                                    </div>
+                                    <div id="category_imgError"
+                                        [style.visibility]='((category_img.invalid && (category_img.dirty || category_img.touched)) || (category_img.invalid && submitClicked))? "visible": "hidden"'>
+                                        <label class="e-error" for="category_img" id="category_img-info"
+                                            style="display: block;">*event_nameis required</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="title" data-msg-containerid='titleError' id="title"
+                                            [checked]="selectedCategory?.step.title" label="Title" name="title" type="text">
+                                        </ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="location_start" data-msg-containerid='location_startError'
+                                            id="location_start" [checked]="selectedCategory?.step.location_start"
+                                            label="Location Start" name="location_start" type="text"></ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="location_end" data-msg-containerid='location_endError'
+                                            id="location_end" [checked]="selectedCategory?.step.location_end" label="Location End"
+                                            name="location_end" type="text"></ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="start_day" data-msg-containerid='start_dayError'
+                                            id="start_day" [checked]="selectedCategory?.step.start_day" label="sTART Day"
+                                            name="start_day" type="text"></ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="end_day" data-msg-containerid='end_dayError' id="end_day"
+                                            [checked]="selectedCategory?.step.end_day" label="End Day" name="end_day" type="text">
+                                        </ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="rep" data-msg-containerid='repError' id="rep"
+                                            [checked]="selectedCategory?.step.rep" label="Repeated" name="rep" type="text">
+                                        </ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="end_repeat" data-msg-containerid='end_repeatError'
+                                            id="end_repeat" [checked]="selectedCategory?.step.end_repeat" label="End Repetition"
+                                            name="end_repeat" type="text"></ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="rule" data-msg-containerid='ruleError' id="rule"
+                                            [checked]="selectedCategory?.step.rule" label="Rule" name="rule" type="text">
+                                        </ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="gender" data-msg-containerid='genderError' id="gender"
+                                            [checked]="selectedCategory?.step.gender" label="Gender" name="gender" type="text">
+                                        </ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="age" data-msg-containerid='ageError' id="age"
+                                            [checked]="selectedCategory?.step.age" label="Age" name="age" type="text">
+                                        </ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="difficulty" data-msg-containerid='difficultyError'
+                                            id="difficulty" [checked]="selectedCategory?.step.difficulty" label="Diffiulty"
+                                            name="difficulty" type="text"></ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="diagrame" data-msg-containerid='diagrameError' id="diagrame"
+                                            [checked]="selectedCategory?.step.diagrame" label="Diagrame" name="diagrame"
+                                            type="text"></ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="theme" data-msg-containerid='themeError' id="theme"
+                                            [checked]="selectedCategory?.step.theme" label="Theme" name="theme" type="text">
+                                        </ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="e-float-input e-control-wrapper">
+                                        <ejs-checkbox formControlName="association_name"
+                                            data-msg-containerid='association_nameError' id="association_name"
+                                            [checked]="selectedCategory?.step.association_name" label="Association Name"
+                                            name="association_name" type="text"></ejs-checkbox>
+                                        <span class="e-float-line"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div id="category_nameError"
-                            [style.visibility]='((category_name.invalid && (category_name.dirty || category_name.touched)) || (category_name.invalid && submitClicked))? "visible": "hidden"'>
-                            <label class="e-error" for="category_name" id="category_name-info"
-                                style="display: block;">*event_nameis required</label>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"
-                            [ngClass]="{'e-error': category_img.invalid && (category_img.dirty || category_img.touched)}">
-                            <input formControlName="category_img" data-msg-containerid='category_imgError'
-                                id="category_img" name="category_img" type="text"
-                                [attr.disabled]="!data.isAdd ? '' : null">
-                            <span class="e-float-line"></span>
-                            <label class="e-float-text e-label-top" for="category_img"> category_img</label>
-                        </div>
-                        <div id="category_imgError"
-                            [style.visibility]='((category_img.invalid && (category_img.dirty || category_img.touched)) || (category_img.invalid && submitClicked))? "visible": "hidden"'>
-                            <label class="e-error" for="category_img" id="category_img-info"
-                                style="display: block;">*event_nameis required</label>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="title" data-msg-containerid='titleError' id="title"
-                               [checked]="selectedCategory?.step.title" label="Location Start" name="title" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>    
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="location_start" data-msg-containerid='location_startError' id="location_start"
-                               [checked]="selectedCategory?.step.location_start" label="Location Start" name="location_start" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>     
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="location_end" data-msg-containerid='location_endError' id="location_end"
-                               [checked]="selectedCategory?.step.location_end" label="Location End" name="location_end" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>   
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="start_day" data-msg-containerid='start_dayError' id="start_day"
-                               [checked]="selectedCategory?.step.start_day" label="sTART Day" name="start_day" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>    
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="end_day" data-msg-containerid='end_dayError' id="end_day"
-                               [checked]="selectedCategory?.step.end_day" label="End Day" name="end_day" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>   
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="rep" data-msg-containerid='repError' id="rep"
-                               [checked]="selectedCategory?.step.rep" label="Repeated" name="rep" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>  
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="end_repeat" data-msg-containerid='end_repeatError' id="end_repeat"
-                               [checked]="selectedCategory?.step.end_repeat" label="End Repetition" name="end_repeat" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>                                                                                                               
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="rule" data-msg-containerid='ruleError' id="rule"
-                               [checked]="selectedCategory?.step.rule" label="Rule" name="rule" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="gender" data-msg-containerid='genderError' id="gender"
-                               [checked]="selectedCategory?.step.gender" label="Gender" name="gender" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="age" data-msg-containerid='ageError' id="age"
-                               [checked]="selectedCategory?.step.age" label="Age" name="age" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="difficulty" data-msg-containerid='difficultyError' id="difficulty"
-                               [checked]="selectedCategory?.step.difficulty" label="Diffiulty" name="difficulty" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="diagrame" data-msg-containerid='diagrameError' id="diagrame"
-                               [checked]="selectedCategory?.step.diagrame" label="Diagrame" name="diagrame" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="theme" data-msg-containerid='themeError' id="theme"
-                               [checked]="selectedCategory?.step.theme" label="Theme" name="theme" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="e-float-input e-control-wrapper"                                >
-                            <ejs-checkbox  formControlName="association_name" data-msg-containerid='association_nameError' id="association_name"
-                               [checked]="selectedCategory?.step.association_name" label="Association Name" name="association_name" type="text"></ejs-checkbox>
-                            <span class="e-float-line"></span>
-                         </div>
+                    </ng-template>
+                </ejs-grid>
+			</div>
+			<div class="chart-data">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>Categories statistics</h2>
+                        <hr class="star-light">
                     </div>
                 </div>
-            </div>
-        </ng-template>
-    </ejs-grid>
+                <div style="background-color: #343a40;" class='e-btn-group'>
+                    <input type="radio" id="radioleft" name="font" value="left" />
+                    <label  (click)="topUsedCategory()" class="e-btn" for="radioleft">Top Used Category</label>
+                    <input [hidden]="true" type="radio" id="radiomiddle" name="font" value="middle" />
+                    <label [hidden]="true" class="e-btn" for="radiomiddle">Center</label>
+                    <label  class="e-btn" for="radioright">Top Subscribed Category</label>
+                    <input (click)="topSubscribedCategoy()" type="radio" id="radioright" name="font" value="right" />
+                </div>
+                
+                <ejs-chart id="chart-container" [primaryXAxis]='primaryXAxis'>
+                    <e-series-collection>
+                        <e-series [dataSource]='chartData' type='Column' xName='month' yName='sales' name='Sales'></e-series>
+                    </e-series-collection>
+                </ejs-chart>
+			</div>
+		</main>
+	</div>
 </div>
+<ejs-toast #element [position]='position'>
+    <ng-template #title>
+        <div>{{toastMsg.msgTitle}}</div>
+    </ng-template>
+    <ng-template #content>
+        <div>{{toastMsg.msgBody}}</div>
+    </ng-template>
+</ejs-toast>

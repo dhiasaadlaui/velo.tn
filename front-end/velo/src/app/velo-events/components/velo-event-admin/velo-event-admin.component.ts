@@ -5,10 +5,14 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Browser } from '@syncfusion/ej2-base';
 import { Dialog } from '@syncfusion/ej2-angular-popups';
 import { StepEntity } from 'src/app/core/models/Step';
-import { CategoryService } from 'src/app/core/services/CategoryService';
+import { CategoryEventService } from 'src/app/core/services/CategoryEventService';
 import { Observable } from 'rxjs';
 import { CategoryEntity } from 'src/app/core/models/Category';
 import { StepService } from 'src/app/core/services/StepService';
+import { EventService } from 'src/app/core/services/EventService';
+import { EventEntity } from 'src/app/core/models/Event';
+import { UserService } from 'src/app/core/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-velo-event-admin',
@@ -18,9 +22,11 @@ import { StepService } from 'src/app/core/services/StepService';
 export class VeloEventAdminComponent implements OnInit, OnDestroy {
   @ViewChild('gridCategory', { static: false })
   public grid: GridComponent;
-
+  @ViewChild('element',{ static: false }) element;
+  public position = { X: 'Right' };
   // Subscriptions //
   categorySubscription$: any;
+  eventSubscription$: any;
   /**
 * DATA.
 */
@@ -34,6 +40,7 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
   step: StepEntity;
   selectedCategory: CategoryEntity;
   selectedStep: StepEntity;
+  events: EventEntity[] = [];
 
 
   // ** PONTERS ** //
@@ -52,37 +59,66 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
   public submitClicked: boolean = false;
 
 
-  constructor(private categoryService: CategoryService, private stepService: StepService) { }
+  /****** CHARTS  */
+  public primaryXAxis: Object;
+  public chartData: Object[] = [];
+
+  // TOAST 
+  toastMsg:IToast = {msgBody: '', msgTitle:''}
   
-  ngOnInit() {
-    this.categorySubscription$ = this.categoryService.todos.subscribe(updatedTodos => {
+
+  constructor(private categoryEventService: CategoryEventService, private stepService: StepService, 
+    private eventService: EventService, private userService:UserService, private router:Router) { }
+
+  ngOnInit() {   
+    
+    this.categorySubscription$ = this.categoryEventService.todos.subscribe(updatedTodos => {
       this.categories = [];
       this.categories = updatedTodos;
-      let localArrayObject: Object[] = [];
+
     });
-    this.categoryService.loadAll();
-     // INIT TABLE HEADER
-     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
-     this.toolbar = ['Add', 'Edit', 'Delete',
-       { text: 'Archive', tooltipText: 'Archive', prefixIcon: 'e-save', id: 'Archive' },
-       { text: 'Async', tooltipText: 'Async', prefixIcon: 'e-reload', id: 'Refresh' }];
-     this.pageSettings = { pageCount: 5 };
+    this.categoryEventService.loadAll();
+
+    this.eventSubscription$ = this.eventService.todos.subscribe(updatedTodos => {
+      this.events = [];
+      this.events = updatedTodos;
+    });
+    console.log('calling event service');
+    
+    this.eventService.loadAll();
+    // INIT TABLE HEADER
+    this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
+    this.toolbar = ['Add', 'Edit', 'Delete',
+      { text: 'Archive', tooltipText: 'Archive', prefixIcon: 'e-save', id: 'Archive' },
+      { text: 'Async', tooltipText: 'Async', prefixIcon: 'e-reload', id: 'Refresh' }];
+    this.pageSettings = { pageCount: 5 };
+
+    // INIT CHARTS 
+
+
+    this.primaryXAxis = {
+      valueType: 'Category'
+    };
   }
   ngOnDestroy(): void {
     this.categorySubscription$.unsubscribe();
   }
 
+
+
   /**
  * Handle Table --> Start.
  */
   createFormGroup(data: IFormStructure): FormGroup {
-    console.log(data.step.location_start);
-    let categoryLocal:CategoryEntity = this.categoryService.buildCategory(data);
-    
+    console.log(data.step.id);
+    let categoryLocal: CategoryEntity = this.categoryEventService.buildCategory(data);
+
     return new FormGroup({
+      id: new FormControl(categoryLocal.id),
       category_name: new FormControl(categoryLocal.category_name),
       category_img: new FormControl(categoryLocal.category_img),
       //STEP
+      step_id: new FormControl(data.step.id),
       title: new FormControl(categoryLocal.step.title),
       location_start: new FormControl(categoryLocal.step.location_start),
       location_end: new FormControl(categoryLocal.step.location_end),
@@ -112,7 +148,7 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
       this.submitClicked = false;
       this.orderForm = this.createFormGroup(args.rowData);
       console.log(this.orderForm.value);
-      
+
     }
     if (args.requestType === 'beginEdit') {
       this.operationTobeExecuted = 'update';
@@ -127,20 +163,26 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
       if (this.orderForm.valid) {
         let data: any;
         data = this.orderForm.value;
-        let categoryEntity: CategoryEntity = this.categoryService.buildCategory(data);
+        let categoryEntity: CategoryEntity = this.categoryEventService.buildCategory(data);
+        console.log("DATA WIL BE UPDATED ......................");
+        console.log(data);
+        console.log("DATA WIL BE UPDATED .......................");
+
+
         if (this.operationTobeExecuted != '') {
           console.log('OPERATION START ......')
           if (this.operationTobeExecuted === 'update') {
             console.log('UPDATE START ......')
-            this.categoryService.update(categoryEntity);
-          } else if (this.operationTobeExecuted === 'create') {
-            /*if (categoryEntity.is_archived == null) {
-              categoryEntity.is_archived = false;
-            }*/
+            this.categoryEventService.update(categoryEntity);
+             this.toastMsg.msgTitle = " Updated Successfuly"
+            this.toastMsg.msgBody = "Hey : " + " " + this.userService.getCurrentUser().username +" " + "the Category " + " " + categoryEntity.category_name +" " + "has been successfuly Updated"
+            this.element.show();
+            this.categoryEventService.loadAll();
+          } else if (this.operationTobeExecuted === 'create') {            
             console.log('CREATE START ......')
-            this.categoryService.create(categoryEntity);
-            alert('Event Created Successfuly')
-            this.categoryService.loadAll()
+            this.categoryEventService.create(categoryEntity);
+            this.toastMsg.msgBody = "Hey : " + " " + this.userService.getCurrentUser().username +" " + "the Category " + " " + categoryEntity.category_name + " " + "has been successfuly Created"
+            this.categoryEventService.loadAll();
           }
         }
 
@@ -149,7 +191,7 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
       }
     } else if (args.requestType === 'delete') {
       if (this.selectedCategory != null) {
-        this.categoryService.remove(this.selectedCategory.id);
+        this.categoryEventService.remove(this.selectedCategory.id);
         alert('Event :' + " " + this.selectedCategory.category_name + " " + " was deleted successfully")
       } else {
         alert('Somthing went wrong  Cannot Delete Event' + this.selectedCategory.id)
@@ -163,6 +205,7 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
       if (Browser.isDevice) {
         args.dialog.height = window.innerHeight - 90 + 'px';
         (<Dialog>args.dialog).dataBind();
+        this.categoryEventService.loadAll()
       }
       // Set initail Focus
       if (args.requestType === 'beginEdit') {
@@ -175,57 +218,15 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
 
   rowSelected(args: RowSelectEventArgs) {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
-    console.log(this.grid.getRowInfo(args.target).rowData);    
-    this.selectedCategory = this.categoryService.buildCategory(this.grid.getRowInfo(args.target).rowData);
+    console.log(this.grid.getRowInfo(args.target).rowData);
+    this.selectedCategory = this.categoryEventService.buildCategory(this.grid.getRowInfo(args.target).rowData);
     console.log('SELECTED selectedCategory' + this.selectedCategory.category_name)
   }
 
   handleToolBarClicks(args: ClickEventArgs): void {
     if (args.item.id === 'Refresh') {
-    
-    let category: CategoryEntity;
-    let step : StepEntity;
-    let obj:Object;
-
-    obj ={
-      category_name: "777",
-      category_img: "https://picsum.photos/200/300?t=1",
-      step: {
-          id:null,
-          title: true,
-          location_start: false,
-          location_end: false,
-          start_day: false,
-          end_day: false,
-          rep: false,
-          end_repeat: false,
-          rule: false,
-          gender: false,
-          age: false,
-          difficulty: false,
-          diagrame: false,
-          theme: false,
-          association_name: false
-      }
-}
-this.categoryService.create(obj);
+      this.categoryEventService.loadAll()
     }
-
-    /*if (args.item.id === 'Archive') {
-      if (this.selectedCategory == null) {
-        alert("please select Event")
-      } else {
-        if (this.selectedCategory.is_archived == true) {
-          alert("Event already archived")
-        } else {
-          this.eventServ.archiver(this.selectedCategory);
-          alert('Event archived successfully')
-          this.eventServ.loadAll()
-        }
-      }
-    } else if (args.item.id === 'Refresh') {
-      this.eventServ.loadAll()
-    }*/
 
   }
 
@@ -257,6 +258,70 @@ this.categoryService.create(obj);
 
   get association_name(): AbstractControl { return this.orderForm.get('association_name'); }
 
+  topUsedCategory() {
+
+
+    let obj: Object[] = [];
+    let i: number = 0;
+
+    this.categories.forEach(categoy => {
+      i = 0;
+      this.events.forEach(event => {
+        if (event.category.id == categoy.id) {
+          console.log("Category Name" + categoy.category_name + "Category Id " +categoy.id + " " + "Event Id : " + " " + event.category.id + " Event Name" + event.event_name + " " + "Pointet : " + i)
+          i = i + 1;
+          obj.push(
+            { month: categoy.category_name + i, sales: i  }
+          )
+          console.log("Pointer : " +i);
+          
+        }
+      });
+    });
+
+    console.log(obj);
+    
+    this.chartData = obj;
+    
+
+  }
+
+
+
+
+
+  topSubscribedCategoy() {
+
+
+    let obj: Object[] = [];
+    let i: number = 0;
+
+    this.categories.forEach(categoy => {
+      i = 1;
+      this.events.forEach(event => {
+        if (event.category.id == categoy.id && event.subscribers.length != 0 ) {
+          console.log("Category Name" + categoy.category_name + "Category Id " +categoy.id + " " + "Event Id : " + " " + event.category.id + " Event Name" + event.event_name + " " + "Pointet : " + i)
+         i = event.subscribers.length;
+          obj.push(
+            { month: categoy.category_name + i, sales: i }
+          )
+          console.log("Pointer : " +i);
+          
+        }
+      });
+    });
+
+    console.log(obj);
+    
+    this.chartData = obj;
+    
+  }
+  
+  navigate(){
+    console.log(this.router.getCurrentNavigation());
+    
+  this.router.navigate['/info-flow']
+}
 }
 /**
 * Handle Table --> END.
@@ -269,5 +334,10 @@ export interface IFormStructure {
   category_name?: string;
   category_img?: string;
   // STEP
-  step?: StepEntity  
+  step?: StepEntity
+}
+
+export interface IToast {
+  msgTitle?: string;
+  msgBody?: string;
 }

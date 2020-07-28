@@ -1,4 +1,5 @@
 import { EventConfig } from './EventConfig';
+import { CategoryEntity } from './Category';
 
 interface EventEntityArgs {
     id?:number;
@@ -12,6 +13,7 @@ interface EventEntityArgs {
     rate?: number;
     creator_user_id?: string;
     subscribers?: any[];
+    category?:CategoryEntity
     subscribersCount?:number;
 }
 export class EventEntity {
@@ -26,6 +28,7 @@ export class EventEntity {
     rate:number
     creator_user_id:string
     subscribers:any[];
+    category?:CategoryEntity
     subscribersCount?:number;
     event_config: EventConfig;
 
