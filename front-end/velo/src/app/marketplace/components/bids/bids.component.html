@@ -1,1 +1,37 @@
-<p>bids works!</p>
+<p-toast position="top-right"></p-toast>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Product type</th>
+            <th scope="col">name</th>
+            <th scope="col">Highest bud</th>
+            <th scope="col">Your bid</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of myBids">
+            <th scope="row">{{item.target_type}}</th>
+            <td>{{item.target_identifier}}</td>
+            <td>TBD</td>
+            <td>{{item.bid}}pts</td>
+            <td>
+                <div class="row">
+                    <button type="button" class="btn btn-info col" (click)="showBidDialog(item)">Bid more</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteBid(item)">Drop</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p-dialog *ngIf="selectedBid" header="Title" [(visible)]="displaybid">
+    <form>
+        <mat-form-field class="example-full-width">
+            <input [(ngModel)]="selectedBid.bid" name="bid" type="number" matInput #postalCode maxlength="5"
+                placeholder="Bid">
+            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+        </mat-form-field>
+        <button (click)="bidOnProduct()" mat-button>click to bid</button>
+    </form>
+</p-dialog>

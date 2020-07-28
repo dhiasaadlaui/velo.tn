@@ -1,50 +1,50 @@
-export interface Category {
+export class Category {
     id: number;
     name: string;
     description: string;
     image: string;
 }
-export interface Product {
+export class Product {
     id: number;
     owner: number;
-    creationDate: string;
+    creation_date: string;
     name: string;
     description: string;
-    images: string[];
+    images: string;
     price: number;
-    startingBid: number;
+    starting_bid: number;
     available: boolean;
     category: number;
 }
-export interface MarketService {
+export class MarketService {
     id: number;
     type: string;
     name: string;
     description: string;
     price: string;
 }
-export interface Bid {
+export class Bid {
     id: number;
     bid: number;
     owner: number;
-    targetType: string;
-    targetIdentifier: number;
+    target_type: string;
+    target_identifier: number;
     status: string;
 }
-export interface Auction {
+export class Auction {
     id: number;
-    creationDate: string;
-    targetType: string;
-    targetIdentifier: string;
+    creation_date: string;
+    target_type: string;
+    target_identifier: number;
     status: string;
-    holderConfirmation: true;
-    clientConfirmation: true;
+    holder_confirmation: true;
+    client_confirmation: true;
 }
-export interface Trade {
+export class Trade {
     id: number;
     owner: number;
-    tradeType: string;
-    tradeIdentifier: string;
-    requestedType: string;
-    requestDescription: string;
+    trade_type: string;
+    trade_identifier: number;
+    requested_type: string;
+    request_description: string;
 }

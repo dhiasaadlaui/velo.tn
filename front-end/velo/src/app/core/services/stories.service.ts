@@ -41,14 +41,7 @@ export class StoriesService {
   deleteStory(id:number){
     return this._http.delete<story>(`${BASE_PATH}/deleteStory/`+id)
   }
-  /**
-   * 
-   * @param id - story identifier
-   * @return {story} - story object
-   */
-  getStoryById(id : number){
-// TO DO
-  }
+   
   likeStory(id: number){
     return this._http.post<story>(`${BASE_PATH}/likeStory/`+id, null )
 

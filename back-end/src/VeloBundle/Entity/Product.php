@@ -2,58 +2,85 @@
 
 namespace VeloBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Product
+ *
+ * @ORM\Table(name="product")
+ * @ORM\Entity(repositoryClass="VeloBundle\Repository\ProductRepository")
  */
 class Product
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="owner", type="integer")
      */
     private $owner;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="creationDate", type="date")
      */
     private $creationDate;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="images", type="string", length=255)
      */
     private $images;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="price", type="integer")
      */
     private $price;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="startingBid", type="integer")
      */
     private $startingBid;
 
     /**
      * @var bool
+     *
+     * @ORM\Column(name="available", type="boolean")
      */
     private $available;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="category", type="integer")
      */
     private $category;
 

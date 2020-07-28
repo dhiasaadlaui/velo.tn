@@ -1,3 +1,10 @@
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 <button class="btn btn-outline-secondary" (click)="goBack()">Go back</button>
 <router-outlet></router-outlet>
 
@@ -41,12 +48,12 @@
 
               <div *ngIf="story.username!=currentUser && !isAdmin">
 
-                <button class="dropdown-item" data-toggle="modal" (click)="updateC(comment)"
-                  data-target="#cedit">Report</button>
+                <button class="dropdown-item" data-toggle="modal" (click)="report(story.username)"
+                  data-target="#report">Report</button>
                 <div class="dropdown-divider"></div>
 
-                <button class="dropdown-item" data-toggle="modal" (click)="updateC(comment)"
-                  data-target="#cdelete">Commend</button>
+                <button class="dropdown-item" data-toggle="modal" (click)="commend(story.username)"
+                  data-target="#commend">Commend</button>
               </div>
 
             </div>
@@ -128,12 +135,12 @@
 
                       <div *ngIf="comment.username!=currentUser  && !isAdmin">
 
-                        <button class="dropdown-item" data-toggle="modal" (click)="updateC(comment)"
-                          data-target="#cedit">Report</button>
+                        <button class="dropdown-item" data-toggle="modal" (click)="report(comment.username)"
+                          data-target="#report">Report</button>
                         <div class="dropdown-divider"></div>
 
-                        <button class="dropdown-item" data-toggle="modal" (click)="updateC(comment)"
-                          data-target="#cdelete">Commend</button>
+                        <button class="dropdown-item" data-toggle="modal" (click)="commend(comment.username)"
+                          data-target="#commend">Commend</button>
                       </div>
                     </div>
                   </div>
@@ -318,6 +325,44 @@
         <button type="button" class="btn btn-outline-danger" (click)="deletComment()" data-toggle="modal"
           data-target="#cdelete">Confirm</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- commend -->
+<div class="modal fade" id="commend" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Commend recieved, thank you for your feedback.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Okay</button>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- report -->
+<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Report recieved, thank you for your feedback.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Okay</button>
+       </div>
     </div>
   </div>
 </div>

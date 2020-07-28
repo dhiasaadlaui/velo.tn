@@ -20,6 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { GetProductNamePipe } from './core/pipes/get-product-name.pipe';
+import { GetServiceNamePipe } from './core/pipes/get-service-name.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     TopNavBarComponent,
     FooterComponent,
     LoginComponent,
+    GetProductNamePipe,
+    GetServiceNamePipe,
   ],
   imports: [
     BrowserModule,
