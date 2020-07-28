@@ -160,7 +160,7 @@ class DataFlowController extends Controller
     }
 
     /**
-     * @Rest\Get("/getRidingDistance/{username}")
+     * @Rest\Get("/e/{username}")
      */
     public function getRidingDistanceCountAction($username)
     {   $count=0;

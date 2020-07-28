@@ -22,10 +22,8 @@
     <list default="true" id="6ca17e72-fb98-4e33-9709-119603fe332a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/DataFlowController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/DataFlowController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/authentication.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/authentication.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/data-flow.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/data-flow.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/info-flow/components/data-flow/data-flow.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/info-flow/components/data-flow/data-flow.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/info-flow/components/data-flow/data-flow.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/info-flow/components/data-flow/data-flow.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/info-flow/info-flow.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/info-flow/info-flow.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/info-flow/info-flow.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/info-flow/info-flow.component.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
