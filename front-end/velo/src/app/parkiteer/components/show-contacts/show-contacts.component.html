@@ -1,0 +1,22 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="assets/sidebar/css/style.css" />
+<div class="row">
+  <div class="col-md-3"></div>
+
+  <div class="col-md-6">
+    <mat-card  *ngFor="let story of data">
+      <mat-card-header>
+        <mat-card-title>Message : {{story.message}}</mat-card-title>
+        <mat-card-subtitle>Envoyé le : {{story.date["timestamp"] | date  }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+  <div class="col-md-3"></div>
+</div>

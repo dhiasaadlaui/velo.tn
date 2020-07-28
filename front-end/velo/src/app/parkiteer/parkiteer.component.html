@@ -1,1 +1,77 @@
-<p>parkiteer works!</p>
+<link
+  href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+  rel="stylesheet"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="assets/sidebar/css/style.css" />
+
+<button pButton type="submit" label="Liste des offres" class="ui-button-raised" routerLink="show"></button>
+
+<button pButton type="submit" label="Liste des demandes" class="ui-button-raised" routerLink="showDemandes"></button>
+
+
+
+
+<div id="content" class="p-4 p-md-5 pt-5">
+<form [formGroup]="logiin" (submit)="onLogin()">
+  <h3 class="box-title m-b-20">PARKING</h3>
+  <div class="form-group ">
+    <div class="col-xs-12">
+    <label>Nombre des places :</label>
+      <input type="number" class="form-control" required="" formControlName="nbrplaces" style="background: #DCDCDC; width: 50%; "> </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-12">
+      <label>prix :</label>
+      <input type="number" required="" class="form-control" formControlName="prix" style="background: #DCDCDC; width: 50%; "> </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-12">
+      <label>Numéro de téléphone</label>
+      <input type="number" required="" class="form-control" formControlName="numtel" style="background: #DCDCDC; width: 50%; "> </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-12">
+      <label>Email : </label>
+      <input type="text" required="" class="form-control" formControlName="email" style="background: #DCDCDC ;width: 50%; "> </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-12">
+      <label>Localisation : </label>
+      <input type="text" required="" class="form-control" formControlName="localisation" style="background: #DCDCDC; width: 50%; "> </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-12">
+      <label>Type : </label>
+      <select  class="form-control" formControlName="type" style="background: #DCDCDC; width: 50%; height: 20% ">
+        <option value="">Sélectionner un type</option>
+        <option value="Offre" style="height: 50%;">offre</option>
+        <option value="Demande">Demande</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-12">
+      <label>Préférences</label>
+      <input type="text" required="" class="form-control" formControlName="preferences" style="background: #DCDCDC; width: 50%; "> </div>
+  </div>
+
+  <div class="form-group text-center m-t-20">
+    <div class="col-xs-12">
+      <div class="container">
+      <button pButton type="submit" label="Ajouter" class="ui-button-raised"  style="width: 15%;"></button>
+    </div>
+    </div>
+  </div>
+  <div class="form-group m-b-0">
+    <div class="col-sm-12 text-center">
+    </div>
+  </div>
+</form>
+</div>
+
+<p-toast position="bottom-center"></p-toast>

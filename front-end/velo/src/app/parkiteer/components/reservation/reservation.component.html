@@ -1,0 +1,32 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="assets/sidebar/css/style.css" />
+
+<div id="content" class="p-1 p-md-5 pt-5">
+  <form [formGroup]="logiin" (submit)="onReserver()">
+    <B> <label>Date Debut :</label></B> 
+  <input type="datetime-local" class="form-control" formControlName="DateDebut" style="width: 20%;">
+  <B>  <label>Date Fin :</label>  </B> 
+    <div class="form-group ">
+
+  <input type="datetime-local" class="form-control" formControlName="DateFin" style="width: 20%;">
+      <div class="col-xs-12">
+        <B>  <label>Nombre des places :</label> </B> 
+        <input type="number" class="form-control" required="" formControlName="nbrplaces" style="background: #DCDCDC; width: 50%;"> </div>
+    </div>
+  <div class="form-group text-center m-t-20">
+    <div class="col-xs-12">
+      
+      <button pButton type="submit" label="Réserver" class="ui-button-raised" routerLink="show" style="width: 10%;"></button>
+    </div>
+  </div>
+  </form>
+</div>
+<p-toast></p-toast>
+

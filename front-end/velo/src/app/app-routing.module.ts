@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   { path: 'velo-events', loadChildren: () => import('./velo-events/velo-events.module').then(m => m.VeloEventsModule) , canActivate: [AuthGuard] },
   { path: 'ride-rescue', loadChildren: () => import('./ride-rescue/ride-rescue.module').then(m => m.RideRescueModule) , canActivate: [AuthGuard] },
-  { path: 'parkiteer', loadChildren: () => import('./parkiteer/parkiteer.module').then(m => m.ParkiteerModule) , canActivate: [AuthGuard] },
+  { path: 'parkiteer', loadChildren: () => import('./parkiteer/parkiteer.module').then(m => m.ParkiteerModule) },
   { path: 'info-flow', loadChildren: () => import('./info-flow/info-flow.module').then(m => m.InfoFlowModule) , canActivate: [AuthGuard] },
   { path: 'landing-page', loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule) , canActivate: [AuthGuard] },
   
