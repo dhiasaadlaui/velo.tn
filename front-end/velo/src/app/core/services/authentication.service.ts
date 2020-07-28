@@ -17,7 +17,7 @@ export class AuthenticationService {
      }
 
     login(login: string, password: string) {
-        return this.http.post<any>("http://localhost/BackendSF/web/app_dev.php/getcredential/"+login+"/"+password, { login, password })
+        return this.http.post<any>("http://localhost:8000/getcredential/"+login+"/"+password, { login, password })
             .pipe(map(user => {
                 // login successful if there's a user in the response
                 if (user) {

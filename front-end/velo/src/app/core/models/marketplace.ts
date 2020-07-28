@@ -10,7 +10,7 @@ export interface Product {
     creationDate: string;
     name: string;
     description: string;
-    images: string[];
+    images: string;
     price: number;
     startingBid: number;
     available: boolean;
@@ -35,7 +35,7 @@ export interface Auction {
     id: number;
     creationDate: string;
     targetType: string;
-    targetIdentifier: string;
+    targetIdentifier: number;
     status: string;
     holderConfirmation: true;
     clientConfirmation: true;
@@ -44,7 +44,7 @@ export interface Trade {
     id: number;
     owner: number;
     tradeType: string;
-    tradeIdentifier: string;
+    tradeIdentifier: number;
     requestedType: string;
     requestDescription: string;
 }
