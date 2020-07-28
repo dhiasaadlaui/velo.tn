@@ -19,21 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ca17e72-fb98-4e33-9709-119603fe332a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/symfony_requirements" beforeDir="false" afterPath="$PROJECT_DIR$/bin/symfony_requirements" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Controller/MarketplaceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/VeloBundle/Controller/MarketplaceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/Product.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/ProductCategory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Repository/Entity/ProductRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Repository/ProductCategoryRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Repository/ProductRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Resources/config/doctrine/Product.orm.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Resources/config/doctrine/ProductCategory.orm.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/SymfonyRequirements.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/SymfonyRequirements.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/authentication.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/core/services/authentication.service.ts" afterDir="false" />
-    </list>
+    <list default="true" id="6ca17e72-fb98-4e33-9709-119603fe332a" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +149,7 @@
       <workItem from="1595499878553" duration="30509000" />
       <workItem from="1595677142670" duration="9957000" />
       <workItem from="1595812357585" duration="5356000" />
-      <workItem from="1595900227807" duration="9536000" />
+      <workItem from="1595900227807" duration="10139000" />
     </task>
     <servers />
   </component>

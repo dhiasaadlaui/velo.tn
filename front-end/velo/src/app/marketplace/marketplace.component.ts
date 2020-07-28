@@ -12,10 +12,12 @@ export class MarketplaceComponent implements OnInit {
     private _userService: UserService) { }
 
   username: string;
+  points: number;
 
 
   ngOnInit() {
     this.username = this._userService.getCurrentUser().username;
+    this.points = this._userService.getUserPoints();
   }
 
 }

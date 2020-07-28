@@ -1,6 +1,6 @@
 import { Claim } from './Claim';
 import { Disponibility } from './Disponibility';
-export class User{
+export class User {
     id: number;
     name: string;
     forname: string;
@@ -8,6 +8,7 @@ export class User{
     login: string;
     password: string;
     ismoderator: boolean;
-    claim : Claim;
-    disponibility : Disponibility;
+    claim: Claim;
+    disponibility: Disponibility;
+    points: number;
 }

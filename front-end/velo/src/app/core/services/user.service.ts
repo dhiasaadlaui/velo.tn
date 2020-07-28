@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,17 +6,23 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
 
-  constructor() { }
+  constructor(
+    private _authService: AuthenticationService
+  ) { }
 
 
 
 
   getCurrentUser(): User {
-    return { username: 'admin' };
+    return { username: JSON.parse(localStorage.getItem('currentUser'))[0].login };
   }
 
   getCurrentRoles() {
     return ['admin', 'user', 'guest'];
+  }
+
+  getUserPoints(): number {
+    return JSON.parse(localStorage.getItem('currentUser'))[0].points;
   }
 }
 
