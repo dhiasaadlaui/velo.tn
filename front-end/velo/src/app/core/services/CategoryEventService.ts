@@ -7,7 +7,7 @@ import { StepService } from './StepService';
 
 
 @Injectable()
-export class CategoryService {
+export class CategoryEventService {
     private _todos = new BehaviorSubject<CategoryEntity[]>([]);
     private baseUrl = 'http://localhost:8000';
     private dataStore: { todos: CategoryEntity[] } = { todos: [] };
@@ -39,7 +39,29 @@ export class CategoryService {
       }
 
       
-
+      load(id: number | string) {
+        this.http.get<CategoryEntity>(`${this.baseUrl}/getCategory/${id}`).subscribe(
+          data => {
+            console.log("DATA ONE FOUND ..............................")
+            console.log(data)
+            let notFound = true;
+    
+            this.dataStore.todos.forEach((item, index) => {
+              if (item.id == data.id) {
+                this.dataStore.todos[index] = data;
+                notFound = false;
+              }
+            });
+    
+            if (notFound) {
+              this.dataStore.todos.push(data);
+            }
+    
+            this._todos.next(Object.assign({}, this.dataStore).todos);
+          },
+          error => console.log('Could not load todo.')
+        );
+      }
 
   create(todo: any) {
       console.log(todo);
@@ -59,10 +81,15 @@ export class CategoryService {
 
 
   update(todo: CategoryEntity) {
-    console.log(todo)
+    console.log("TO BE UPDATED CATEGORY ..................................")
+    console.log(todo);
+    console.log("TO BE UPDATED CATEGORY ..................................")
+
     this.http
       .put<CategoryEntity>(`${this.baseUrl}/updateCategory/${todo.id}`, JSON.stringify(todo)).subscribe(
         data => {
+          console.log(data);
+          
           this.dataStore.todos.push(data);
           this._todos.next(Object.assign({}, this.dataStore).todos);
         },

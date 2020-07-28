@@ -3,15 +3,19 @@
 namespace VeloBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use VeloBundle\Entity\TimeStamps\TimeStamps;
 
 /**
  * CommentEvent
  *
  * @ORM\Table(name="comment_event")
  * @ORM\Entity(repositoryClass="VeloBundle\Repository\CommentEventRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class CommentEvent
 {
+    use TimeStamps;
+
     /**
      * @var int
      *

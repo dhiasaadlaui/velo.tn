@@ -1,38 +1,38 @@
-<div  class="container">
-    <h2 class="text-muted">             Welcome to Info-Flow      </h2>
-   <div class="row center"> 
-   <div class="cont1 col-md-5"> 
-     
-    
-    <div class="chart chart2 ">
-      <canvas baseChart
-        [data]="pieChartData"
-        [labels]="pieChartLabels"
-        [chartType]="pieChartType"
-        [options]="pieChartOptions"
-        [plugins]="pieChartPlugins"
-        [colors]="pieChartColors"
-        [legend]="pieChartLegend">
-      </canvas>
-    </div>
+     <div  class="container">
+      <h2 class="text-muted">             Welcome to Info-Flow      </h2>
+     <div class="row center"> 
+     <div class="cont1 col-md-5"> 
+       
+      
+      <div class="chart chart2 ">
+        <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [colors]="pieChartColors"
+          [legend]="pieChartLegend">
+        </canvas>
+      </div>
 
-       <h5 class="text-muted" > This service provide our riders a details statisistics and logs about all the activities, click the button to check out your data. </h5>
-       <button class="btn btn-secondary" (click)="showPersonalData()">Your personal data</button>
-       </div>
-       <div class="cont1 col-md-1"> </div>
+         <h5 class="text-muted" > This service provide our riders a details statisistics and logs about all the activities, click the button to check out your data. </h5>
+         <button class="btn btn-secondary" (click)="showPersonalData()">Your personal data</button>
+         </div>
+         <div class="cont1 col-md-1"> </div>
 
-        <div class="cont1 col-md-5"> 
-     
-    
-    
-        <img src="../../assets/images/icons/story2.jpg" >
-        <h5 class="text-muted" > Got a story about cycling to tell? click the button to share it and enjoy what other riders has shared and interact with them.</h5>
-        <button class="btn btn-secondary Center" (click)="showStories()">Published stories</button> </div>
+          <div class="cont1 col-md-5"> 
+       
+      
+      
+          <img src="../../assets/images/icons/story2.jpg" >
+          <h5 class="text-muted" > Got a story about cycling to tell? click the button to share it and enjoy what other riders has shared and interact with them.</h5>
+          <button class="btn btn-secondary Center" (click)="showStories()">Published stories</button> </div>
+
+ 
+          </div>
+
+          <router-outlet></router-outlet>
 
 
-        </div>
-
-        <router-outlet></router-outlet>
-
-
-    </div>
+      </div>

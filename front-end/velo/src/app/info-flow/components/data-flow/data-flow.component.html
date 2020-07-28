@@ -1,71 +1,70 @@
+<button class="btn btn-outline-secondary" (click)="goBack()">Go back</button>
+
+<h2  class="text-muted" style="text-align: center;">Welcome to your personal data-flow, </h2>
+<br>
+<br>
+<br>
+<br>
 <div class="row" style="text-align: center !important;">
-    <div class="col-md-6">
-      <div>
-        <canvas
-          baseChart
-          [datasets]="radarChartData"
-          [options]="radarChartOptions"
-          [labels]="radarChartLabels"
-          [chartType]="radarChartType"
-        >
-        </canvas>
-      </div>
-      <button  mat-button color="warn" (click)="getConductSummary()">
-        Calculate
-      </button>
+  <div class="col-md-6">
+    <div>
+      <h4 class="text-muted" style="text-align: center;">   Your conduct summary</h4>
+
+      <canvas
+        baseChart
+        [datasets]="radarChartData"
+        [options]="radarChartOptions"
+        [labels]="radarChartLabels"
+        [chartType]="radarChartType"
+      >
+      </canvas>
     </div>
-    <div class="col-md-6">
-      <div class="chart">
-        <canvas
-          baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [chartType]="pieChartType"
-          [options]="pieChartOptions"
-          [plugins]="pieChartPlugins"
-          [colors]="pieChartColors"
-          [legend]="pieChartLegend"
-        >
-        </canvas>
-      </div>
-      <button mat-button color="warn" (click)="getAverageUsing()">
-        Calculate
-      </button>
+    <br>
+
+    <button  class="btn btn-outline-success"  (click)="getConductSummary()">
+      Calculate
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div class="chart">
+      <h4 class="text-muted" style="text-align: center;">  Your service using  </h4>
+      <canvas
+        baseChart
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [colors]="pieChartColors"
+        [legend]="pieChartLegend"
+      >
+      </canvas>
     </div>
+    <br>
+    <button class="btn btn-outline-success" (click)="getAverageUsing()">
+      Calculate
+    </button>
   </div>
-  
-  <div style="display: block">
-    <canvas
-      baseChart
-      [datasets]="barChartData"
-      [labels]="barChartLabels"
-      [options]="barChartOptions"
-      [plugins]="barChartPlugins"
-      [legend]="barChartLegend"
-      [chartType]="barChartType"
-    >
-    </canvas>
-  </div>
-  <button mat-button color="warn"  (click)="getRidingHistory()">
-    Calculate
-  </button>
-  
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Service name</th>
-        <th scope="col">time & date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let log of logs">
-        <th scope="row">{{ log.id }}</th>
-        <td>{{ log.serviceName }}</td>
-        <td>{{ log.date }}</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <!-- save work -->
-  
+</div>
+<br>
+<br>
+<br>
+<div style="display: block">
+   <h4 class="text-muted" style="text-align: center;">  Your riding history in Km</h4>
+
+  <canvas
+    baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType"
+  >
+  </canvas>
+</div>
+<button class="btn btn-outline-success" (click)="getRidingHistory()">
+  Calculate
+</button>
+
+ <!-- save work -->

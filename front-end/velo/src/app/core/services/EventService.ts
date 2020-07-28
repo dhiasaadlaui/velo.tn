@@ -18,9 +18,6 @@ export class EventService {
   readonly todos = this._todos.asObservable();
 
   constructor(private http: HttpClient, private userService: UserService) {
-    this.getJSON().subscribe(data => {
-      console.log(data);
-    });
   }
 
   get todoso(): Observable<any> {
@@ -30,6 +27,7 @@ export class EventService {
   loadAll() {
     this.http.get<EventEntity[]>(`${this.baseUrl}/getEvents`).subscribe(
       data => {
+        console.log(data)
         this.dataStore.todos = data;
         this._todos.next(Object.assign({}, this.dataStore).todos);
       },

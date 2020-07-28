@@ -21,6 +21,10 @@ class InfoFlowCommentController extends Controller
 
         $data = $request->getContent();
         $stories=$em->getRepository(Story::class)->findOneBy(['id' => $id]);
+        $current=$stories->getComments();
+        $stories->setComments($current+1);
+        $em ->persist($stories);
+        $em->flush();
 
         $comment = $this->get('jms_serializer')->deserialize($data, 'VeloBundle\Entity\InfoFlowEntity\StoryComment', 'json');
         $comment->setStory($stories);
@@ -70,7 +74,7 @@ class InfoFlowCommentController extends Controller
     public function updateCommentAction(Request $request,$id)
     {
         $em=$this->getDoctrine()->getManager();
-        $story=$em->getRepository(Story::class)->findOneBy(['id' => $id]);
+        $story=$em->getRepository(StoryComment::class)->findOneBy(['id' => $id]);
         if (empty($story)) {
             $response = array(
                 'code' => 1,
@@ -82,7 +86,7 @@ class InfoFlowCommentController extends Controller
         }
         $body = $request->getContent();
 
-        $data = $this->get('jms_serializer')->deserialize($body, 'VeloBundle\Entity\InfoFlowEntity\Story', 'json');
+        $data = $this->get('jms_serializer')->deserialize($body, 'VeloBundle\Entity\InfoFlowEntity\StoryComment', 'json');
         $story->setContent($data->getContent());
          $em->persist($story);
         $em->flush();
@@ -100,10 +104,15 @@ class InfoFlowCommentController extends Controller
     public function deleteCommentAction($id)
     {
         $em=$this->getDoctrine()->getManager();
-        $story=$em->getRepository(StoryComment::class)->find($id);
-        $em->remove($story);
+        $comment=$em->getRepository(StoryComment::class)->findOneBy(['id'=>$id]);
+       $story = $comment->getStory();
+
+         $current=$story->getComments();
+        $story->setComments($current-1);
+        $em->persist($story);
+        $em->flush();
+        $em->remove($comment);
         $em->flush();
         return new JsonResponse(["msg"=>"story deleted with success"],200);
     }
-
-}
+ }

@@ -23,9 +23,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/back-end.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/back-end.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/symfony_requirements" beforeDir="false" afterPath="$PROJECT_DIR$/bin/symfony_requirements" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/Product.php" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/VeloBundle/Entity/Product.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VeloBundle/Repository/ProductRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/SymfonyRequirements.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/SymfonyRequirements.php" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/var/SymfonyRequirements.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/SymfonyRequirements.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/config.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -156,8 +156,8 @@
       <workItem from="1595466721312" duration="1988000" />
       <workItem from="1595499878553" duration="30509000" />
       <workItem from="1595677142670" duration="9957000" />
-      <workItem from="1595812357585" duration="5356000" />
-    </task>
+       <workItem from="1595812357585" duration="5356000" />
+     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,10 +177,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595820950276">
+    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595852385902">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
-    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595820950276" />
+    <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595852385902" />
     <state x="580" y="234" key="FileChooserDialogImpl" timestamp="1595809585139">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
@@ -188,8 +188,8 @@
     <state x="527" y="182" key="RollbackChangesDialog" timestamp="1595816255778">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
-    <state x="527" y="182" key="RollbackChangesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595816255778" />
-    <state x="456" y="220" key="run.anything.popup" timestamp="1595628400942">
+     <state x="527" y="182" key="RollbackChangesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595816255778" />
+     <state x="456" y="220" key="run.anything.popup" timestamp="1595628400942">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
     <state x="456" y="220" key="run.anything.popup/0.0.1600.960@0.0.1600.960" timestamp="1595628400942" />
