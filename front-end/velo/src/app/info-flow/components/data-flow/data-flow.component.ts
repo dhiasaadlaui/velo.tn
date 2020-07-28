@@ -8,6 +8,8 @@ import { DataFlowService } from 'src/app/core/services/data-flow.service';
 import { DataFlow } from 'src/app/core/models/DataFlow';
 import { UserService } from 'src/app/core/services/user.service';
 import { Observable } from 'rxjs';
+import { MarketService } from 'src/app/core/models/marketplace';
+import { MarketplaceService } from 'src/app/core/services/marketplace.service';
 
 @Component({
   selector: 'app-data-flow',
@@ -70,20 +72,20 @@ export class DataFlowComponent implements OnInit {
       },
     }
   };
-  public pieChartLabels: Label[] = ['Events', 'Marketplace', 'Parkiteer', 'Ride Rescue', 'Published Stories'];
-  public pieChartData: number[] = [300, 500, 100, 200, 150];
+  public pieChartLabels: Label[] = ['Events', 'Marketplace',  'Ride Rescue', 'Published Stories'];
+  public pieChartData: number[] = [300, 500, 100, 200];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)', 'rgba(102,204,204,0.2)', 'rgba(251, 226, 152, 1)'],
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(102,204,204,0.2)', 'rgba(251, 226, 152, 1)'],
     },
   ];
 
-  private data: DataFlow;
-
-  constructor(private route: ActivatedRoute, private router: Router, private _userService: UserService,
+  public data: DataFlow;
+ public ridingHistory: number;
+  constructor(private route: ActivatedRoute, private router: Router, private _userService: UserService, private _marketService: MarketplaceService,
     private _dataFlowService: DataFlowService) { }
 
   ngOnInit() {
@@ -104,9 +106,8 @@ export class DataFlowComponent implements OnInit {
   }
   public getConductSummary(): void {
     // Only Change 3 values
-    this._dataFlowService.getPoints(this._userService.getCurrentUser().username).subscribe(response => {
-      this.data.points = response
-    });
+       this.data.points = this._userService.getUserPoints();
+   
     this._dataFlowService.getDataLikes(this._userService.getCurrentUser().username).subscribe(response => {
       this.data.likes = response
     });
@@ -132,32 +133,31 @@ export class DataFlowComponent implements OnInit {
     console.log(event, active);
   }
   public getRidingHistory(): void {
-    // Only Change 3 values
-    const data = [
-      Math.round(Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20)
-    ];
-    this.barChartData[0].data = data;
-    const data1 = [
-      Math.round(Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20),
-      (Math.random() * 20)
-    ];
-    this.barChartData[1].data = data1;
-
+    this._dataFlowService.getRidingDistance(this._userService.getCurrentUser().username).subscribe(response => {
+      this.ridingHistory= response
+    });
   }
 
   public getAverageUsing(): void {
-    const data: number[] = [(Math.random() * 20), (Math.random() * 20), (Math.random() * 20), (Math.random() * 20)];
+
+    this._dataFlowService.getSotriesCount(this._userService.getCurrentUser().username).subscribe(response => {
+      this.data.stories = response
+    });
+
+    this._dataFlowService.getEventCount(this._userService.getCurrentUser().username).subscribe(response => {
+      this.data.events = response
+    });
+
+    this._dataFlowService.getRideCount(this._userService.getCurrentUser().username).subscribe(response => {
+      this.data.riderescue = response
+    });
+
+     
+
+    this._marketService.getMarketActivities(this._userService.getCurrentUser().username).subscribe(response => {
+      this.data.marktplace = response
+    });
+    const data: number[] = [  this.data.events, this.data.marktplace,  this.data.riderescue,  this.data.stories ];
     this.pieChartData = data;
   }
 
@@ -171,13 +171,27 @@ export class DataFlowComponent implements OnInit {
     console.log(data);
     this._dataFlowService.createStory(data).subscribe(response => {
       console.log("data created successfuly");
+      location.reload();
+
     }, err => {
+      
       console.log("error when creating data", err);
+      location.reload();
+
 
     });
   }
   reload() {
     location.reload();
   }
+ deleteData() {
+  this._dataFlowService.deleteStory(this._userService.getCurrentUser().username).subscribe(response => {
+    console.log("data deleted successfuly");
+    this.isSubscribed=false;
+  }, err => {
+    console.log("error when delete data", err); 
 
+  });
+
+ }
 }

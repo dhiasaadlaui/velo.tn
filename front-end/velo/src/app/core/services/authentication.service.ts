@@ -34,7 +34,7 @@ export class AuthenticationService {
             }));
     }
     loginAdmin(login: string, password: string) {
-        return this.http.post<any>("http://localhost/BackendSF/web/app_dev.php/getadmin/"+login+"/"+password, { login, password })
+        return this.http.post<any>("http://localhost:8000/getadmin/"+login+"/"+password, { login, password })
             .pipe(map(user => {
                 // login successful if there's a user in the response
                 if (user) {
