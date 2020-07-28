@@ -183,11 +183,11 @@
 
 
 <p-dialog header="Title" [(visible)]="displayEditDialog">
-  <app-new-auction [product]="selectedProduct"></app-new-auction>
+  <app-new-auction [product]="selectedProduct" [edit]=true ></app-new-auction>
 </p-dialog>
 
 <p-dialog header="Title" [(visible)]="displayViewDialog">
-  <app-new-auction [product]="selectedProduct" [viewOnly]="displayViewDialog"></app-new-auction>
+  <app-new-auction [product]="selectedProduct" [viewOnly]="displayViewDialog" [edit]=true></app-new-auction>
 </p-dialog>
 
 

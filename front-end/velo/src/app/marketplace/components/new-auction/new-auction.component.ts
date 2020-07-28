@@ -26,6 +26,8 @@ export class NewAuctionComponent implements OnInit {
 
   @Input() product?: Product;
 
+  @Input() edit?: boolean = false;
+
 
   productNameControl = new FormControl('', [
     Validators.required
@@ -61,16 +63,31 @@ export class NewAuctionComponent implements OnInit {
 
 
   saveAuction() {
-    this.product.category = 1;
-    this.product.owner = this._userService.getUserId();
-    this.product.creation_date = '2020-07-01T00:00:00+02:00';
-    this.product.images = 'url';
-    this.product.available = true;
-    this.product.starting_bid = 100;
-    this._marketService.createProduct(this.product).subscribe(
-      response => { this.showInfo(response) },
-      err => { this.showError(err) }
-    );
+
+
+    if (this.edit) {
+      this.product.category = 1;
+      this.product.owner = this._userService.getUserId();
+      this.product.creation_date = '2020-07-01T00:00:00+02:00';
+      this.product.images = 'url';
+      this.product.available = true;
+      this._marketService.updateProduct(this.product).subscribe(
+        response => { this.showInfo("product updated with success!") },
+        err => { this.showError(err) }
+      );
+    } else {
+      this.product.category = 1;
+      this.product.owner = this._userService.getUserId();
+      this.product.creation_date = '2020-07-01T00:00:00+02:00';
+      this.product.images = 'url';
+      this.product.available = true;
+  
+      this._marketService.createProduct(this.product).subscribe(
+        response => { this.showInfo("Product created with success") },
+        err => { this.showError(err) }
+      );
+    }
+
 
   }
 

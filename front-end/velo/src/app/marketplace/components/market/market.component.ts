@@ -33,20 +33,23 @@ export class MarketComponent implements OnInit {
     private _userService: UserService
   ) { }
   runFilter() {
-    
+
     this.displayedProducts = this.availableProducts.filter(element =>
-     ( element.name.includes(this.nameFilter))&&(element.price>=this.minPriceFilter) && (element.price < this.maxpriceFilter)
+      (element.name.toLowerCase()
+      .includes(this.nameFilter.toLowerCase())) 
+      && (element.price >= this.minPriceFilter) 
+      && (element.price < this.maxpriceFilter)
     )
   }
-  removeProduct(item){
+  removeProduct(item) {
     this._marketplaceService.deleteProduct(item.id)
-    .subscribe(
-      response=>{
-        this.initializeAvailableProducts();
-        this.showInfo('product successfuly deleted')
-      },
-      err => {this.showError(err)}
-    )
+      .subscribe(
+        response => {
+          this.initializeAvailableProducts();
+          this.showInfo('product successfuly deleted')
+        },
+        err => { this.showError(err) }
+      )
   }
   ngOnInit() {
     this.initializeProducts();
@@ -72,7 +75,7 @@ export class MarketComponent implements OnInit {
   initializeAvailableProducts() {
     this._marketplaceService.getAvailableProducts()
       .subscribe(
-        availableProducts => { this.availableProducts = availableProducts;this.displayedProducts=availableProducts; },
+        availableProducts => { this.availableProducts = availableProducts; this.displayedProducts = availableProducts; },
         err => { }
       )
   }
