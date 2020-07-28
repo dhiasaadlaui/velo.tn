@@ -8,20 +8,24 @@
 
 <button class="btn btn-outline-secondary" (click)="goBack()">Go back</button>
 <div *ngIf="!isSubscribed">
-<h2  class="text-muted" style="text-align: center;">Welcome to data-flow, click <button  class="btn btn-outline-success"  data-toggle="modal" (click)="createData()"
-  data-target="#subscribe">
+<h2  class="text-muted" style="text-align: center;">Welcome to data-flow, click <button  class="btn btn-outline-success"  data-toggle="modal"   data-target="#subscribe" (click)="createData()"
+ >
   Subscribe
 </button> to use this service! </h2>     
 </div>
 
 <div *ngIf="isSubscribed">
-  <h2  class="text-muted" style="text-align: center;">Welcome to your data-flow, {{data.username}}  </h2>
-   </div>
+  <h2  class="text-muted" style="text-align: center;">Welcome to your data-flow, {{data.username}}    <button  class="btn btn-outline-danger"  data-toggle="modal"  
+    data-target="#unsubscribe">
+    unsubscribe
+  </button> </h2>
+   
+  
 <br>
 <br>
 <br>
 <br>
-<div class="row" style="text-align: center !important;">
+<div  *ngIf="isSubscribed"class="row" style="text-align: center !important;">
   <div class="col-md-6">
     <div>
       <h4 class="text-muted" style="text-align: center;">   Your conduct summary</h4>
@@ -66,22 +70,12 @@
 <br>
 <br>
 <div style="display: block">
-   <h4 class="text-muted" style="text-align: center;">  Your riding history in Km</h4>
+   <h4 class="text-muted" style="text-align: center;">  Your riding history in Km: {{ridingHistory}} <button class="btn btn-outline-success" (click)="getRidingHistory()">
 
-  <canvas
-    baseChart
-    [datasets]="barChartData"
-    [labels]="barChartLabels"
-    [options]="barChartOptions"
-    [plugins]="barChartPlugins"
-    [legend]="barChartLegend"
-    [chartType]="barChartType"
-  >
-  </canvas>
-</div>
-<button class="btn btn-outline-success" (click)="getRidingHistory()">
-  Calculate
-</button>
+   
+    Calculate
+  </button></h4>
+   
 
  <!-- save work -->
 <!-- Modal subscribe -->
@@ -96,6 +90,24 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="reload()">Okay</button>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal unsubscribe -->
+<div class="modal fade" id="unsubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to unsubscribe data-flow service?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" (click)="deleteData()">Confirm</button>
        </div>
     </div>
   </div>

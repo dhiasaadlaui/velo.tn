@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use VeloBundle\Entity\Claim;
+use VeloBundle\Entity\Event;
 use VeloBundle\Entity\InfoFlowEntity\DataFlow;
 use VeloBundle\Entity\InfoFlowEntity\Story;
 use VeloBundle\Entity\InfoFlowEntity\StoryComment;
@@ -63,7 +65,7 @@ class DataFlowController extends Controller
     public function deleteDataAction($username)
     {
         $em=$this->getDoctrine()->getManager();
-        $sdata=$em->getRepository(DataFlow::class)->find($username);
+        $sdata=$em->getRepository(DataFlow::class)->findOneBy(['username' => $username]);
 
         $em->remove($sdata);
         $em->flush();
@@ -110,5 +112,69 @@ class DataFlowController extends Controller
         );
         return new JsonResponse($response, 200);
     }
-    
+    /**
+     * @Rest\Get("/getStoriesCount/{username}")
+     */
+    public function getStoriesCountAction($username)
+    {   $count=0;
+        $em=$this->getDoctrine()->getManager();
+        $stories=$em->getRepository(Story::class)->findBy(['username' => $username]);
+        foreach ($stories as $story) {
+            $count+= 1;
+        }
+        return $count;
+    }
+    /**
+     * @Rest\Get("/getRideCount/{username}")
+     */
+    public function getRideCountAction($username)
+    {   $count=0;
+        $em=$this->getDoctrine()->getManager();
+        $claims=$em->getRepository(Claim::class)->findAll();
+        foreach ($claims as $claim) {
+            $user= $claim->getUser();
+            $login = $user->getLogin();
+            if($login== $username) {
+                $count+= 1;
+            }
+         }
+        return $count;
+    }
+
+    /**
+     * @Rest\Get("/getEventCount/{username}")
+     */
+    public function getEventCountAction($username)
+    {   $count=0;
+        $em=$this->getDoctrine()->getManager();
+        $events=$em->getRepository(Event::class)->findAll();
+        foreach ($events as $event) {
+            $users= $event->getSubscribers();
+            foreach ($users as $user) {
+                $login = $user->getLogin();
+                if($login== $username) {
+                $count+= 1;
+            }
+        }}
+        return $count;
+    }
+
+    /**
+     * @Rest\Get("/e/{username}")
+     */
+    public function getRidingDistanceCountAction($username)
+    {   $count=0;
+        $em=$this->getDoctrine()->getManager();
+        $events=$em->getRepository(Event::class)->findAll();
+        foreach ($events as $event) {
+            $users= $event->getSubscribers();
+            foreach ($users as $user) {
+                $login = $user->getLogin();
+                if($login== $username) {
+                    $count+= $event->getDistance();
+                }
+            }}
+        return $count;
+    }
 }
+

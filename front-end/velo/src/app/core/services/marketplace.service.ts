@@ -126,7 +126,7 @@ export class MarketplaceService {
     return this._http.delete<any>(`${BASE_PATH}/trades/` + id);
   }
 
-  getMarketActivities(username: string): Observable<number> { return of(232); }
+  getMarketActivities(username: string): Observable<number> { return of(0); }
 
 
 }
