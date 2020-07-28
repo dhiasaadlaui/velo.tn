@@ -25,12 +25,14 @@ export class RideRescueComponent implements OnInit {
       {label: 'Make Claim', icon: 'pi pi-fw pi-pencil', routerLink: ['claim'] },
       {label: 'Claims', icon: 'pi pi-fw pi-file' , routerLink: ['claims']},
       {label: 'Disponibility', icon: 'pi pi-user-edit' , routerLink: ['disp']},
-      {label: 'Claims for me', icon: 'pi pi-inbox' , routerLink: ['assigned']},
-      {label: 'Assign claims', icon: 'pi pi-sitemap' , routerLink: ['assign']},
-      {label: 'Stats', icon: 'pi pi-chart-bar' , routerLink: ['stats']}
+      {label: 'Claims for me', icon: 'pi pi-inbox' , routerLink: ['assigned']}
         ];
+
     this.activeItem = this.items[0];
     this.currentUser = this.authserv.getCurrentUser;
+    if (this.currentUser.ismoderator){
+      this.items.push({label: 'Administrator', icon: 'pi pi-sitemap' , routerLink: ['admin']});
+    }
   }
 
   logout()
