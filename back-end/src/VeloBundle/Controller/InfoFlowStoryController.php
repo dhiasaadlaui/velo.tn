@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use VeloBundle\Entity\Disponibility;
 use VeloBundle\Entity\InfoFlowEntity\Story;
 use VeloBundle\Entity\InfoFlowEntity\StoryComment;
 use FOS\RestBundle\Controller\Annotations as Rest;
