@@ -23,6 +23,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { GetProductNamePipe } from './core/pipes/get-product-name.pipe';
 import { GetServiceNamePipe } from './core/pipes/get-service-name.pipe';
 
+
 @NgModule({
   declarations: [
     AppComponent,

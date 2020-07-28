@@ -1,0 +1,48 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="assets/sidebar/css/style.css"/>
+<div class="container">
+  <h1>Liste des offres</h1>
+  <table class="table table-striped" border="2">
+    <thead>
+    <tr>
+      <th>Nombre des places disponibles</th>
+      <th>Nombre des réservations</th>
+      <th>Prix</th>
+      <th>Numéro téléphone</th>
+      <th>Email</th>
+      <th>Localisation</th>
+      <th>Préférences</th>
+      <th style="width: 200px;">Gérer</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let student of data">
+      <td>{{ student.nbrplace }}</td>
+      <td>{{ student.nbreservations }}</td>
+      <td>{{ student.prix }}</td>
+      <td>{{ student.numtel }}</td>
+      <td>{{ student.mail }}</td>
+      <td>{{ student.localisation }}</td>
+      <td>{{ student.preference }}</td>
+
+      <td>
+        <button mat-mini-fab (click)="open(student.id,student.prix)"  title='reserver' class="ui-button"  aria-label="Example icon button with a plus one icon">
+          <mat-icon>add</mat-icon>
+        </button><button mat-mini-fab (click)="delete(student.id)"  title='delete' class="ui-buttone-delete" aria-label="Example icon button with a plus one icon">
+          <mat-icon>delete</mat-icon>
+        </button><button (click)="signaler(student.id)" mat-mini-fab  title='signaler' class="ui-buttone-signaler" aria-label="Example icon button with a plus one icon">
+          <mat-icon>feedback</mat-icon>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<p-toast position="bottom-center"></p-toast>
