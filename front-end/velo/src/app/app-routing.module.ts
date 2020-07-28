@@ -1,3 +1,4 @@
+import { LoginadminComponent } from './loginadmin/loginadmin.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) , canActivate: [AuthGuard] },
   { path: '', loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule)  },
   { path: 'login', component: LoginComponent },
+  { path: 'admin', component: LoginadminComponent },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
