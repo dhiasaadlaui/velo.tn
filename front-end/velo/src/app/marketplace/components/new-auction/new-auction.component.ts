@@ -14,7 +14,13 @@ import { MessageService } from 'primeng/api';
 export class NewAuctionComponent implements OnInit {
 
 
+
+
+
   username: string;
+  type: string = 'product';
+
+
   @Input() viewOnly: boolean = false;
 
 
@@ -24,6 +30,19 @@ export class NewAuctionComponent implements OnInit {
   productNameControl = new FormControl('', [
     Validators.required
   ]);
+
+  productDescriptionControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  initialBidControl = new FormControl('', [
+    Validators.required
+  ]);
+  priceControl = new FormControl('', [
+    Validators.required
+  ]);
+
+
 
 
   constructor(
@@ -43,7 +62,7 @@ export class NewAuctionComponent implements OnInit {
 
   saveAuction() {
     this.product.category = 1;
-    this.product.owner = 1;
+    this.product.owner = this._userService.getUserId();
     this.product.creation_date = '2020-07-01T00:00:00+02:00';
     this.product.images = 'url';
     this.product.available = true;

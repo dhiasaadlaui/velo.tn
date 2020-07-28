@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 export class MarketComponent implements OnInit {
 
   products: Product[] = [];
+  displayedProducts: Product[] = [];
   availableProducts: Product[] = [];
   services: MarketService[] = [];
   auctions: Auction[] = [];
@@ -20,12 +21,33 @@ export class MarketComponent implements OnInit {
   selectedProduct: Product;
   bid: number;
   displaybid: boolean = false;
+
+
+  nameFilter: string;
+  minPriceFilter: number = 0;
+  maxpriceFilter: number = 9999999;
+
   constructor(
     private _marketplaceService: MarketplaceService,
     private _message: MessageService,
     private _userService: UserService
   ) { }
-
+  runFilter() {
+    
+    this.displayedProducts = this.availableProducts.filter(element =>
+     ( element.name.includes(this.nameFilter))&&(element.price>=this.minPriceFilter) && (element.price < this.maxpriceFilter)
+    )
+  }
+  removeProduct(item){
+    this._marketplaceService.deleteProduct(item.id)
+    .subscribe(
+      response=>{
+        this.initializeAvailableProducts();
+        this.showInfo('product successfuly deleted')
+      },
+      err => {this.showError(err)}
+    )
+  }
   ngOnInit() {
     this.initializeProducts();
     this.initializeAvailableProducts();
@@ -50,7 +72,7 @@ export class MarketComponent implements OnInit {
   initializeAvailableProducts() {
     this._marketplaceService.getAvailableProducts()
       .subscribe(
-        availableProducts => { this.availableProducts = availableProducts; },
+        availableProducts => { this.availableProducts = availableProducts;this.displayedProducts=availableProducts; },
         err => { }
       )
   }
@@ -94,9 +116,9 @@ export class MarketComponent implements OnInit {
     this._message.add({ severity: 'error', summary: 'Error Message', detail: err });
   }
 
-  showBidDialog(item){
-    this.selectedProduct=item;
-    this.displaybid=true;
+  showBidDialog(item) {
+    this.selectedProduct = item;
+    this.displaybid = true;
   }
 
 }
