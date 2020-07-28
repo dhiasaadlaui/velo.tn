@@ -71,7 +71,7 @@ class Story
     private $comments;
 
     public function __construct() {
-     }
+    }
 
     /**
      * Get id

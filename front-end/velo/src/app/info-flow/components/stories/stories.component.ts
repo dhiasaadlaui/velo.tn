@@ -9,6 +9,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import {Pipe, PipeTransform} from '@angular/core';
+import { DataFlowService } from 'src/app/core/services/data-flow.service';
 @Pipe({
   name: 'search'
 })
@@ -24,6 +25,8 @@ export class StoriesComponent implements OnInit {
     private route:ActivatedRoute,private router: Router,
     private _storiesService: StoriesService,
     private _userService: UserService,
+    private _dataService: DataFlowService,
+
     private _dateFormater: DatePipe
 
     ) { }
@@ -188,4 +191,17 @@ closeNotif(){
    }
  this.currentUser=this._userService.getCurrentUser().username;
  }
-}
+
+ commend(username:string) {
+  console.log('commending', username);
+   this._dataService.commend(username).subscribe(response=>{console.log(response);
+   },err=>{console.log("error when commending ",err);
+ });
+ }
+
+ report(username:string) {
+   console.log('reporting', username);
+  this._dataService.report(username).subscribe(response=>{console.log(response);
+   },err=>{console.log("error when reporting",err);
+ });}
+ }
