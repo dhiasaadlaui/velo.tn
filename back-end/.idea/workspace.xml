@@ -19,7 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ca17e72-fb98-4e33-9709-119603fe332a" name="Default Changelist" comment="" />
+    <list default="true" id="6ca17e72-fb98-4e33-9709-119603fe332a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/marketplace/components/market/market.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/marketplace/components/market/market.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/marketplace/components/market/market.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/marketplace/components/market/market.component.ts" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +153,7 @@
       <workItem from="1595499878553" duration="30509000" />
       <workItem from="1595677142670" duration="9957000" />
       <workItem from="1595812357585" duration="5356000" />
-      <workItem from="1595900227807" duration="10139000" />
+      <workItem from="1595900227807" duration="11337000" />
     </task>
     <servers />
   </component>
