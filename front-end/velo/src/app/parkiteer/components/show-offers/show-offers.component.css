@@ -1,4 +1,13 @@
 .ui-button {
+    background-color:#008000;
+    border: 1px solid #008000;
+}
+.ui-buttone-delete {
+    background-color:#FF0000;
+    border: 1px solid #FF0000;
+}
+.ui-buttone-signaler {
     background-color:#f4623a;
     border: 1px solid #f4623a;
 }
+

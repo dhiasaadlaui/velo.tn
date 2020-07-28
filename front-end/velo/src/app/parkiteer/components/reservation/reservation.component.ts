@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ParkServiceService} from '../../park-service.service';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ParkServiceService } from '../../park-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
@@ -12,10 +12,10 @@ import { MessageService } from 'primeng/api';
 })
 export class ReservationComponent implements OnInit {
   logiin: FormGroup;
-  id: Number ;
-  prix: any ;
+  id: Number;
+  prix: any;
   constructor(private formBuilder: FormBuilder, private auth: ParkServiceService, private router: Router,
-              private route: ActivatedRoute , private messageService: MessageService) { }
+    private route: ActivatedRoute, private messageService: MessageService) { }
 
   ngOnInit() {
     let idd = this.route.snapshot.paramMap.get('id');
@@ -27,32 +27,32 @@ export class ReservationComponent implements OnInit {
       DateFin: [''],
       nbrplaces: ['']
     });
-    this.id = parseInt(idd) ;
-    this.prix = parseInt(prixx) ;
+    this.id = parseInt(idd);
+    this.prix = parseInt(prixx);
     console.log(this.id);
   }
   onReserver() {
 
     /****/
-    if(this.logiin.value.DateDebut < this.logiin.value.DateFin) {
+    if (this.logiin.value.DateDebut < this.logiin.value.DateFin) {
       const diffInMs = Date.parse(this.logiin.value.DateFin) - Date.parse(this.logiin.value.DateDebut);
       const diffInHours = diffInMs / 1000 / 60 / 60;
-      const Prixtotal = this.prix * diffInHours * parseInt(this.logiin.value.nbrplaces) ;
+      const Prixtotal = this.prix * diffInHours * parseInt(this.logiin.value.nbrplaces);
       this.messageService.clear();
-      this.messageService.add({key: 'c', sticky: true, severity:'warn', summary:'Are you sure?', detail:'Confirm to proceed'});
-      
-      var r = confirm("Confirmer votre réservation ? \n" +
-        "Prix de réservation : "+Prixtotal+" TND");
+      this.messageService.add({
+        key: 'c', sticky: true, severity: 'warn', summary: '', detail: 'Confirmer votre réservation ? \n Prix de réservation: '+Prixtotal+' TND'});
+      var r =true;
 
-      if (r == true) {
-        this.auth.reserverOffer(this.logiin.value, this.id, 1,Prixtotal)
+        if(r == true) {
+        this.auth.reserverOffer(this.logiin.value, this.id, 1, Prixtotal)
           .subscribe(
             res1 => {
               console.log(res1["status"]);
-              if(res1["status"] === "OK") {
-                alert("Done");
-              }else{
-                alert("Pleine");
+              if (res1["status"] === "OK") {
+                this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Order submitted' });
+              } else {
+                this.messageService.clear('c');
+                this.messageService.add({severity:'warn', summary: 'Warn Message', detail:'There are unsaved changes'});
               }
             });
       } else {
@@ -61,5 +61,7 @@ export class ReservationComponent implements OnInit {
     }
 
   }
-
+  onConfirm() {
+    this.messageService.clear('c');
+}
 }
