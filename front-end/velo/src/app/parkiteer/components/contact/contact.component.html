@@ -1,0 +1,24 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="assets/sidebar/css/style.css" />
+
+<div id="content" class="p-1 p-md-5 pt-5">
+  <form [formGroup]="logiin" (submit)="onmessgage()">
+  <B>  <label>Message :</label> </B>
+    <input type="text" class="form-control" formControlName="message" style="background: #DCDCDC; width: 50%; ">
+    <br>
+    <div class="form-group text-center m-t-20">
+      <div class="col-xs-12">
+        <button pButton type="submit" label="Envoyer" class="ui-button-raised"  style="width: 10%;"></button>
+
+      </div>
+    </div>
+  </form>
+</div>
+<p-toast position="bottom-center"></p-toast>
