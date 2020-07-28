@@ -47,7 +47,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [CategoryService,
+  providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]

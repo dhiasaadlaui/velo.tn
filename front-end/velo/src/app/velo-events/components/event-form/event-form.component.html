@@ -1,174 +1,228 @@
-<div class="container register-form">
-    <button type="button" (click)="testDiagrame()">Save Button</button>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-    <div class="form" >
-        <form [formGroup]="eventForm" (ngSubmit)="saveEvent(eventForm.value)">
-            <div class="note">
-                <p>Event of type Category Example Form.</p>
-            </div>
-            {{step}}
-            <div class="form-content">
+<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap" rel="stylesheet">
+<section class="ready__started project__form">
+    <div class="container">
+        <h3 class="text-center">Form With Floating Label</h3>
+        <div class="ready__started-box">
+            <form class="main__form" [formGroup]="eventForm" (ngSubmit)="saveEvent(eventForm.value)">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.title">
-                            <h4>Title {{step.title}}</h4>
+                            <h4>Title</h4>
                             <div class='textboxes'>
-                                <ejs-textbox formControlName="title" placeholder="First Name" floatLabelType="Auto"></ejs-textbox>
-                                  <div *ngIf="eventForm.controls.title.invalid && (eventForm.controls.title.dirty || eventForm.controls.title.touched)" class="alert alert-danger">
-                                    Title is required.
-                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group" *ngIf="step.location_start">
-                            <h4>Location Start {{step.location_start}}</h4>
-                            <div class='textboxes'>
-                                <ejs-textbox formControlName="locationSart" placeholder="Location Start" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.locationSart.invalid && (eventForm.controls.locationSart.dirty || eventForm.controls.locationSart.touched)" class="alert alert-danger">
-                                    Location is required.
-                                 </div>
+                                <ejs-textbox formControlName="event_name" placeholder="First Name"
+                                    floatLabelType="Auto">
+                                </ejs-textbox>
+                                <div *ngIf="eventForm.controls.event_name.invalid && (eventForm.controls.event_name.dirty || eventForm.controls.event_name.touched)"
+                                    class="alert alert-danger">
+                                    event_name is required.
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" *ngIf="step.location_start">
+                            <h4>Location Start </h4>
+                            <div class='textboxes'>
+                                <ejs-textbox formControlName="location_start" placeholder="Location Start"
+                                    floatLabelType="Auto"></ejs-textbox>
+                                <div *ngIf="eventForm.controls.location_start.invalid && (eventForm.controls.location_start.dirty || eventForm.controls.location_start.touched)"
+                                    class="alert alert-danger">
+                                    Location is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.location_end">
-                            <h4>Location End {{step.location_end}}</h4>
+                            <h4>Location End </h4>
                             <div class='textboxes'>
-                                <ejs-textbox formControlName="locationEnd" placeholder="Location End" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.locationEnd.invalid && (eventForm.controls.locationEnd.dirty || eventForm.controls.locationEnd.touched)" class="alert alert-danger">
+                                <ejs-textbox formControlName="location_end" placeholder="Location End"
+                                    floatLabelType="Auto"></ejs-textbox>
+                                <div *ngIf="eventForm.controls.location_end.invalid && (eventForm.controls.location_end.dirty || eventForm.controls.location_end.touched)"
+                                    class="alert alert-danger">
                                     Location End is required.
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group" *ngIf="step.start_day">
-                            <h4>Start Day {{step.start_day}} </h4>
+                            <h4>Start Day </h4>
                             <div class='textboxes'>
-                                <ejs-datepicker formControlName="startDay" [value]='dateValue' placeholder='Enter date'></ejs-datepicker>
-                                <div *ngIf="eventForm.controls.startDay.invalid && (eventForm.controls.startDay.dirty || eventForm.controls.startDay.touched)" class="alert alert-danger">
+                                <ejs-datepicker formControlName="start_day" [value]='dateValue'
+                                    placeholder='Enter date'>
+                                </ejs-datepicker>
+                                <div *ngIf="eventForm.controls.start_day.invalid && (eventForm.controls.start_day.dirty || eventForm.controls.start_day.touched)"
+                                    class="alert alert-danger">
                                     Start Day is required.
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">                     
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group" *ngIf="step.rep">
-                            <h4>Repeat drop down day week mounth year {{step.rep}}</h4>
+                            <h4>Repeat</h4>
                             <div class='textboxes'>
-                                <ejs-textbox formControlName="repeat"  placeholder="Repeat" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.repeat.invalid && (eventForm.controls.repeat.dirty || eventForm.controls.repeat.touched)" class="alert alert-danger">
-                                    Repeat is required.
+                                <ejs-textbox formControlName="rep" placeholder="rep" floatLabelType="Auto">
+                                </ejs-textbox>
+                                <div *ngIf="eventForm.controls.rep.invalid && (eventForm.controls.rep.dirty || eventForm.controls.rep.touched)"
+                                    class="alert alert-danger">
+                                    rep is required.
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.rep">
-                            <h4>repeatDay {{step.rep}}</h4>
+                            <h4>repDay </h4>
                             <div class='textboxes'>
-                                <ejs-datepicker formControlName="repeatDay"  placeholder='Enter date'></ejs-datepicker>
-                                <div *ngIf="eventForm.controls.repeatDay.invalid && (eventForm.controls.repeatDay.dirty || eventForm.controls.repeatDay.touched)" class="alert alert-danger">
+                                <ejs-datepicker formControlName="repeatDay" placeholder='Enter date'></ejs-datepicker>
+                                <div *ngIf="eventForm.controls.repeatDay.invalid && (eventForm.controls.repeatDay.dirty || eventForm.controls.repeatDay.touched)"
+                                    class="alert alert-danger">
                                     repeatDay is required.
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group" *ngIf="step.end_repeat">
                             <h4>End Repeat DatePicker end_repeat</h4>
                             <div class='textboxes'>
-                                <ejs-datepicker formControlName="endRepeat"  placeholder='Enter date'></ejs-datepicker>
-                                <div *ngIf="eventForm.controls.endRepeat.invalid && (eventForm.controls.endRepeat.dirty || eventForm.controls.endRepeat.touched)" class="alert alert-danger">
+                                <ejs-datepicker formControlName="end_repeat" placeholder='Enter date'></ejs-datepicker>
+                                <div *ngIf="eventForm.controls.end_repeat.invalid && (eventForm.controls.end_repeat.dirty || eventForm.controls.end_repeat.touched)"
+                                    class="alert alert-danger">
                                     End Repeat is required.
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group" *ngIf="step.rule">
-                            <h4>Rule {{step.rule}}</h4>
+                            <h4>Rule </h4>
                             <div class='textboxes'>
-                                <ejs-textbox formControlName="rule"  placeholder="Rule" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.rule.invalid && (eventForm.controls.rule.dirty || eventForm.controls.rule.touched)" class="alert alert-danger">
+                                <ejs-textbox formControlName="rule" placeholder="Rule" floatLabelType="Auto">
+                                </ejs-textbox>
+                                <div *ngIf="eventForm.controls.rule.invalid && (eventForm.controls.rule.dirty || eventForm.controls.rule.touched)"
+                                    class="alert alert-danger">
                                     Rule is required.
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                </div>
+                <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group" *ngIf="step.gender">
-                            <h4>Gender {{step.gender}}</h4>
-                            <div class='textboxes'>
-                                <ejs-textbox formControlName="gender"  placeholder="Gender" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.gender.invalid && (eventForm.controls.gender.dirty || eventForm.controls.gender.touched)" class="alert alert-danger">
-                                    Gender is required.
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group" *ngIf="step.age">
-                            <h4>Age {{step.age}}</h4>
+                            <h4>Age </h4>
                             <div class='textboxes'>
-                                <ejs-textbox formControlName="age" placeholder="Age" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.age.invalid && (eventForm.controls.age.dirty || eventForm.controls.age.touched)" class="alert alert-danger">
+                                <ejs-textbox formControlName="age" placeholder="Age" floatLabelType="Auto">
+                                </ejs-textbox>
+                                <div *ngIf="eventForm.controls.age.invalid && (eventForm.controls.age.dirty || eventForm.controls.age.touched)"
+                                    class="alert alert-danger">
                                     Age is required.
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.difficulty">
-                            <h4>Difficulty {{step.difficulty}}</h4>
+                            <h4>Difficulty</h4>
                             <div class='textboxes'>
-                                <ejs-textbox formControlName="difficulty" placeholder="Difficulty" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.difficulty.invalid && (eventForm.controls.difficulty.dirty || eventForm.controls.difficulty.touched)" class="alert alert-danger">
+                                <ejs-textbox formControlName="difficulty" placeholder="Difficulty"
+                                    floatLabelType="Auto"></ejs-textbox>
+                                <div *ngIf="eventForm.controls.difficulty.invalid && (eventForm.controls.difficulty.dirty || eventForm.controls.difficulty.touched)"
+                                    class="alert alert-danger">
                                     Difficulty is required.
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.end_day">
-                            <h4>End Day   {{step.end_day}}</h4>
+                            <h4>End Day</h4>
                             <div class='textboxes'>
-                                <ejs-textbox formControlName="end_day" placeholder="end_day" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.end_day.invalid && (eventForm.controls.end_day.dirty || eventForm.controls.end_day.touched)" class="alert alert-danger">
+                                <ejs-textbox formControlName="end_day" placeholder="end_day" floatLabelType="Auto">
+                                </ejs-textbox>
+                                <div *ngIf="eventForm.controls.end_day.invalid && (eventForm.controls.end_day.dirty || eventForm.controls.end_day.touched)"
+                                    class="alert alert-danger">
                                     end_day is required.
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group" *ngIf="step.theme">
-                            <h4>Theme {{step.theme}}</h4>
+                            <h4>Theme</h4>
                             <div class='textboxes'>
-                                <ejs-textbox  formControlName="theme" placeholder="Theme" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.theme.invalid && (eventForm.controls.theme.dirty || eventForm.controls.theme.touched)" class="alert alert-danger">
-                                    Theme is required.
+                                <ejs-textbox formControlName="is_theme" placeholder="is_theme" floatLabelType="Auto">
+                                </ejs-textbox>
+                                <div *ngIf="eventForm.controls.is_theme.invalid && (eventForm.controls.is_theme.dirty || eventForm.controls.is_theme.touched)"
+                                    class="alert alert-danger">
+                                    is_theme is required.
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group" *ngIf="step.association_name">
-                            <h4>Association Name {{step.association_name}}</h4>
+                            <h4>Association Name</h4>
                             <div class='textboxes'>
-                                <ejs-textbox formControlName="associationName" placeholder="Association Name" floatLabelType="Auto"></ejs-textbox>
-                                <div *ngIf="eventForm.controls.associationName.invalid && (eventForm.controls.associationName.dirty || eventForm.controls.associationName.touched)" class="alert alert-danger">
+                                <ejs-textbox formControlName="association_name" placeholder="Association Name"
+                                    floatLabelType="Auto"></ejs-textbox>
+                                <div *ngIf="eventForm.controls.association_name.invalid && (eventForm.controls.association_name.dirty || eventForm.controls.association_name.touched)"
+                                    class="alert alert-danger">
                                     Association is required.
                                 </div>
                             </div>
                         </div>
-                        <h1>{{step.diagrame}}</h1>
-                        <ejs-diagram   *ngIf="step.diagrame" #diagram id="diagram" width="100%" height="580px"
-                            [getNodeDefaults]='getNodeDefaults' [getConnectorDefaults]="getConnectorDefaults"
-                            (created)='created($event)'>
-                            <e-nodes>
-                                <e-node id='node1' [offsetX]=100 [offsetY]=100>
-                                </e-node>
-                            </e-nodes>
-                            <e-connectors>
-                                <e-connector id='connector' type='Orthogonal' [sourcePoint]='sourcePoint1'
-                                    [targetPoint]='targetPoint1'>
-                                </e-connector>
-                            </e-connectors>
-                        </ejs-diagram>
                     </div>
+                </div>      
+                <div class="row">
+                     <ejs-diagram *ngIf="step.diagrame" #diagram id="diagram" width="100%" height="580px"
+                        [getNodeDefaults]='getNodeDefaults' [getConnectorDefaults]="getConnectorDefaults"
+                        (created)='created($event)'>
+                        <e-nodes>
+                            <e-node id='node1' [offsetX]=100 [offsetY]=100>
+                            </e-node>
+                        </e-nodes>
+                        <e-connectors>
+                            <e-connector id='connector' type='Orthogonal' [sourcePoint]='sourcePoint1'
+                                [targetPoint]='targetPoint1'>
+                            </e-connector>
+                        </e-connectors>
+                    </ejs-diagram>
                 </div>
-            </div>
-            <button  type="submit" ejs-progressbutton content='Submit'
-            [spinSettings]='spinSettings'></button>
-        </form>
+                <button [disabled] = "!eventForm.valid" style="width: 100%;" type="submit" ejs-progressbutton content='Submit' [spinSettings]='spinSettings'></button>
+            </form>
+        </div>
     </div>
-</div>
+</section>

@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { EventEntity } from '../models/Event';
 import { UserService } from './user.service';
+import { AuthenticationService } from './authentication.service';
+import { EventConfigService } from './EventConfigService';
+import { data } from 'jquery';
 
 export interface Todo {
   id?: any;
@@ -17,7 +20,7 @@ export class EventService {
   private dataStore: { todos: EventEntity[] } = { todos: [] };
   readonly todos = this._todos.asObservable();
 
-  constructor(private http: HttpClient, private userService: UserService) {
+  constructor(private http: HttpClient, private userService: AuthenticationService, private confService:EventConfigService) {
   }
 
   get todoso(): Observable<any> {
@@ -74,18 +77,25 @@ export class EventService {
 
 
   create(todo: EventEntity) {
+    let eventEtity:EventEntity;
     console.log(todo);
      this.http
       .post<EventEntity>(`${this.baseUrl}/createEvent`, JSON.stringify(todo)).subscribe(
         data => {
+          eventEtity = data;
           console.log(data)
           this.dataStore.todos.push(data);
           this._todos.next(Object.assign({}, this.dataStore).todos);
         },
         error => console.log('Could not create todo.')
       );
+      return eventEtity;
   }
 
+  createEventNodeSubscription(todo: EventEntity){
+    return this.http
+      .post<EventEntity>(`${this.baseUrl}/createEvent`, JSON.stringify(todo))
+  }
 
   update(todo: EventEntity) {
     console.log(todo)
@@ -123,17 +133,38 @@ export class EventService {
 
   buildEvent(data): EventEntity {
     let event: EventEntity = new EventEntity();
-    event.id = data.id;
+    event.id = data.id != null ? data.id : null;
     event.location = data.location;
     event.start_date = data.start_date;
     event.end_date = data.end_date;
     event.event_name = data.event_name;
-    event.distance = data.distance;
+    event.distance = 1000;
     event.is_theme = false;
     event.is_archived = data.is_archived;
     event.rate = 1000;
-    event.creator_user_id = this.userService.getCurrentUser().username;
-     return event;
+    event.creator_user_id = this.userService.getCurrentUser.name;
+    return event;
+  }
+
+  //for test purpose 
+  buildEventTest(data): EventEntity {
+    let event: EventEntity = new EventEntity();
+    event.id = typeof data.id === 'undefined' ? null : data.id ;
+    event.location = data.event_name;
+    event.start_date = data.start_day;
+    event.end_date = data.end_day;
+    event.event_name = data.event_name;
+    event.distance = 1000;
+    event.is_theme = false;
+    event.is_archived = false;
+    event.rate = 1000;
+    event.category = data.category;
+    event.creator_user_id = this.userService.getCurrentUser.name;
+    event.event_config = this.confService.buildEventConfig(data);
+    console.log("CREATING EVENT .................");
+    console.log(event);
+    console.log("CREATING EVENT .................");
+    return event;
   }
 }
 

@@ -12,7 +12,7 @@ import { RideRescueComponent } from './ride-rescue.component';
 import { AuthGuard } from '../_guards/auth.guard';
 
 const routes: Routes = [{ path: '', component: RideRescueComponent },
-                        {path: 'login', component: EnrollComponent, canActivate: [AuthGuard]},
+                        {path: 'login-enrol', component: EnrollComponent, canActivate: [AuthGuard]},
                         {path: 'claim', component: ClaimComponent, canActivate: [AuthGuard]},
                         {path: 'claims', component: ClaimwatcherComponent, canActivate: [AuthGuard]},
                         {path: 'stats', component: StatsComponent, canActivate: [AuthGuard]},

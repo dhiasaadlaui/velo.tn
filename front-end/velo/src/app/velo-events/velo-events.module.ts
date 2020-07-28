@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { VeloEventsRoutingModule } from './velo-events-routing.module';
 import { VeloEventsComponent } from './velo-events.component';
-import { ScheduleModule, RecurrenceEditorModule, WeekService, DayService, MonthService, AgendaService, ResizeService, DragAndDropService } from '@syncfusion/ej2-angular-schedule';
+import { ScheduleModule, RecurrenceEditorModule, WeekService, DayService, MonthService, AgendaService, ResizeService, DragAndDropService, ExcelExportService  } from '@syncfusion/ej2-angular-schedule';
 import { AddEventComponent } from './components/add-event/add-event.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { DiagramModule } from '@syncfusion/ej2-angular-diagrams';
@@ -24,13 +24,15 @@ import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { VeloEventAdminComponent } from './components/velo-event-admin/velo-event-admin.component';
 import { StepService } from '../core/services/StepService';
 import { ChartModule } from '@syncfusion/ej2-angular-charts';
-import { DateFormatOptions } from '@syncfusion/ej2-base'
-import {
+ import {
   CategoryService, DateTimeService, ScrollBarService, ColumnSeriesService, LineSeriesService,
   ChartAnnotationService, RangeColumnSeriesService, StackingColumnSeriesService, LegendService, TooltipService
 } from '@syncfusion/ej2-angular-charts';
 import { ToastModule } from '@syncfusion/ej2-angular-notifications';
 import { InfoFlowModule } from '../info-flow/info-flow.module';
+import { AuthenticationService } from '../core/services/authentication.service';
+import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
+
 
 @NgModule({
   declarations: [VeloEventsComponent, AddEventComponent, EventDetailsComponent, EventFormComponent, VeloEventAdminComponent],
@@ -54,13 +56,13 @@ import { InfoFlowModule } from '../info-flow/info-flow.module';
     DateTimePickerModule,
     ChartModule,
     ToastModule,
-    InfoFlowModule
+    InfoFlowModule,
+    ComboBoxModule
   ],
   providers: [WeekService, DayService, MonthService, AgendaService, ResizeService, DragAndDropService,
     EventConfigService, EventService, CategoryEventService, FilterService, PageService, EditService,
     ToolbarService, PageService, CategoryService, StepService, CategoryService, DateTimeService, ScrollBarService, LineSeriesService, ColumnSeriesService,
-    ChartAnnotationService, RangeColumnSeriesService, StackingColumnSeriesService, LegendService, TooltipService
-
+    ChartAnnotationService,AuthenticationService, RangeColumnSeriesService, StackingColumnSeriesService, LegendService, TooltipService,ExcelExportService
   ],
 
 })
