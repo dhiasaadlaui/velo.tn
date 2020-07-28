@@ -1,0 +1,44 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="assets/sidebar/css/style.css" />
+<div class="row">
+  <div class="col-md-3"></div>
+
+  <div class="col-md-6">
+    <mat-card  *ngFor="let story of data">
+      <mat-card-header>
+        <mat-card-title>Demande de parking dans : {{story.localisation}}</mat-card-title>
+        
+      </mat-card-header>
+      <mat-card-content>
+    
+        <p>
+          Publiée par : {{story.mail}}
+        </p>
+        <p>
+          Numéro de téléphone : {{story.numtel}}
+        </p>
+        <p>
+          Nombre de places souhaités : {{story.nbrplace }}
+        </p>
+        <p>
+          Préférences : {{story.preference}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        
+        <button pButton type="submit" label="Contacter" class="ui-button-raised" (click)="open(story.id)" style="margin:  5px;"></button>
+        <button pButton type="submit" label="Afficher les contacts" class="ui-button-raised" (click)="show(story.id)" style="margin:  5px;"></button>
+        <button pButton type="submit" label="Supprimer" class="ui-button-raised" (click)="delete(story.id)" style="margin:  5px;"></button>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="col-md-3"></div>
+</div> 

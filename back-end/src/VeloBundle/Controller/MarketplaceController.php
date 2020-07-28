@@ -255,7 +255,7 @@ class MarketplaceController extends Controller
      */
     public function getBidsByOwner($id){
         $em=$this->getDoctrine()->getManager();
-        $bid=$em->getRepository(Bid::class)->findOneBy(['owner' => $id]);
+        $bid=$em->getRepository(Bid::class)->findBy(['owner' => $id]);
         $data=$this->get('jms_serializer')->serialize($bid,'json');
         $response=new Response($data);
         $response->headers->set('Content-Type', 'application/json');

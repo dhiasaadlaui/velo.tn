@@ -1,3 +1,4 @@
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MarketplaceRoutingModule } from './marketplace-routing.module';
@@ -8,7 +9,8 @@ import { NewAuctionComponent } from './components/new-auction/new-auction.compon
 import { ActiveAuctionsComponent } from './components/active-auctions/active-auctions.component';
 import { BidsComponent } from './components/bids/bids.component';
 import { TradeComponent } from './components/trade/trade.component';
-
+import {ToastModule} from 'primeng/toast';
+import {DialogModule} from 'primeng/dialog';
 @NgModule({
   declarations: [MarketplaceComponent, MarketComponent, NewAuctionComponent, ActiveAuctionsComponent, BidsComponent, TradeComponent],
   imports: [
@@ -25,7 +27,11 @@ import { TradeComponent } from './components/trade/trade.component';
     MatMenuModule,
     MatBadgeModule,
     MatExpansionModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastModule,
+    DialogModule
   ]
 })
 export class MarketplaceModule { }

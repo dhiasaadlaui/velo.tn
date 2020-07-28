@@ -12,10 +12,12 @@ import { Disponibility } from '../model/Disponibility';
 export class UserServiceService {
   errorMsg: string;
 
+  private baseUrl = 'http://localhost:8000';
+
   constructor(private httpcl:HttpClient) { }
 
   getAll(){
-    return this.httpcl.get<User[]>("http://localhost/BackendSF/web/app_dev.php/getusers");
+    return this.httpcl.get<User[]>(`${this.baseUrl}/getusers`);
    }
 
 
@@ -24,7 +26,7 @@ export class UserServiceService {
       'Content-Type': 'application/json'
     });
 
-     return this.httpcl.put<User>("http://localhost/BackendSF/web/app_dev.php/updateuser/"+user.id, user ,{
+     return this.httpcl.put<User>(`${this.baseUrl}/updateuser/`+user.id, user ,{
 		headers: httpHeaders,
     observe: 'response'}
     
@@ -36,7 +38,7 @@ export class UserServiceService {
    }
 
    getClaims(){
-    return this.httpcl.get<Claim[]>("http://localhost/BackendSF/web/app_dev.php/getclaims");
+    return this.httpcl.get<Claim[]>(`${this.baseUrl}/getclaims`);
    }
 
   addClaim(claim : Claim): Observable<Claim>{
@@ -44,7 +46,7 @@ export class UserServiceService {
     'Content-Type': 'application/json'
   });
 
-   return this.httpcl.post<Claim>("http://localhost/BackendSF/web/app_dev.php/addclaim", claim ,{
+   return this.httpcl.post<Claim>(`${this.baseUrl}/addclaim`, claim ,{
   headers: httpHeaders,
   observe: 'response'}
   ).pipe(
@@ -58,7 +60,7 @@ export class UserServiceService {
     'Content-Type': 'application/json'
   });
 
-   return this.httpcl.post<Claim>("http://localhost/BackendSF/web/app_dev.php/deleteclaim/"+claim.id, claim ,{
+   return this.httpcl.post<Claim>(`${this.baseUrl}/deleteclaim/`+claim.id, claim ,{
   headers: httpHeaders,
   observe: 'response'}
   ).pipe(
@@ -72,7 +74,7 @@ export class UserServiceService {
     'Content-Type': 'application/json'
   });
 
-   return this.httpcl.put<Claim>("http://localhost/BackendSF/web/app_dev.php/updateclaim/"+claim.id, claim ,{
+   return this.httpcl.put<Claim>(`${this.baseUrl}/updateclaim/`+claim.id, claim ,{
   headers: httpHeaders,
   observe: 'response'}
   
@@ -88,7 +90,7 @@ export class UserServiceService {
     'Content-Type': 'application/json'
   });
 
-   return this.httpcl.put<Claim>("http://localhost/BackendSF/web/app_dev.php/updateassignclaim/"+claim.id, claim ,{
+   return this.httpcl.put<Claim>(`${this.baseUrl}/updateassignclaim/`+claim.id, claim ,{
   headers: httpHeaders,
   observe: 'response'}
   
@@ -100,7 +102,7 @@ export class UserServiceService {
  }
 
  getUserDisp(user : User) : Observable<any>{
-  return this.httpcl.get<any>("http://localhost/BackendSF/web/app_dev.php/disponibility/"+user.id);
+  return this.httpcl.get<any>(`${this.baseUrl}/disponibility/`+user.id);
   
 }
 
@@ -109,7 +111,7 @@ updateDisp(user : User): Observable<User>{
     'Content-Type': 'application/json'
   });
 
-   return this.httpcl.put<User>("http://localhost/BackendSF/web/app_dev.php/updatedisp/"+user.id, user ,{
+   return this.httpcl.put<User>(`${this.baseUrl}/updatedisp/`+user.id, user ,{
   headers: httpHeaders,
   observe: 'response'}
   
@@ -125,7 +127,7 @@ updateDisp(user : User): Observable<User>{
     'Content-Type': 'application/json'
   });
 
-   return this.httpcl.post("http://localhost/BackendSF/web/app_dev.php/assign/"+user+"/"+claim,user ,{
+   return this.httpcl.post(`${this.baseUrl}/assign/`+user+"/"+claim,user ,{
   headers: httpHeaders,
   observe: 'response'}
   ).pipe(
@@ -141,24 +143,12 @@ updateDisp(user : User): Observable<User>{
  }
 
  getAssignedTome(user : number){
-  return this.httpcl.get("http://localhost/BackendSF/web/app_dev.php/getassigned/"+user)
-  return this.httpcl
-  .get("http://localhost/BackendSF/web/app_dev.php/getassigned/"+user)
-  .pipe(
-      catchError(error => {
-          
-          if (error.error) {
-              this.errorMsg = this.getServerErrorMessage(error);
-          }
-            console.log("THROWNING ERROR");
-          return throwError(this.errorMsg);
-      })
-  );
+  return this.httpcl.get(`${this.baseUrl}/getassigned/`+user)
   
 }
 
 getStats(){
-  return this.httpcl.get<any>("http://localhost/BackendSF/web/app_dev.php/getstats/");
+  return this.httpcl.get<any>(`${this.baseUrl}/getstats/`);
  }
 
  private handleError(error: any): Promise<any> {

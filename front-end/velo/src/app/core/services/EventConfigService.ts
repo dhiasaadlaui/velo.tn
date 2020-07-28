@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
  import { EventConfig } from '../models/EventConfig';
 import { EventEntity } from '../models/Event';
+import { NodeEventEntity } from '../models/NodeEvent';
+import { ConnectorEntity } from '../models/Connector';
 
 export interface Todo {
   id?: any;
@@ -16,6 +18,16 @@ export class EventConfigService {
   private baseUrl = 'http://localhost:8000';
   public dataStore: { todos: EventConfig[] } = { todos: [] };
   readonly todos = this._todos.asObservable();
+
+  private _todosNode = new BehaviorSubject<NodeEventEntity[]>([]);
+  private baseUrlNode = 'http://localhost:8000';
+  public dataStoreNode: { todosNode: NodeEventEntity[] } = { todosNode: [] };
+  readonly todosNode = this._todosNode.asObservable();
+
+  private _todosConnector= new BehaviorSubject<ConnectorEntity[]>([]);
+  private baseUrlConnector = 'http://localhost:8000';
+  public dataStoreConnector: { todosConnector: ConnectorEntity[] } = { todosConnector: [] };
+  readonly todosConnectore = this._todosConnector.asObservable();
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(data => {
@@ -84,10 +96,38 @@ export class EventConfigService {
       );
   }
 
+  createNode(todo: NodeEventEntity) {
+    this.http
+      .post<NodeEventEntity>(`${this.baseUrlNode}/createNode`, JSON.stringify(todo)).subscribe(
+        data => {
+          this.dataStoreNode.todosNode.push(data);
+          this._todosNode.next(Object.assign({}, this.dataStoreNode).todosNode);
+        },
+        error => console.log('Could not create todo.')
+      );
+  }
+
+  createConnector(todo: ConnectorEntity) {
+    this.http
+      .post<ConnectorEntity>(`${this.baseUrlConnector}/createConnector`, JSON.stringify(todo)).subscribe(
+        data => {
+          console.log("NODE CREATED SUCCESS.........................");
+          console.log(data);
+          
+          this.dataStoreConnector.todosConnector.push(data);
+          this._todosConnector.next(Object.assign({}, this.dataStoreConnector).todosConnector);
+        },
+        error => console.log('Could not create todo.')
+      );
+  }
+  
+
   createEventConfig(todo: EventConfig) {
     this.http
       .post<EventConfig>(`${this.baseUrl}/config/createConfig`, JSON.stringify(todo)).subscribe(
         data => {
+          console.log("Connector CREATED SUCCESS.........................");
+          console.log(data);
           this.dataStore.todos.push(data);
           this._todos.next(Object.assign({}, this.dataStore).todos);
         },
@@ -95,6 +135,38 @@ export class EventConfigService {
       );
   }
 
+  buildEventConfig(data): EventConfig {
+    let eventConfig: EventConfig = new EventConfig();
+    let localData:any;
+    if(typeof data.event_config != 'undefined' || data.event_config != null){
+        localData = data.event_config;
+        console.log(data);
+    } else {
+        localData = data;
+        console.log(data);
+        
+    }
+    console.log("CREATING STEP .............")
+    eventConfig.id = data.event_config_id ? data.event_config_id : null;
+    eventConfig.location_start = localData.location_start ;
+    eventConfig.location_end = localData.location_end;
+    eventConfig.start_day = localData.start_day;
+    eventConfig.end_day = localData.end_day ;
+    eventConfig.rep = localData.rep ;
+    eventConfig.end_repeat = "localData.end_repeat" ;
+    eventConfig.gender = "localData.gender" ;
+    eventConfig.age = "localData.age ";
+    eventConfig.is_theme = "localData.is_theme" ;
+    eventConfig.difficulty = localData.difficulty;
+    eventConfig.rule = localData.rule;
+    eventConfig.association_name = localData.association_name ;
+    console.log("CONFIG  CREATED ............." );
+    console.log(eventConfig);
+    console.log("CONFIG  CREATED ............." );
+
+    
+     return eventConfig;
+  }
 
 
 }

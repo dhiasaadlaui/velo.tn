@@ -36,16 +36,14 @@
             <img src="https://picsum.photos/1600/501" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
                 <h5>It is a long established </h5>
-                <h2> fact that a reader distracted</h2>
-                <a href="#0" class="btn btn-info">MORE INFO</a>
+                 <a href="#0" class="btn btn-info">MORE INFO</a>
             </div>
         </div>
         <div class="carousel-item">
             <img src="https://picsum.photos/1600/502" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
                 <h5>It is a long established </h5>
-                <h2> fact that a reader distracted</h2>
-                <a href="#0" class="btn btn-info">MORE INFO</a>
+                 <a href="#0" class="btn btn-info">MORE INFO</a>
             </div>
         </div>
 
@@ -60,48 +58,57 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<section class="home__form">
+<section  class="home__form">
     <div class="container">
         <div class="home__form-container text-center">
-            <h3>Get In Touch</h3>
+            <h3>Choose Category</h3>
             <p>Please get in touch with our support team and expect a response within 24 working hours.</p>
-            <form>
-                <div class="row">
-                    <div class="col">
-                        <select name="second" [(ngModel)]="selectedValue" class="form-control search-slt"
-                            id="exampleFormControlSelect1">
-                            <option [value]="-1">All Categories</option>
-                            <option *ngFor="let category of categories$ | async;" [value]="category.id">
-                                <!--<h1 *ngFor="let event of category.events">{{event.id}}</h1>-->
-                                {{category.category_name}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <button (click)="findCateogry()" type="submit" class="btn btn-danger">Submit
-                            Now!</button>
-                            <button (click)="toggleEventForm()" type="submit" class="btn btn-danger">Create
-                                Event Now!</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
+            <button (click)="findCateogry()" type="submit" class="btn btn-danger">Submit
+                Now!</button>
+                 <ejs-combobox id='comboelement' [dataSource]='catDropDown'  [(value)]='comboBoxValue' [fields]='fields'  placeholder = 'Select a game'></ejs-combobox>
+         </div>
     </div>
 </section>
+
+<div class="wrapper">
+    <div>
+        <h1 class="main-title">
+            <span>Available Categories</span>
+        </h1>
+    </div>
+</div>
 <!-- /.container -->
-<div class="body-horizon">
+<div *ngIf="!categoryFound" class="body-horizon">
     <h1>{{selectedValue}}</h1>
     <div class="horizon-container">
         <div class="item-horizon" *ngFor="let category of categories">
-            <img class="img-horizon" (click)="toggleEventForm()" [src]="category.category_img">
-            <h3>{{category.category_name}}</h3>
+            <figure (click)="selectCategory(category)" class="snip1543">
+                <img [src]="category.category_img" alt="sample108" />
+                <figcaption>
+                    <h3>{{category.category_name}}</h3>
+                    <p>The only skills I have the patience to learn are those that have no real application in life.</p>
+                </figcaption>
+             </figure>
+        </div>
+    </div>
+</div>
+<div *ngIf="categoryFound" class="body-horizon-center">
+    <h1>{{category.category_name}}</h1>
+    <div class="horizon-container">
+        <div class="item-horizon" >
+            <figure (click)="toggleEventForm()" class="snip1543">
+                <img [src]="category.category_img" alt="sample108" />
+                <figcaption>
+                    <h3>{{category.category_name}}</h3>
+                    <p>The only skills I have the patience to learn are those that have no real application in life.</p>
+                </figcaption>
+             </figure>
         </div>
     </div>
 </div>
 <div *ngIf="showEventForm">
     <div class="container">
-        <app-event-form [step]="category.step" ></app-event-form>
+        <app-event-form [step]="category.step"  [category]="category"></app-event-form>
     </div>
 </div>
 <!-- Footer -->

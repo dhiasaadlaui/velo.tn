@@ -1,78 +1,202 @@
-<mat-paginator
-class="paginator--centered"
-[style]="{ height: '10px' }"
-[length]="100"
-[pageSize]="5"
->
-</mat-paginator>
-<mat-card *ngFor="let item of products"
+<p-toast position="top-right"></p-toast>
 
-class="example-card"  
->
-<div class="row">
-  <div class="col-md-2" style="margin: 0;">
-    <img
-      src="assets/images/icons/story.jpg"
-      alt="Avatar"
-      class="avatar"
-    />
-  </div>
-  <div class="col" style="margin: 0;">
-    <h4 class="custom-label" style="margin: 0;">Product</h4>
-    <p class="custom-text" style="margin: 0;">
-     {{item.description}}
-    </p>
-  </div>
-  <div class="col" style="margin: 0;">
-    <h4 class="custom-label" style="margin: 0;"> date</h4>
-    <p class="custom-text" style="margin: 0;">
-     data here
-    </p>
-  </div>
-  <div class="col" style="margin: 0;">
-    <h4 class="custom-label" style="margin: 0;">Street</h4>
-    <p class="custom-text"  style="margin: 0;">
-      data
-    </p>
-  </div>
-  <div class="col" style="margin: 0;">
-    <h4 class="custom-label" style="margin: 0;">Postal code</h4>
-    <p class="custom-text"  style="margin: 0;">
-      data
-    </p>
-  </div>
-  <div class="col-col-sm-1" style="margin: 0;">
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      aria-label="Example icon-button with a menu"
-    >
-      <mat-icon id="side-menu">more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>edit</mat-icon>
-        <span>Edit</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>remove_red_eye</mat-icon>
-        <span>View</span>
-      </button>
-      <button
-        
-        mat-menu-item
-        
-      >
-        <mat-icon>check_circle</mat-icon>
-        <span>Select</span>
-      </button>
-      <button
-        mat-menu-item
-      >
-        <mat-icon>note_add</mat-icon>
-        <span>New subscription</span>
-      </button>
-    </mat-menu>
-  </div>
-</div>
-</mat-card>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Products
+      </mat-panel-title>
+      <mat-panel-description>
+        Available products in marketplace, click here to browse products
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <h2>Products</h2>
+
+    <div class="row">
+      <mat-form-field class="col example-full-width">
+        <input (keyup)="runFilter()" matInput placeholder="Filter by product name" [(ngModel)]="nameFilter" >
+      </mat-form-field>
+      <mat-form-field class="col example-full-width">
+        <input type="number" (keyup)="runFilter()" matInput placeholder="Minimum price" [(ngModel)]="minPriceFilter" >
+      </mat-form-field>
+      <mat-form-field class="col example-full-width">
+        <input type="number" (keyup)="runFilter()" matInput placeholder="Maximum price" [(ngModel)]="maxpriceFilter" >
+      </mat-form-field>
+    </div>
+    
+    
+    
+    
+    <mat-paginator class="paginator--centered" [style]="{ height: '10px' }" [length]="100" [pageSize]="5">
+    </mat-paginator>
+    <mat-card *ngFor="let item of displayedProducts" class="example-card">
+      <div class="row">
+        <div class="col-md-2" style="margin: 0;">
+          <img src="assets/images/icons/story.jpg" alt="Avatar" class="avatar" />
+        </div>
+        <div class="col" style="margin: 0;">
+          <h4 class="custom-label" style="margin: 0;">Product</h4>
+          <p class="custom-text" style="margin: 0;">
+            {{item.name}}
+          </p>
+        </div>
+        <div class="col" style="margin: 0;">
+          <h4 class="custom-label" style="margin: 0;"> Creation date</h4>
+          <p class="custom-text" style="margin: 0;">
+            {{item.creation_date | date : 'dd-MM-yyy'}}
+          </p>
+        </div>
+        <div class="col" style="margin: 0;">
+          <h4 class="custom-label" style="margin: 0;">Owner</h4>
+          <p class="custom-text" style="margin: 0;">
+            admin
+          </p>
+        </div>
+        <div class="col" style="margin: 0;">
+          <h4 class="custom-label" style="margin: 0;">price</h4>
+          <p class="custom-text" style="margin: 0;">
+            {{item.price}}
+          </p>
+        </div>
+        <div class="col" style="margin: 0;">
+          <h4 class="custom-label" style="margin: 0;">Minimum bid</h4>
+          <p class="custom-text" style="margin: 0;">
+            {{item.starting_bid}}
+          </p>
+        </div>
+        <div class="col-col-sm-1" style="margin: 0;">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon id="side-menu">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="selectProduct(item,'edit')"  mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button (click)="selectProduct(item,'view')" mat-menu-item>
+              <mat-icon>remove_red_eye</mat-icon>
+              <span>View</span>
+            </button>
+            <button mat-menu-item (click)="removeProduct(item)">
+              <mat-icon>delete</mat-icon>
+              <span>Remove</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>note_add</mat-icon>
+              <span>purchase</span>
+            </button>
+            <button (click)="showBidDialog(item)" mat-menu-item>
+              <mat-icon>note_add</mat-icon>
+              <span>Bid</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-card>
+    
+
+
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Services
+      </mat-panel-title>
+      <mat-panel-description>
+        Available Services in marketplace, click here to browse services
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <h2>Services</h2>
+
+    <mat-paginator class="paginator--centered" [style]="{ height: '10px' }" [length]="100" [pageSize]="5">
+    </mat-paginator>
+    <mat-card *ngFor="let item of services" class="example-card">
+      <div class="row">
+        <div class="col-md-2" style="margin: 0;">
+          <img src="assets\portfolio\fullsize\6.jpg" alt="Avatar" class="avatar" />
+        </div>
+        <div class="col" style="margin: 0;">
+          <h4 class="custom-label" style="margin: 0;">Type</h4>
+          <p class="custom-text" style="margin: 0;">
+            {{item.type}}
+          </p>
+        </div>
+        <div class="col" style="margin: 0;">
+          <h4 class="custom-label" style="margin: 0;"> Service</h4>
+          <p class="custom-text" style="margin: 0;">
+            {{item.name}}
+          </p>
+        </div>
+        <div class="col" style="margin: 0;">
+          <h4 class="custom-label" style="margin: 0;">Owner</h4>
+          <p class="custom-text" style="margin: 0;">
+            admin
+          </p>
+        </div>
+        <div class="col" style="margin: 0;">
+          <h4 class="custom-label" style="margin: 0;">price</h4>
+          <p class="custom-text" style="margin: 0;">
+            {{item.price}}
+          </p>
+        </div>
+    
+        <div class="col-col-sm-1" style="margin: 0;">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon id="side-menu">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button (click)="selectProduct(item)" mat-menu-item>
+              <mat-icon>remove_red_eye</mat-icon>
+              <span>View</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Remove</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>note_add</mat-icon>
+              <span>purchase</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>note_add</mat-icon>
+              <span>Bid</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-card>
+
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+
+
+
+
+
+
+<p-dialog header="Title" [(visible)]="displayEditDialog">
+  <app-new-auction [product]="selectedProduct" [edit]=true ></app-new-auction>
+</p-dialog>
+
+<p-dialog header="Title" [(visible)]="displayViewDialog">
+  <app-new-auction [product]="selectedProduct" [viewOnly]="displayViewDialog" [edit]=true></app-new-auction>
+</p-dialog>
+
+
+<p-dialog header="Title" [(visible)]="displaybid">
+  <form>
+  <mat-form-field class="example-full-width">
+    <input [(ngModel)]="bid" name="bid" type="number" matInput #postalCode maxlength="5" placeholder="Bid" >
+    <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+  </mat-form-field>
+  <button (click)="bidOnProduct()" mat-button>click to bid</button>
+</form>
+</p-dialog>

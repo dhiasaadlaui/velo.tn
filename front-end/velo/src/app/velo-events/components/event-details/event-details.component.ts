@@ -97,24 +97,27 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   initDiagrame() {
     console.log(this.event.event_config);
-    this.event.event_config.nodes.forEach(e => {
-      this.node = {
-        offsetX: e.position_x, offsetY: e.position_y, width: 100,
-        height: 100,
-        style: {
-          fill: '#6BA5D7',
-          strokeColor: 'white'
+    if(typeof this.event.event_config != 'undefined' || this.event.event_config !=null) {
+      this.event.event_config.nodes.forEach(e => {
+        this.node = {
+          offsetX: e.position_x, offsetY: e.position_y, width: 100,
+          height: 100,
+          style: {
+            fill: '#6BA5D7',
+            strokeColor: 'white'
+          }
         }
-      }
-      this.diagram.add(this.node)
-    })
-
-    this.event.event_config.conectors.forEach(e => {
-      this.sourcePoint1 = { x: e.source_point_x, y: e.source_point_y };
-      this.targetPoint1 = { x: e.target_point_x, y: e.target_point_y };
-      this.obj.push({ sourcePoint1: this.sourcePoint1, targetPoint1: this.targetPoint1 })
-    })
-
+        this.diagram.add(this.node)
+      })
+  
+      this.event.event_config.conectors.forEach(e => {
+        this.sourcePoint1 = { x: e.source_point_x, y: e.source_point_y };
+        this.targetPoint1 = { x: e.target_point_x, y: e.target_point_y };
+        this.obj.push({ sourcePoint1: this.sourcePoint1, targetPoint1: this.targetPoint1 })
+      })
+  
+    }
+    
   }
 
 

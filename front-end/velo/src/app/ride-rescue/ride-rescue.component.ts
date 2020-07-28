@@ -21,7 +21,7 @@ export class RideRescueComponent implements OnInit {
     console.log(this.authserv.getCurrentUser);
     this.items = [
       {label: 'Home', icon: 'pi pi-fw pi-home'},
-      {label: 'Volonteer', icon: 'pi pi-fw pi-calendar', routerLink: ['login'] },
+      {label: 'Volonteer', icon: 'pi pi-fw pi-calendar', routerLink: ['login-enrol'] },
       {label: 'Make Claim', icon: 'pi pi-fw pi-pencil', routerLink: ['claim'] },
       {label: 'Claims', icon: 'pi pi-fw pi-file' , routerLink: ['claims']},
       {label: 'Disponibility', icon: 'pi pi-user-edit' , routerLink: ['disp']},
