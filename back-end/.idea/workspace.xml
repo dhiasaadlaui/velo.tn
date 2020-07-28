@@ -25,6 +25,7 @@
       <change beforePath="$PROJECT_DIR$/../front-end/velo/src/app/marketplace/components/market/market.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/velo/src/app/marketplace/components/market/market.component.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,9 +33,7 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -109,14 +108,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\jsaoudi\Desktop\ESPRIT-JAVAFORTHEWIN\velo-front\velo.tn\back-end\src\VeloBundle\Entity" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jsaoudi\Desktop\ESPRIT-JAVAFORTHEWIN\velo-front\velo.tn\back-end\src\VeloBundle\Controller" />
       <recent name="C:\Users\jsaoudi\Desktop\ESPRIT-JAVAFORTHEWIN\velo-front\velo.tn\back-end\src\VeloBundle\Repository" />
@@ -124,18 +122,9 @@
       <recent name="C:\Users\jsaoudi\Desktop\ESPRIT-JAVAFORTHEWIN\velo-front\velo.tn\back-end\src\VeloBundle\Entity\TimeStamps" />
       <recent name="C:\Users\jsaoudi\Desktop\ESPRIT-JAVAFORTHEWIN\velo-front\velo.tn\back-end\bin" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jsaoudi\Desktop\ESPRIT-JAVAFORTHEWIN\velo-front\velo.tn\back-end\src\VeloBundle\Entity" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -165,13 +154,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="530" y="234" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595852385902">
@@ -186,10 +174,13 @@
       <screen x="0" y="0" width="1600" height="960" />
     </state>
     <state x="527" y="182" key="RollbackChangesDialog/0.0.1600.960@0.0.1600.960" timestamp="1595816255778" />
+
     <state x="456" y="220" key="run.anything.popup" timestamp="1595628400942">
       <screen x="0" y="0" width="1600" height="960" />
+
     </state>
     <state x="456" y="220" key="run.anything.popup/0.0.1600.960@0.0.1600.960" timestamp="1595628400942" />
+    <state x="547" y="241" key="run.anything.popup/0.0.1920.1050/-1920.-139.1920.1050@0.0.1920.1050" timestamp="1595910605590" />
     <state x="463" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1595777552951">
       <screen x="0" y="0" width="1600" height="960" />
     </state>
