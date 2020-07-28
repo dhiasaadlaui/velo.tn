@@ -1,101 +1,144 @@
-<p-table [columns]="cols" [value]="claimList" selectionMode="single" [(selection)]="selectedClaim" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
-    <ng-template pTemplate="caption">
-        List of Claims
-    </ng-template>
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                {{col.header}}
-                <p-sortIcon [field]="col.field"></p-sortIcon>
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr [pSelectableRow]="rowData">
-            <td *ngFor="let col of columns">
-                {{rowData[col.field]}}
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
+<header></header>
+<body>
+  <div  class="container-fluid">
+  <div class="row">
+      <nav  class="col-md-2 d-none d-md-block sidebar">
+          <div class="sidebar-sticky">
+              <ul class="nav flex-column">					
+                  <li class="nav-item">
+                      <a class="nav-link active" [routerLink]="['../']">
+                <i class="zmdi zmdi-widgets"></i>
+                Home 
+              </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['../stats']">
+                <i class="zmdi zmdi-widgets"></i>
+                Stats 
+              </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['../assign']">
+                <i class="zmdi zmdi-shopping-cart"></i>
+                Assign claim <span class="sr-only">(current)</span>
+              </a>
+                  </li>				
+              </ul>
 
-<p-dialog header="assignation" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
-    <div class="p-grid ui-fluid" *ngIf="claim">
-        <div class="p-col-4">
-            <label for="title">Choose a user :</label>
-        </div>
-        <div class="p-col-8">
-            <p-listbox [options]="users" [(ngModel)]="selectedUser" optionLabel="name"></p-listbox>
-        </div>
-    </div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Assign"></button>
-        </div>
-    </p-footer>
-</p-dialog>
-
-<p-dialog header="Error" [(visible)]="showError" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
-  <div class="p-col-10">
-    <label for="title">This Claim is already assigned :( </label>
-    <label for="title">Choose another one </label>
-</div>
-  <p-footer>
-      <div class="ui-dialog-buttonpane ui-helper-clearfix">
-          <button type="button" pButton icon="pi pi-check" (click)="closeErr()" label="OK"></button>
-      </div>
-  </p-footer>
-</p-dialog>
-
-<footer class="site-footer bg-dark" style="margin-bottom: 0px;" >
-    <div class="container">
-      <div class="row" >
-        <div class="col-sm-12 col-md-6">
-          <h6>About</h6>
-          <p class="text-justify">velo.tn <i>CODE WANTS TO BE SIMPLE </i>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione at repellendus vel iure quibusdam, provident rem numquam odio unde expedita architecto nesciunt tempora dolorum ex ducimus obcaecati debitis, laboriosam nemo.</p>
-        </div>
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center pl-3 mt-4 mb-1 text-muted">
+                  <span>Options</span>
+                  <a class="d-flex align-items-center text-muted" href="#">
+                      <i class="zmdi zmdi-plus-circle-o"></i>
+                  </a>
+              </h6>
+              <ul class="nav flex-column mb-2">
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                <i class="zmdi zmdi-file-text"></i>
+               Notifications
+              </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link"  [routerLink]="['../../login']">
+                <i class="zmdi zmdi-file-text"></i>
+                Logout
+              </a>
+                  </li>					
+              </ul>
+          </div>
+      </nav>
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">
+          <div class="card-list">
+              <div class="row">
+                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                      <div class="card blue">
+                          <div class="title">all projects</div>
+                          <i class="zmdi zmdi-upload"></i>
+                          <div class="value">89</div>
+                          <div class="stat"><b>13</b>% increase</div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                      <div class="card green">
+                          <div class="title">team members</div>
+                          <i class="zmdi zmdi-upload"></i>
+                          <div class="value">5,990</div>
+                          <div class="stat"><b>4</b>% increase</div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                      <div class="card orange">
+                          <div class="title">total budget</div>
+                          <i class="zmdi zmdi-download"></i>
+                          <div class="value">$80,990</div>
+                          <div class="stat"><b>13</b>% decrease</div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                      <div class="card red">
+                          <div class="title">new customers</div>
+                          <i class="zmdi zmdi-download"></i>
+                          <div class="value">3</div>
+                          <div class="stat"><b>13</b>% decrease</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+             
+          <p-table [columns]="cols" [value]="claimList" selectionMode="single" [(selection)]="selectedClaim" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+            <ng-template pTemplate="caption">
+                List of Claims
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
         
-        <div class="col-xs-6 col-md-3">
-          <h6>Categories</h6>
-          <ul class="footer-links">
-            <li><a href="http://velo.tn/category/c-language/">Ahearne </a></li>
-            <li><a href="http://velo.tn/category/front-end-development/">Aarios </a></li>
-            <li><a href="http://velo.tn/category/back-end-development/">Adeline</a></li>
-            <li><a href="http://velo.tn/category/java-programming-language/">Ankerrad </a></li>
-            <li><a href="http://velo.tn/category/android/">BMX</a></li>
-            <li><a href="http://velo.tn/category/templates/">Atena</a></li>
-          </ul>
+        <p-dialog header="assignation" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+            <div class="p-grid ui-fluid" *ngIf="claim">
+                <div class="p-col-4">
+                    <label for="title">Choose a user :</label>
+                </div>
+                <div class="p-col-8">
+                    <p-listbox [options]="users" [(ngModel)]="selectedUser" optionLabel="name"></p-listbox>
+                </div>
+            </div>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <button type="button" pButton icon="pi pi-check" (click)="save()" label="Assign"></button>
+                </div>
+            </p-footer>
+        </p-dialog>
+        
+        <p-dialog header="Error" [(visible)]="showError" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+          <div class="p-col-10">
+            <label for="title">This Claim is already assigned :( </label>
+            <label for="title">Choose another one </label>
         </div>
+          <p-footer>
+              <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                  <button type="button" pButton icon="pi pi-check" (click)="closeErr()" label="OK"></button>
+              </div>
+          </p-footer>
+        </p-dialog>
+        
 
-        <div class="col-xs-6 col-md-3">
-          <h6>Quick Links</h6>
-          <ul class="footer-links">
-            <li><a href="http://velo.tn/about/">About Us</a></li>
-            <li><a href="http://velo.tn/contact/">Contact Us</a></li>
-            <li><a href="http://velo.tn/contribute-at-scanfcode/">Contribute</a></li>
-            <li><a href="http://velo.tn/privacy-policy/">Privacy Policy</a></li>
-            <li><a href="http://velo.tn/sitemap/">Sitemap</a></li>
-          </ul>
-        </div>
-      </div>
-      <hr>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-sm-6 col-xs-12">
-          <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by 
-       <a href="#">JavaForTheWin</a>.
-          </p>
-        </div>
+          
+      </main>
+  </div>
+</div>
 
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <ul class="social-icons">
-            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
-          </ul>
-        </div>
-      </div>
-    </div>
-</footer>
+</body>
+
