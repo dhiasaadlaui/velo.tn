@@ -24,6 +24,9 @@ export class UserService {
   getUserPoints(): number {
     return JSON.parse(localStorage.getItem('currentUser'))[0].points;
   }
+  getUserId(): number {
+    return JSON.parse(localStorage.getItem('currentUser'))[0].id;
+  }
 }
 
 export interface User {

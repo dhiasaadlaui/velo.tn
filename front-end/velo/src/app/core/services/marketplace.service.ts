@@ -79,10 +79,10 @@ export class MarketplaceService {
   updateBid(bid: Bid) {
     return this._http.put<any>(`${BASE_PATH}/bids`, bid);
   }
-  getBids(): Observable<Bid> {
+  getBids(): Observable<Bid[]> {
     return this._http.get<any>(`${BASE_PATH}/bids`);
   }
-  getBidsByOwner(id: number): Observable<Bid> {
+  getBidsByOwner(id: number): Observable<Bid[]> {
     return this._http.get<any>(`${BASE_PATH}/bids/owner/` + id);
   }
   getBidsById(id: number): Observable<Bid> {

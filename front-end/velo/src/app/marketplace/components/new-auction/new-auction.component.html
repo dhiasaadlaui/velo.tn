@@ -1,1 +1,58 @@
-<p>new-auction works!</p>
+<p-toast position="top-right"></p-toast>
+<mat-form-field>
+  <mat-label>Auction type</mat-label>
+  <mat-select>
+    <mat-option  value="product">
+     Product
+    </mat-option>
+    <mat-option  value="service">
+        Service
+       </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="User (disabled)" disabled [value]="username">
+    </mat-form-field>
+  
+    <table class="example-full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Category</mat-label>
+        <mat-select  [(ngModel)]="product.category" name="category">
+          <mat-option  value=1 >
+           cat 1
+          </mat-option>
+          <mat-option  value=2 >
+              Cat 2
+             </mat-option>
+        </mat-select>
+      </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
+        <input [(ngModel)]="product.name" name="prodname" matInput placeholder="Product name">
+      </mat-form-field></td>
+    </tr></table>
+  
+    <p>
+      <mat-form-field class="example-full-width">
+        <textarea [(ngModel)]="product.description" name="desc" matInput placeholder="Description">Product short description</textarea>
+      </mat-form-field>
+
+    </p>
+  
+    <table class="example-full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="example-full-width">
+        <input matInput placeholder="Image link">
+      </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
+        <input [(ngModel)]="product.startingBid" name="bid" type="number" matInput #postalCode maxlength="5" placeholder="Initial bid" >
+        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+      </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
+        <input [(ngModel)]="product.price" name="price" type="number" matInput #postalCode maxlength="5" placeholder="Price" >
+        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+      </mat-form-field></td>
+    </tr></table>
+  </form>
+
+<button mat-button (click)="saveAuction()">save</button>
