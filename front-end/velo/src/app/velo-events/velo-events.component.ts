@@ -13,6 +13,12 @@ import { DialogEditEventArgs, SaveEventArgs } from '@syncfusion/ej2-angular-grid
 import { Browser } from '@syncfusion/ej2-base';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { UserService } from '../core/services/user.service';
+import { AuthenticationService } from '../core/services/authentication.service';
+import { CategoryEntity } from '../core/models/Category';
+import { CategoryEventService } from '../core/services/CategoryEventService';
+import { IToast } from './components/velo-event-admin/velo-event-admin.component';
+import { ItemModel } from '@syncfusion/ej2-angular-navigations';
+import { ToolbarActionArgs, ExportOptions } from '@syncfusion/ej2-angular-schedule';
 
 @Component({
   selector: 'app-velo-events',
@@ -31,6 +37,8 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
   selectedrecords: object[]
   operationTobeExecuted: string = '';
   eventToShowDetails: EventEntity;
+  comboBoxValue: string = ''
+  comboBoxCategory : string = '';
   //
 
   // Subscriptions //
@@ -41,7 +49,9 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
   */
   events$: Observable<EventEntity[]>;
   events: EventEntity[];
+  categories: CategoryEntity[];
   myEvents: EventEntity[];
+  allEvents: EventEntity[];
   event: EventEntity;
   selectedEvent: EventEntity;
 
@@ -49,6 +59,9 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
   eventConfigs: EventConfig[];
   eventConfig: EventConfig;
   bool = 'readOnlyChange';
+  public fields: Object = { text: 'Name', value: 'Id' };
+  public fieldCateogry: Object = { text: 'Name', value: 'Id' };
+  public catDropDown: { [key: string]: Object }[] = []
 
   // ****** TABLE VARIABLES // *****
   public newData: Object[];
@@ -59,7 +72,11 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
   public shipCityDistinctData: Object[];
   public shipCountryDistinctData: Object[];
   public submitClicked: boolean = false;
-
+  public value: string = '';
+  public dropDownChoiceEvents: { [key: string]: Object }[] = []
+  toastMsg: IToast = { msgBody: '', msgTitle: '' }
+  @ViewChild('element', { static: false }) element;
+  public position = { X: 'Right' };
   /**
    * CALENDAR INIT.
    */
@@ -90,7 +107,8 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
  * Creates an instance of VeloEventsComponent.
  */
   constructor(private eventConfigService: EventConfigService, private eventServ: EventService,
-    private route: ActivatedRoute, private router: Router, public userService: UserService
+    private route: ActivatedRoute, private router: Router, public userService: AuthenticationService,
+    private categoryService: CategoryEventService
   ) {
     $(document).ready(function () {
       $(document).on("click", ".inactive-form", function () {
@@ -136,20 +154,41 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
    * Search for events that match Criteria and added to the calendar the result .
    */
   showMyEvents() {
-    console.log(this.scheduleObj);
-    let localArrayObject: Object[] = [];
-    this.myEvents.forEach(e => {
-      localArrayObject.push({
-        Id: e.id,
-        EventName: e.event_name,
-        StartTime: new Date(e.start_date),
-        EndTime: new Date(e.end_date),
-        IsAllDay: false,
-        IsReadonly: false,
-        fddf: 'df',
+    console.log(this.comboBoxValue);
+    if ((+this.comboBoxValue) == -1) {
+      console.log(this.comboBoxValue);
+      let localArrayObject: Object[] = [];
+      this.allEvents.forEach(e => {
+        localArrayObject.push({
+          Id: e.id,
+          EventName: e.event_name,
+          Subject: e.event_name,
+          Location: e.location,
+          StartTime: new Date(e.start_date),
+          EndTime: new Date(e.end_date),
+          IsAllDay: false,
+          IsReadonly: !(e.creator_user_id === this.userService.getCurrentUser.name)
+        });
       });
-    });
-    this.scheduleObj.eventSettings.dataSource = localArrayObject;
+    } else {
+      console.log("only me");
+      console.log(this.scheduleObj);
+      let localArrayObject: Object[] = [];
+      this.myEvents.forEach(e => {
+        localArrayObject.push({
+          Id: e.id,
+          EventName: e.event_name,
+          Subject: e.event_name,
+          Location: e.location,
+          StartTime: new Date(e.start_date),
+          EndTime: new Date(e.end_date),
+          IsAllDay: false,
+          IsReadonly: !(e.creator_user_id === this.userService.getCurrentUser.name),
+        });
+      });
+      this.scheduleObj.eventSettings.dataSource = localArrayObject;
+
+    }
   }
 
 
@@ -159,27 +198,44 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
       this.events = updatedTodos;
       this.myEvents = [];
       let localArrayObject: Object[] = [];
+      this.allEvents = [];
+
+      ;
       updatedTodos.forEach(e => {
-        if (e.creator_user_id === this.userService.getCurrentUser().username) {
+        if (e.creator_user_id === this.userService.getCurrentUser.name) {
           this.myEvents.push(e);
+        } else {
+          this.allEvents.push(e);
         }
-            localArrayObject.push({
-            Id: e.id,
-            EventName: e.event_name,
-            StartTime: new Date(e.start_date),
-            EndTime: new Date(e.end_date),
-            IsAllDay: false,
-            IsReadonly: false,
-            fddf: 'df',
-            //RecurrenceRule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1',
-            CategoryColor: '#357cd2'
-          });
-          if(typeof this.scheduleObj!= 'undefined'){
-            this.scheduleObj.eventSettings.dataSource = localArrayObject;
-          }
+        localArrayObject.push({
+          Id: e.id,
+          EventName: e.event_name,
+          Subject: e.event_name,
+          Location: e.location,
+          StartTime: new Date(e.start_date),
+          EndTime: new Date(e.end_date),
+          IsAllDay: false,
+          IsReadonly: !(e.creator_user_id === this.userService.getCurrentUser.name),
+          //RecurrenceRule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1',
+          CategoryColor: '#357cd2'
+        });
+        if (typeof this.scheduleObj != 'undefined') {
+          console.log(localArrayObject);
+
+          this.scheduleObj.eventSettings.dataSource = localArrayObject;
+        }
       });
     });
     this.eventServ.loadAll();
+    this.catDropDown = [];
+    this.categoryService.todos.subscribe(updatedTodos => {
+      updatedTodos.forEach(element => {
+        this.catDropDown.push({ Id: element.id, Name: element.category_name });
+      }
+      )
+    });
+    this.categoryService.loadAll();
+
     // INIT TABLE HEADER
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
     this.toolbar = ['Add', 'Edit', 'Delete',
@@ -191,14 +247,14 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
     this.eventConfigService.todos.subscribe(data => data.forEach(element => {
       this.eventConfigs.push(element);
     }));
-
+    this.dropDownChoiceEvents.push({ Id: -1, Name: "All Events" }, { Id: 1, Name: "My Events" })
 
     //LOADING ALL ENTITIES (Event, EventConfig)
     /// this.eventConfig$ = this.eventServ.load(2);
     //let localDate = new Date(this.event$.startDate * 1000);
 
   }// -> ** ON INIT END
-  
+
 
   /**
  * Handle PopUp CloseEvent "Calendar".
@@ -264,13 +320,23 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
 
 
   public onActionBegin(args: ActionEventArgs): void {
+    if (args.requestType === 'toolbarItemRendering') {
+      const exportItem: ItemModel = {
+        align: 'Right', showTextOn: 'Both', prefixIcon: 'e-icon-schedule-excel-export',
+        text: 'Excel Export', cssClass: 'e-excel-export', click: this.onExportClick.bind(this)
+      };
+      args.items.push(exportItem);
+    }
     if ((args.requestType === 'eventCreate') || args.requestType === 'eventChange') {
       args.cancel = this.onEventCheck(args);
     }
     if ((args.requestType === 'eventDelete')) {
     }
   }
-
+  public onExportClick(): void {
+    const exportValues: ExportOptions = { fields: ['Id', 'Subject', 'StartTime', 'EndTime', 'Location'] };
+    this.scheduleObj.exportToExcel(exportValues);
+  }
   toggleCalendarView() {
     this.showCalendar = !this.showCalendar;
     this.showMoreEvents = this.showMoreEvents ? false : false;
@@ -307,7 +373,7 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
     }
   }
 
-  actionBegin(args: SaveEventArgs): void {
+  actionBegin(args: SaveEventArgs) {
     if (args.requestType === 'beginEdit' || args.requestType === 'add') {
       this.submitClicked = false;
       this.orderForm = this.createFormGroup(args.rowData);
@@ -327,7 +393,8 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
         data = this.orderForm.value;
         let eventLocal: EventEntity = this.eventServ.buildEvent(data);
         if (new Date(eventLocal.start_date) > new Date(eventLocal.end_date)) {
-          alert("End Date Cant be greater then start Date please change inputs")
+          this.toastMsg.msgTitle = " Error"
+          this.toastMsg.msgBody = "End Date Cant be greater then start Date please change inputs"
           return;
         }
         if (this.operationTobeExecuted != '') {
@@ -335,14 +402,18 @@ export class VeloEventsComponent implements OnInit, OnDestroy {
           if (this.operationTobeExecuted === 'update') {
             console.log('UPDATE START ......')
             this.eventServ.update(eventLocal);
-            this.eventServ.loadAll()
+            this.toastMsg.msgTitle = " Updated Successfuly"
+            this.toastMsg.msgBody = "Hey : " + " " + this.userService.getCurrentUser.name + " " + "the Category " + " " + eventLocal.event_name + " " + "has been successfuly Updated"
+            this.element.show();
           } else if (this.operationTobeExecuted === 'create') {
             if (eventLocal.is_archived == null) {
               eventLocal.is_archived = false;
             }
             console.log('CREATE START ......')
             this.eventServ.create(eventLocal);
-            alert('Event Created Successfuly')
+            this.toastMsg.msgTitle = " Created Successfuly"
+            this.toastMsg.msgBody = "Hey : " + " " + this.userService.getCurrentUser.name + " " + "the Category " + " " + eventLocal.event_name + " " + "has been successfuly Created"
+            this.element.show();
             this.eventServ.loadAll()
           }
         }

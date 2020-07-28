@@ -9,6 +9,10 @@ import { StepEntity } from 'src/app/core/models/Step';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEntity } from 'src/app/core/models/Event';
 import { EventService } from 'src/app/core/services/EventService';
+import { NodeEventEntity } from 'src/app/core/models/NodeEvent';
+import { EventConfigService } from 'src/app/core/services/EventConfigService';
+import { ConnectorEntity } from 'src/app/core/models/Connector';
+import { EventConfig } from 'src/app/core/models/EventConfig';
 
 @Component({
   selector: 'app-event-form',
@@ -16,7 +20,8 @@ import { EventService } from 'src/app/core/services/EventService';
   styleUrls: ['./event-form.component.scss']
 })
 export class EventFormComponent implements OnInit {
-  @Input() step: StepEntity;
+  @Input() step: StepEntity; 
+   @Input() category: CategoryEntity;
   eventForm: FormGroup
 
   //** DIAGRAMES */
@@ -25,7 +30,7 @@ export class EventFormComponent implements OnInit {
   public diagram: DiagramComponent;
   public sourcePoint1: PointModel;
   public targetPoint1: PointModel;
-  constructor(private eventSerice:EventService) { }
+  constructor(private eventService: EventService, private eventConfigService:EventConfigService) { }
   prop1: boolean = false;
 
   ngOnInit() {
@@ -58,10 +63,10 @@ export class EventFormComponent implements OnInit {
     width: 100,
     height: 100,
     style: {
-        fill: '#6BA5D7',
-        strokeColor: 'white'
+      fill: '#6BA5D7',
+      strokeColor: 'white'
     },
-};
+  };
   public getConnectorDefaults(obj: ConnectorModel) {
     obj.style = {
       strokeColor: '#6BA5D7',
@@ -76,92 +81,110 @@ export class EventFormComponent implements OnInit {
     }
   }
 
-  testDiagrame(){
-     this.diagram.nodes[0].offsetX =  56;
-     this.diagram.nodes[0].offsetY =  48;
+  testDiagrame() {
+    this.diagram.nodes[0].offsetX = 56;
+    this.diagram.nodes[0].offsetY = 48;
 
     this.diagram.add(this.node)
 
-    this.diagram.nodes[1].offsetX =  749;
-    this.diagram.nodes[1].offsetY =  247;
-    
+    this.diagram.nodes[1].offsetX = 749;
+    this.diagram.nodes[1].offsetY = 247;
+
     this.diagram.connectors[0].sourcePoint.x = 60
     this.diagram.connectors[0].sourcePoint.y = 96
 
-        
+
     this.diagram.connectors[0].targetPoint.x = 696
     this.diagram.connectors[0].targetPoint.y = 272
-    
+
   }
 
 
-  createForm() {
-    let title = new FormControl();
-    let locationSart = new FormControl();
-    let locationEnd = new FormControl();
-    let startDay = new FormControl();
-    let endDay = new FormControl();
-    let repeat = new FormControl();
+  createForm() {  
+    let event_name = new FormControl();
+    let distance = new FormControl();
+    let location_start = new FormControl();
+    let location_end = new FormControl();
+    let start_day = new FormControl();
+    let end_day = new FormControl();
+    let rep = new FormControl();
+    let repeat_day = new FormControl();
+    let end_repeat = new FormControl();
     let repeatDay = new FormControl();
-    let endRepeat = new FormControl();
     let rule = new FormControl();
     let gender = new FormControl();
     let age = new FormControl();
     let difficulty = new FormControl();
-    let end_day = new FormControl();
     let diagrame = new FormControl();
-    let theme = new FormControl();
-    let associationName = new FormControl();
+    let is_theme = new FormControl();
+    let association_name = new FormControl();
+    let category = new FormControl(this.category);
     this.eventForm = new FormGroup({
-      title: title,
-      locationSart: locationSart,
-      locationEnd: locationEnd,
-      startDay: startDay,
-      endDay: endDay,
-      repeat: repeat,
-      repeatDay: repeatDay,
-      endRepeat: endRepeat,
+      event_name: event_name,
+      distance: distance,
+      location_start: location_start,
+      location_end: location_end,
+      start_day: start_day,
+      end_day: end_day,
+      rep: rep,
+      repeatDay:repeatDay,
+      repeat_day: repeat_day,
+      end_repeat: end_repeat,
       rule: rule,
       gender: gender,
       age: age,
       difficulty: difficulty,
       diagrame: diagrame,
-      theme: theme,
-      end_day:end_day,
-      associationName: associationName
+      is_theme: is_theme,
+      association_name: association_name,
+      category: category
     })
-    title.setValidators(Validators.required)
-    locationSart.setValidators(Validators.required)
-    locationEnd.setValidators(Validators.required)
-    startDay.setValidators(Validators.required)
-    endDay.setValidators(Validators.required)
-    repeat.setValidators(Validators.required)
-    repeatDay.setValidators(Validators.required)
-    endRepeat.setValidators(Validators.required)
-    rule.setValidators(Validators.required)
-    gender.setValidators(Validators.required)
-    age.setValidators(Validators.required)
-    difficulty.setValidators(Validators.required)
-    diagrame.setValidators(Validators.required)
-    theme.setValidators(Validators.required)
-    associationName.setValidators(Validators.required)
+
   }
 
   saveEvent(data) {
-   let event:EventEntity = new EventEntity();
-   console.log(data.locationSart)
-   event.location = "data.locationSart";
-   event.start_date = "55515158";
-   event.end_date = "454154544";
-   event.event_name = data.title;
-   event.distance = 5548485;
-   event.is_theme = false;
+    console.log(data);
+    
+       data = this.eventForm.value;
+      let eventLocal: EventEntity = this.eventService.buildEventTest(data);
+      console.log(eventLocal)
+      this.eventService.createEventNodeSubscription(eventLocal).subscribe(e => {
+        console.log("COMON ............................");
+        console.log(e);
+        console.log("COMON ............................");        
+        this.testDiagramedsd(e);
+      });
+    }
 
-   console.log(event)
-   this.eventSerice.create(event);
+   
+    testDiagramedsd(event){
 
+      console.log(event);
       
-  }
+      let  node : NodeEventEntity;
+      this.diagram.nodes.forEach(e => {
+        node = new NodeEventEntity();
+        node.position_x = e.offsetX;
+        node.position_y = e.offsetY;
+        console.log("COMON ............................");
+        console.log(event.eventConfig);
+        console.log("COMON ............................");
+        node.event_config = event.eventConfig;
+        this.eventConfigService.createNode(node);
+      })
 
+      let conector:ConnectorEntity;
+      this.diagram.connectors.forEach(e => {
+        conector = new ConnectorEntity();
+        conector.source_point_x = e.sourcePoint.x;
+        conector.source_point_y= e.sourcePoint.y;
+        conector.target_point_x = e.targetPoint.x;
+        conector.target_point_y= e.targetPoint.y;
+
+        conector.event_config = event.eventConfig;
+        this.eventConfigService.createConnector(conector);
+      })
+    }
+ 
 
 }

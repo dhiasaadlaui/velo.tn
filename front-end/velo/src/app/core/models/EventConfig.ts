@@ -3,36 +3,36 @@ import { ConnectorEntity } from './Connector';
 
 interface EventConfigEntityArgs {
     id?:number;
-    location_start?: boolean;
-    location_end?: boolean;
-    start_day?: boolean;
-    end_day?: boolean;
-    rep?:boolean;
-    end_repeat?: boolean;
-    rule?: boolean;
-    gender?: boolean;
-    age?: boolean;
-    difficulty?: boolean;
-    diagrame?: boolean;
-    theme?: boolean;
-    association_name?: boolean;
+    location_start?: string;
+    location_end?: string;
+    start_day?: string;
+    end_day?: string;
+    rep?:string;
+    end_repeat?: string;
+    rule?: string;
+    gender?: string;
+    age?: string;
+    difficulty?: string;
+    diagrame?: string;
+    is_theme?: string;
+    association_name?: string;
 
  }
 export class EventConfig {
     id:number;
-     location_start: boolean;
-    location_end: boolean;
-    start_day: boolean;
-    end_day: boolean;
-    rep: boolean;
-    end_repeat: boolean;
-    rule: boolean;
-    gender: boolean;
-    age: boolean;
-    difficulty: boolean;
-    diagrame: boolean;
-    theme: boolean;
-    association_name: boolean;
+     location_start: string;
+    location_end: string;
+    start_day: string;
+    end_day: string;
+    rep: string;
+    end_repeat: string;
+    rule: string;
+    gender: string;
+    age: string;
+    difficulty: string;
+    diagrame: string;
+    is_theme: string;
+    association_name: string;
     nodes : NodeEventEntity[];
     conectors: ConnectorEntity[];
 
@@ -50,7 +50,7 @@ export class EventConfig {
         this.age = args.age;
         this.difficulty = args.difficulty;
         this.diagrame = args.diagrame;
-        this.theme = args.theme;
+        this.is_theme = args.is_theme;
         this.association_name = args.association_name;
     }
   }

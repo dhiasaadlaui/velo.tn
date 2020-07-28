@@ -1,9 +1,12 @@
+import { EventConfig } from './EventConfig';
+
 interface ConnectorEntityArgs {
     id?: number;
     source_point_x?: number;
     source_point_y?: number;
     target_point_x?: number;
     target_point_y?: number;
+    
 
  }
 export class ConnectorEntity {
@@ -12,6 +15,8 @@ export class ConnectorEntity {
     source_point_y: number
     target_point_x: number
     target_point_y: number
+    event_config: EventConfig;
+
  
     constructor(args: ConnectorEntityArgs = {}) {
         this.id = args.id;

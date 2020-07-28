@@ -13,6 +13,7 @@ import { EventService } from 'src/app/core/services/EventService';
 import { EventEntity } from 'src/app/core/models/Event';
 import { UserService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-velo-event-admin',
@@ -22,7 +23,7 @@ import { Router } from '@angular/router';
 export class VeloEventAdminComponent implements OnInit, OnDestroy {
   @ViewChild('gridCategory', { static: false })
   public grid: GridComponent;
-  @ViewChild('element',{ static: false }) element;
+  @ViewChild('element', { static: false }) element;
   public position = { X: 'Right' };
   // Subscriptions //
   categorySubscription$: any;
@@ -64,14 +65,14 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
   public chartData: Object[] = [];
 
   // TOAST 
-  toastMsg:IToast = {msgBody: '', msgTitle:''}
-  
+  toastMsg: IToast = { msgBody: '', msgTitle: '' }
 
-  constructor(private categoryEventService: CategoryEventService, private stepService: StepService, 
-    private eventService: EventService, private userService:UserService, private router:Router) { }
 
-  ngOnInit() {   
-    
+  constructor(private categoryEventService: CategoryEventService, private stepService: StepService,
+    private eventService: EventService, private userService: AuthenticationService, private router: Router) { }
+
+  ngOnInit() {
+
     this.categorySubscription$ = this.categoryEventService.todos.subscribe(updatedTodos => {
       this.categories = [];
       this.categories = updatedTodos;
@@ -84,7 +85,7 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
       this.events = updatedTodos;
     });
     console.log('calling event service');
-    
+
     this.eventService.loadAll();
     // INIT TABLE HEADER
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
@@ -174,14 +175,15 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
           if (this.operationTobeExecuted === 'update') {
             console.log('UPDATE START ......')
             this.categoryEventService.update(categoryEntity);
-             this.toastMsg.msgTitle = " Updated Successfuly"
-            this.toastMsg.msgBody = "Hey : " + " " + this.userService.getCurrentUser().username +" " + "the Category " + " " + categoryEntity.category_name +" " + "has been successfuly Updated"
+            this.toastMsg.msgTitle = " Updated Successfuly"
+            this.toastMsg.msgBody = "Hey : " + " " + this.userService.getCurrentUser.name + " " + "the Category " + " " + categoryEntity.category_name + " " + "has been successfuly Updated"
             this.element.show();
-            this.categoryEventService.loadAll();
-          } else if (this.operationTobeExecuted === 'create') {            
+          } else if (this.operationTobeExecuted === 'create') {
             console.log('CREATE START ......')
             this.categoryEventService.create(categoryEntity);
-            this.toastMsg.msgBody = "Hey : " + " " + this.userService.getCurrentUser().username +" " + "the Category " + " " + categoryEntity.category_name + " " + "has been successfuly Created"
+            this.toastMsg.msgBody = "Hey : " + " " + this.userService.getCurrentUser.name + " " + "the Category " + " " + categoryEntity.category_name + " " + "has been successfuly Created"
+            this.element.show();
+
             this.categoryEventService.loadAll();
           }
         }
@@ -267,22 +269,24 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
     this.categories.forEach(categoy => {
       i = 0;
       this.events.forEach(event => {
+        console.log(event);
+
         if (event.category.id == categoy.id) {
-          console.log("Category Name" + categoy.category_name + "Category Id " +categoy.id + " " + "Event Id : " + " " + event.category.id + " Event Name" + event.event_name + " " + "Pointet : " + i)
+          console.log("Category Name" + categoy.category_name + "Category Id " + categoy.id + " " + "Event Id : " + " " + event.category.id + " Event Name" + event.event_name + " " + "Pointet : " + i)
           i = i + 1;
           obj.push(
-            { month: categoy.category_name + i, sales: i  }
+            { month: categoy.category_name + i, sales: i }
           )
-          console.log("Pointer : " +i);
-          
+          console.log("Pointer : " + i);
+
         }
       });
     });
 
     console.log(obj);
-    
+
     this.chartData = obj;
-    
+
 
   }
 
@@ -299,29 +303,28 @@ export class VeloEventAdminComponent implements OnInit, OnDestroy {
     this.categories.forEach(categoy => {
       i = 1;
       this.events.forEach(event => {
-        if (event.category.id == categoy.id && event.subscribers.length != 0 ) {
-          console.log("Category Name" + categoy.category_name + "Category Id " +categoy.id + " " + "Event Id : " + " " + event.category.id + " Event Name" + event.event_name + " " + "Pointet : " + i)
-         i = event.subscribers.length;
+        if (event.category.id == categoy.id && event.subscribers.length != 0) {
+          console.log("Category Name" + categoy.category_name + "Category Id " + categoy.id + " " + "Event Id : " + " " + event.category.id + " Event Name" + event.event_name + " " + "Pointet : " + i)
+          i = event.subscribers.length;
           obj.push(
             { month: categoy.category_name + i, sales: i }
           )
-          console.log("Pointer : " +i);
-          
+          console.log("Pointer : " + i);
+
         }
       });
     });
 
     console.log(obj);
-    
+
     this.chartData = obj;
-    
+
   }
-  
-  navigate(){
-    console.log(this.router.getCurrentNavigation());
-    
-  this.router.navigate['/info-flow']
-}
+
+  logOut() {
+    this.userService.logout();
+    this.router.navigate['http://localhost:4200/login']
+  }
 }
 /**
 * Handle Table --> END.

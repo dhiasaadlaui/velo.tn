@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DiagramComponent, Diagram, NodeModel, ConnectorModel, PointModel } from '@syncfusion/ej2-angular-diagrams';
 import { CategoryEntity } from 'src/app/core/models/Category';
 import { Observable } from 'rxjs';
@@ -14,16 +14,18 @@ import { StepEntity } from 'src/app/core/models/Step';
   templateUrl: './add-event.component.html',
   styleUrls: ['./add-event.component.scss']
 })
-export class AddEventComponent implements OnInit {
+export class AddEventComponent implements OnInit, OnDestroy {
 
- // Subscriptions //
- categorySubscription$: any;
+  // Subscriptions //
+  categorySubscription$: any;
 
   /**
  * FLAGS.
  */
   showEventForm: boolean = false;
   selectedValue = "";
+  comboBoxValue = '';
+  categoryFound:boolean = false;
 
 
   /**
@@ -40,14 +42,31 @@ export class AddEventComponent implements OnInit {
   steps$: Observable<StepEntity[]>;
   steps: StepEntity[] = [];
   step: StepEntity;
+  public catDropDown: { [key: string]: Object }[] = []
+  public fields: Object = { text: 'Name', value: 'Id' };
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.categorySubscription$ = this.categoryServ.todos.subscribe(updatedTodos => {
+      this.categories = [];
+      this.categories = updatedTodos;
+      this.categories.forEach(element => {
+        this.catDropDown.push( { Id: element.id, Name: element.category_name } )
+       });
+    });
+    this.categoryServ.loadAll();
 
     function numberOnly(input) {
       var regex = /[^0-9]/gi;
       input.value = input.value.replace(regex, "");
     }
 
+
+    /* Demo purposes only */
+$(".hover").mouseleave(
+  function() {
+    $(this).removeClass("hover");
+  }
+);
     $(document).ready(function () {
       var navListItems = $('div.setup-panel div a'),
         allWells = $('.setup-content'),
@@ -137,16 +156,9 @@ export class AddEventComponent implements OnInit {
       $('div.setup-panel div a.btn-primary').trigger('click');
     });
 
-    this.categorySubscription$ = this.categoryServ.todos.subscribe(updatedTodos => {
-      this.categories = [];
-      this.categories = updatedTodos;
-      let localArrayObject: Object[] = [];
-    });
-
-    this.categorySubscription$ = this.categoryServ.todos.subscribe((updatedTodos: CategoryEntity[]) => {
-      this.categories$ = this.categoryServ.todos;
-      this.categories = updatedTodos;
-    });
+  }
+  ngOnDestroy(): void {
+    this.categorySubscription$.unsubscribe();
   }
 
 
@@ -158,23 +170,32 @@ export class AddEventComponent implements OnInit {
     }
   }
 
+
+  selectCategory(data:CategoryEntity){
+    this.category = data;
+    this.category != null ? this.showEventForm = true : this.showEventForm = false;
+  }
+
   findCateogry() {
-    let id: number = +this.selectedValue;
+    console.log(this.comboBoxValue);    
+    let id: number = +this.comboBoxValue;
     let localArray: CategoryEntity[] = [];
     this.categoryServ.todos.subscribe((updatedTodos: CategoryEntity[]) => {
-      updatedTodos.forEach(el => localArray.push(el));
+      localArray = updatedTodos;
     });
-    if (id === -1) {
+    if (id == 0) {
+      this.categoryFound = false
       this.categories = localArray;
       this.category = null;
       this.showEventForm = false;
     } else {
+      console.log(id);
+      
       this.category = localArray.find(category => category.id === id);
-      console.log(this.category.step)
-      this.categories = [this.category];
-      console.log(this.categories)
+      this.category != null ? this.categoryFound = true : this.categoryFound = false;
 
     }
+    this.category != null ? this.showEventForm = true : this.showEventForm = false;
 
   }
 
