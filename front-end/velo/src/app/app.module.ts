@@ -20,7 +20,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
-import { LoginadminComponent } from './loginadmin/loginadmin.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { LoginadminComponent } from './loginadmin/loginadmin.component';
     TopNavBarComponent,
     FooterComponent,
     LoginComponent,
-    LoginadminComponent,
   ],
   imports: [
     BrowserModule,
